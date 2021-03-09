@@ -1,11 +1,19 @@
-const express = require( 'express' );
+
+const express = require("express");
 const router = express.Router();
-const registerRoutes = require('./registerRoutes')
-const loginRoutes = require('./loginRoutes')
-const me=require ("./me")
 
-router.use('/register', registerRoutes)
-router.use('/login', loginRoutes)
-router.use('/me', me)
+const RegisterRoutes = require('./registerRoutes')
+const LoginRoutes = require('./loginRoutes')
+const Me=require ("./me")
+const Product = require("./Product")
+const Cart = require("./Cart")
 
-module.exports = router; 
+
+router.use('/register', RegisterRoutes)
+router.use('/login', LoginRoutes)
+router.use('/me', Me)
+router.use("/product", Product)
+router.use("/cart", Cart)
+
+module.exports = router;
+

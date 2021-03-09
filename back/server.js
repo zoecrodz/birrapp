@@ -16,7 +16,9 @@ const authAPI = require("./routes");
 app.use(express.json());
 app.use(express.urlencoded());
 
+
 // app.use("/api", authAPI);
+
 
 sequelize.sync({})
   .then(() => {
