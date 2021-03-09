@@ -25,7 +25,7 @@ router.post('/:id', (req, res, next) => {
 
 router.delete("/:id", (req, res) => {
     const id = req.params.id;
-    Product.update(req.body, {where: id})
+    Product.destroy(req.body, {where: id})
           .then(() => res.sendStatus(204))
           .catch(err => res.status(500).send(err));
 })
