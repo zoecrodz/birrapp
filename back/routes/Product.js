@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../db")
-const Product = db.model("product")
+const { Product } = require("../models")
 
 router.get('/', (req, res) => {
 	Product.findAll()
@@ -25,7 +25,7 @@ router.post('/:id', (req, res, next) => {
 
 router.delete("/:id", (req, res) => {
     const id = req.params.id;
-    Product.findByIdAndDelete(id)
+    Product.update(req.body, {where: id})
           .then(() => res.sendStatus(204))
           .catch(err => res.status(500).send(err));
 })
