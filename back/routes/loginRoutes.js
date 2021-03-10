@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const {User} = require ("../models/") //revisar con Modelos. Instalar crypto en usuario para generar salt y password hasheada. Ademas crear funciones de instancia para validacion y creacion de hashs
+const { User } = require ("../models/index") // Instalar crypto en usuario para generar salt y password hasheada. Ademas crear funciones de instancia para validacion y creacion de hashs
 const jwt = require ("jsonwebtoken")
 
 
