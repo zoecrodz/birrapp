@@ -1,23 +1,28 @@
 import { createReducer, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
+//  FALTA UN GET A CARRITOS
+
 export const getCarrito = createAsyncThunk("SEARCH", (carrito) => {
   return axios.get(``).then((res) => res.data);
 });
 
+// --------- Revisar como se crea el carrito en la ruta del backEnd -----------
 export const postCarrito = createAsyncThunk("POST", (carrito) => {
+  const paymentMethod = carrito.paymentMethod;
+  const table = carrito.table;
+  const state = carrito.state;
   return axios({
     method: "post",
-    url: "?",
-    data: {},
+    url: `/api/cart/${carrito.id}`,
+    data: { paymentMethod, table, state },
   }).then((product) => product.data);
 });
 
-export const deleteCarrito = createAsyncThunk("DELETE", (carrito) => {
+export const deleteCarrito = createAsyncThunk("DELETE", (id) => {
   return axios({
     method: "delete",
-    url: "?",
-    data: {},
+    url: `/api/cart/${id}`,
   }).then((product) => product.data);
 });
 //verficar si hay que agregar al estado
