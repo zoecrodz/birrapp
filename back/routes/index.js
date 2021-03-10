@@ -1,4 +1,3 @@
-
 const express = require("express");
 const router = express.Router();
 
@@ -9,6 +8,7 @@ const Product = require("./Product")
 const Cart = require("./Cart")
 const User = require("./user")
 const Category = require("./Categories")
+
 
 
 router.use('/register', RegisterRoutes)

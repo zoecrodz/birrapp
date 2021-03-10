@@ -1,11 +1,12 @@
 const express = require( 'express' );
 const router = express.Router();
-const { User } = require("../models")
+const { User } = require("../models");
+//por el momento no encontramos un ruteo necesario para users salvo para ver que funciona el register
 
+router.get("/", (req, res) => {
+    User.findAll()
+    .then(users => res.send(users))
+    .catch(err => console.log(err));
+})
 
-router.get('/', (req, res) => {
-	User.findAll()
-	.then(user => res.send(user));
-});
-
-module.exports = router
+module.exports = router;
