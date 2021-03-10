@@ -1,7 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const tokenMiddleware = require("./tokenMiddleware")
-const {User} = require ("../models/")  // revisar posteriormente
+const tokenMiddleware = require("./tokenMiddleware");
+const { User } = require ("../models/index");  // revisar posteriormente
+
+
  
 router.get("/", tokenMiddleware, (req, res, next) => {  //usuario esta en el middleware
     User.findByPk(req.user.id)

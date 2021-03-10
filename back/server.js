@@ -20,7 +20,7 @@ app.use(express.urlencoded());
 app.use("/api", authAPI);
 
 
-sequelize.sync({})
+sequelize.sync({force: false})
   .then(() => {
     app.listen(config.port, () => {
       console.log(`Server listening at port ${config.port}`);
