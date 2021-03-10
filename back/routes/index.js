@@ -4,7 +4,7 @@ const router = express.Router();
 
 const RegisterRoutes = require('./registerRoutes')
 const LoginRoutes = require('./loginRoutes')
-const Me=require ("./me")
+const Me = require("./me")
 const Product = require("./Product")
 const Cart = require("./Cart")
 

@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const User = require ("../models/user") //revisar con Modelos
+const {User} = require ("../models/") //revisar con Modelos
 
 
 router.post("/", (req, res) => {
