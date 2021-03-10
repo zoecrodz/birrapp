@@ -17,7 +17,7 @@ export const postProducts = createAsyncThunk("POST", (products) => {
     method: "post",
     url: `/api/product/${products.id}`, //comentar manana
     data: { name, description, price, stock, stars },
-  }).then((product) => product.data);
+  }).then(product => product);
 });
 
 //verficar si hay que agregar al estado

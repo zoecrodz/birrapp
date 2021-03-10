@@ -10,7 +10,7 @@ export const postCategories = createAsyncThunk("POST", (categories) => {
     method: "post",
     url: "?",
     data: {},
-  }).then((product) => product.data);
+  }).then(categoria => categoria);
 });
 
 export const deleteCategories = createAsyncThunk("DELETE", (categories) => {
@@ -18,9 +18,9 @@ export const deleteCategories = createAsyncThunk("DELETE", (categories) => {
     method: "delete",
     url: "?",
     data: {},
-  }).then((product) => product.data);
+  }).then(categoria => categoria);
 });
-//verficar si hay que agregar al estado
+
 const categoriesReducer = createReducer([], {
   [getCategories.fulfilled]: (state, action) => action.payload,
   [postCategories.fulfilled]: (state, action) => [...state, action.payload],

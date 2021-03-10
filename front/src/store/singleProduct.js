@@ -10,14 +10,14 @@ export const updateProduct = createAsyncThunk("PUT", (product) => {
     method: "put",
     url: `/api/product/${product.id}`,
     data: { product }, //-------revisar-------
-  }).then((product) => product.data);
+  }).then(product => product);
 });
 
 export const deleteProduct = createAsyncThunk("DELETE", (id) => {
   return axios({
     method: "delete",
     url: `/api/product/${id}`,
-  }).then((product) => product.data);
+  }).then(product => product);
 });
 //verficar si hay que agregar al estado
 const singleProductReducer = createReducer([], {

@@ -33,7 +33,7 @@ export const deleteUsers = createAsyncThunk("DELETE", (id) => {
   return axios({
     method: "delete",
     url: `/api/users/${id}`,
-  }).then((product) => product.data);
+  }).then(user => user);
 });
 
 // ----------Revisar----------
