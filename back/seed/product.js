@@ -5,7 +5,7 @@ module.exports = [
     price: 600,
     stock: 70,
     stars: 4,
-
+    categoryId: 2
   },
   {
     name: "Papas con Cheddar",
@@ -13,7 +13,7 @@ module.exports = [
     price: 300,
     stock: 40,
     stars: 4,
-
+    categoryId: 4
   },
   {
     name: "Empanada",
@@ -21,7 +21,7 @@ module.exports = [
     price: 100,
     stock: 100,
     stars: 3,
-
+    categoryId: 3
   },
   {
     name: "Nachos",
@@ -29,6 +29,6 @@ module.exports = [
     price: 320,
     stock: 21,
     stars: 2,
-
+    categoryId: 3
   },
 ];

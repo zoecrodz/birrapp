@@ -2,21 +2,25 @@ module.exports = [
   {
     paymentMethod: "Mercado Pago",
     table: 6,
-    state: "PENDING"
+    state: "PENDING",
+    userId: 1
   },
   {
     paymentMethod: "Efectivo",
     table: 2,
-    state: "REJECTED"
+    state: "REJECTED",
+    userId: 2
   },
   {
     paymentMethod: "Tarjeta de Credito",
     table: 4,
-    state: "PENDING"
+    state: "PENDING",
+    userId: 1
   },
   {
     paymentMethod: "Efectivo",
     table: 9,
-    state: "COMPLETE"
+    state: "COMPLETE",
+    userId: 3
   },
 ];
