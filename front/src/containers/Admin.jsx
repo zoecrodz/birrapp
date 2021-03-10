@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Route, Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import AdminLogin from "../privateComponents/AdminLogin.jsx";
 import AdminHeader from "../privateComponents/AdminHeader.jsx";
 import AdminMenu from "../privateComponents/AdminMenu";
