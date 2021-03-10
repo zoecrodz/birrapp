@@ -21,4 +21,4 @@ router.delete("/:id", (req, res) => {
           .catch(err => res.status(500).send(err));
 })
 
-export default router;
+module.exports = router;
