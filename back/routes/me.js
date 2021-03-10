@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const tokenMiddleware = require("./tokenMiddleware")
-const User = require ("../models/index")  // revisar posteriormente
+const { User } = require ("../models/index")
  
 router.get("/", tokenMiddleware, (req, res, next) => {  //usuario esta en el middleware
  
