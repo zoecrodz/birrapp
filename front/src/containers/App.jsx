@@ -6,7 +6,6 @@ import Heading from "../components/Heading.jsx";
 import SingleProduct from "../components/SingleProduct.jsx";
 import Carrito from "../components/Carrito.jsx";
 import Products from "../components/Products.jsx";
-import Admin from "./Admin.jsx";
 
 // Landing Page: Landing page (Header. Botones de categorias. Menu deslizable horizontal. Carta entera vertical mapeada de productos -con "sumar al pedido"-, y link al componente de cada producto)
 
