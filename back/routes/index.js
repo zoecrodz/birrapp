@@ -8,6 +8,7 @@ const Product = require("./Product")
 const Cart = require("./Cart")
 const User = require("./user")
 const Category = require("./Categories")
+const Pictures = require("./Pictures")
 
 
 
@@ -18,6 +19,7 @@ router.use("/product", Product)
 router.use("/cart", Cart)
 router.use("/users", User)
 router.use("/category", Category)
+router.use("/pictures", Pictures)
 
 module.exports = router;
 
