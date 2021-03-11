@@ -12,11 +12,12 @@ import {
 import { withStyles } from "@material-ui/core/styles";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getProducts } from "../store/products";
 import { getCarrito } from "../store/carrito";
-import StarRateIcon from "@material-ui/icons/StarRate";
+// import StarRateIcon from "@material-ui/icons/StarRate";
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
+import deleteItemFromCarrito, { getItemFromCarrito } from "../store/items";
+import axios from "axios";
 
 const StyledTableCell = withStyles(() => ({
   head: {
@@ -39,18 +40,25 @@ const StyledTableCell = withStyles(() => ({
   },
 }))(TableCell);
 
-const Cart = () => {
+const Cart = ({ userId }) => {
   const dispatch = useDispatch();
   const carrito = useSelector((state) => state.carrito);
-  // const products = useSelector((state) => state.products);
+  const items = useSelector((state) => state.items);
 
-  // useEffect(() => {
-  //   dispatch(getProducts())
-  //     .then(productoss => console.log(productoss))
-  // }, [])
-  useEffect((id) => {
-    dispatch(getCarrito(id)).then((carrito) => console.log(carrito));
+  useEffect(() => {
+    dispatch(getCarrito(userId));
+    dispatch(getItemFromCarrito(ids));
   }, []);
+  const handleDelete = (item) => {
+    // const productId = item.id;
+    // const cartId = carrito.id;
+    // axios
+    //   .delete(`http://localhost:8000/api/items/${productId}/${cartId}`)
+    //   .then(() => console.log("eliminado"))
+    //   .catch(console.log("hubo un error"));
+    const ids = { productId: item.id, cartId: carrito.id };
+    return dispatch(deleteItemFromCarrito(ids));
+  };
 
   return (
     <>
@@ -68,38 +76,45 @@ const Cart = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {carrito.map((product) => (
-              <TableRow key={product.id}>
-                <TableCell>
-                  <img
-                    src={product.pictures && product.pictures[0].url}
-                    width="128"
-                    height="128"
-                    margin="auto"
-                    display="block"
-                    maxWidth="100%"
-                    maxHeight="100%"
-                  />
-                </TableCell>
-                <TableCell align="center">{product.name}</TableCell>
-                <TableCell align="center">{product.description}</TableCell>
-                <TableCell align="center">{product.price + "$"}</TableCell>
-                <TableCell align="center">{product.stars}</TableCell>
-                <TableCell align="center">
-                  <Button variant="contained" size="small" color="#FF6633">
-                    <AddIcon />
-                  </Button>
-                  <Button variant="contained" size="small" color="#FF6633">
-                    <RemoveIcon />
-                  </Button>
-                </TableCell>
-                <TableCell>
-                  <Button variant="contained" size="small" color="#FF6633">
-                    Delete
-                  </Button>
-                </TableCell>
-              </TableRow>
-            ))}
+            {carrito.items
+              ? carrito.items.map((item) => (
+                  <TableRow key={item.id}>
+                    <TableCell>
+                      <img
+                        src={""}
+                        width="128"
+                        height="128"
+                        margin="auto"
+                        display="block"
+                        maxWidth="100%"
+                        maxHeight="100%"
+                      />
+                    </TableCell>
+                    <TableCell align="center">{item.name}</TableCell>
+                    <TableCell align="center">{item.description}</TableCell>
+                    <TableCell align="center">{item.price + "$"}</TableCell>
+                    <TableCell align="center">{item.item.qty}</TableCell>
+                    <TableCell align="center">
+                      <Button variant="contained" size="small" color="#FF6633">
+                        <AddIcon />
+                      </Button>
+                      <Button variant="contained" size="small" color="#FF6633">
+                        <RemoveIcon />
+                      </Button>
+                    </TableCell>
+                    <TableCell>
+                      <Button
+                        variant="contained"
+                        size="small"
+                        color="#FF6633"
+                        onClick={() => handleDelete(item)}
+                      >
+                        Delete
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))
+              : null}
           </TableBody>
         </Table>
       </TableContainer>

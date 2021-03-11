@@ -1,9 +1,26 @@
 import { createReducer, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-// export const getItems = createAsyncThunk("SEARCH", (items) => {
-//   return axios.get(``).then((res) => res.data);
-// });
+export const deleteItemFromCarrito = createAsyncThunk(
+  "DELETE_ITEM_FROM_CARRITO",
+  (ids) => {
+    const { productId, cartId } = ids;
+    console.log("ids: ", productId, cartId);
+    return axios
+      .delete(`http://localhost:8000/api/items/${productId}/${cartId}`)
+      .catch(() => console.log("error"));
+  }
+);
+
+export const getItemFromCarrito = createAsyncThunk(
+  "GET_ITEM_FROM_CARRITO",
+  (ids) => {
+    const { productId, cartId } = ids;
+    return axios
+      .get(`http://localhost:8000/api/items/${productId}/${cartId}`)
+      .then((res) => res.data);
+  }
+);
 
 // export const postItems = createAsyncThunk("POST", (items) => {});
 
@@ -12,8 +29,8 @@ import axios from "axios";
 //verficar si hay que agregar al estado
 
 const itemsReducer = createReducer([], {
-  // [getItems.fulfilled]: (state, action) => action.payload,
-  // [postItems.fulfilled]: (state, action) => [...state, action.payload],
+  [deleteItemFromCarrito.fulfilled]: (state, action) => action.payload,
+  [getItemFromCarrito.fulfilled]: (state, action) => action.payload,
 });
 
 export default itemsReducer;

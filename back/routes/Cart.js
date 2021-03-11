@@ -11,13 +11,13 @@ router.post("/", (req, res, next) => {
 
 router.get("/:userId", (req, res, next) => {
   let carrito;
-  Cart.findOne({ where: { userId: req.params.userId, state: "PENDING" } })
+  Cart.findOne({ where: { userId: req.params.userId } })
     .then((cart) => {
-      //   console.log("carrito: ", cart);
       carrito = cart.dataValues;
       return cart.getProducts();
     })
     .then((children) => {
+      children.map((product) => {});
       res.send({ ...carrito, items: children });
     })
     .catch(next);
