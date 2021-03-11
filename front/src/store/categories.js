@@ -2,7 +2,7 @@ import { createReducer, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 export const getCategories = createAsyncThunk("SEARCH", (categories) => {
-  return axios.get(``).then((res) => res.data);
+  return axios.get(`http://localhost:8000/api/category`).then((res) => res.data);
 });
 
 export const postCategories = createAsyncThunk("POST", (categories) => {
