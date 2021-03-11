@@ -3,8 +3,10 @@ import axios from "axios";
 
 //  FALTA UN GET A CARRITOS
 
-export const getCarrito = createAsyncThunk("SEARCH", (carrito) => {
-  return axios.get(``).then((res) => res.data);
+export const getCarrito = createAsyncThunk("SEARCH", (id) => {
+  return axios
+    .get(`http://localhost:8000/api/product/${id}`)
+    .then((res) => res.data);
 });
 
 // --------- Revisar como se crea el carrito en la ruta del backEnd -----------
