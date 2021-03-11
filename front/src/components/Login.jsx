@@ -3,12 +3,12 @@ import { loginUser } from "../store/users"
 import { useDispatch } from "react-redux"
 import { useHistory } from "react-router-dom";
 
+
 const Login = () => {
 
   const dispatch = useDispatch()
   const history = useHistory()
   const [newUser, setNewUser] = useState({})
-  const [isLogged, setIsLogged] = useState(false)
 
   const handleChange = (e) => {
   setNewUser({...newUser, [e.target.name]: e.target.value})
@@ -17,12 +17,11 @@ const Login = () => {
   const handleSubmit = (e) => {
   e.preventDefault()
   dispatch(loginUser(newUser))
-  .then(() => setIsLogged(true))
-
-  if (isLogged) {
-    history.push("/")
-  }
-
+  .then(() => {
+    if (localStorage.getItem("token")){
+      history.push("/")
+    }
+  })
   }
 
 

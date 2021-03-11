@@ -11,10 +11,13 @@ import Menu from '@material-ui/core/Menu';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import FastfoodIcon from '@material-ui/icons/Fastfood';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import { Link } from "react-router-dom"
+
+
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -82,29 +85,39 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function PrimarySearchAppBar() {
+
+
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-
+  
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  
+  
+
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
-
+  
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
   };
-
+  
   const handleMenuClose = () => {
     setAnchorEl(null);
     handleMobileMenuClose();
   };
-
+  
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
+
+  const handleLogOut = (e) => {
+    localStorage.clear()
+    handleMenuClose()
+  }
 
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
@@ -116,9 +129,7 @@ export default function PrimarySearchAppBar() {
       transformOrigin={{ vertical: 'top', horizontal: 'right' }}
       open={isMenuOpen}
       onClose={handleMenuClose}
-    >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+    > 
     </Menu>
   );
 
@@ -139,16 +150,10 @@ export default function PrimarySearchAppBar() {
             <ShoppingCartIcon />
           </Badge>
         </IconButton>
-        <p>Messages</p>
+        <p>Carrito</p>
       </MenuItem>
-      <MenuItem>
-        <IconButton aria-label="show 11 new notifications" color="inherit">
-          <Badge badgeContent={11} color="secondary">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <p>Notifications</p>
-      </MenuItem>
+      {localStorage.getItem("token") ? (
+        <div>
       <MenuItem onClick={handleProfileMenuOpen}>
         <IconButton
           aria-label="account of current user"
@@ -160,8 +165,55 @@ export default function PrimarySearchAppBar() {
         </IconButton>
         <p>Profile</p>
       </MenuItem>
+      <MenuItem onClick={handleLogOut}>
+        <IconButton
+          aria-label="account of current user"
+          aria-controls="primary-search-account-menu"
+          aria-haspopup="true"
+          color="inherit"
+        >
+          <AccountCircle />
+        </IconButton>
+        <p>Log out</p>
+      </MenuItem>
+
+      </div>
+      )
+      :
+      <div>
+        <Link style={{ textDecoration: 'none', color:'inherit' }} to={"/login"}> 
+      <MenuItem onClick={handleProfileMenuOpen}>
+        <IconButton
+          aria-label="account of current user"
+          aria-controls="primary-search-account-menu"
+          aria-haspopup="true"
+          color="inherit"
+        >
+          <AccountCircle />
+        </IconButton>
+        <p>Log in</p>
+      </MenuItem>
+        </Link>
+        <Link style={{ textDecoration: 'none', color:'inherit' }} to={"/register"}> 
+      <MenuItem onClick={handleProfileMenuOpen}>
+        <IconButton
+          aria-label="account of current user"
+          aria-controls="primary-search-account-menu"
+          aria-haspopup="true"
+          color="inherit"
+        >
+          <AccountCircle />
+        </IconButton>
+        <p>Register</p>
+      </MenuItem>
+      </Link>
+
+      </div>
+      }
     </Menu>
   );
+
+
 
   return (
     <div className={classes.grow}>
@@ -197,11 +249,6 @@ export default function PrimarySearchAppBar() {
             <IconButton aria-label="show 4 new mails" color="inherit">
               <Badge badgeContent={4} color="secondary">
                 <ShoppingCartIcon />
-              </Badge>
-            </IconButton>
-            <IconButton aria-label="show 17 new notifications" color="inherit">
-              <Badge badgeContent={17} color="secondary">
-                <NotificationsIcon />
               </Badge>
             </IconButton>
             <IconButton

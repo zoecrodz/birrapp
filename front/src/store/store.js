@@ -17,7 +17,7 @@ const store = configureStore({
     carrito: carritoReducer,
     items: itemsReducer,
     singleProduct: singleProductReducer,
-    pictures: picturesReducer
+    pictures: picturesReducer,
   },
 });
 export default store;
