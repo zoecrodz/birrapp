@@ -6,6 +6,8 @@ import Heading from "../components/Heading.jsx";
 import SingleProduct from "../components/SingleProduct.jsx";
 import Carrito from "../components/Carrito.jsx";
 import Products from "../components/Products.jsx";
+import useStyles from "../Styles/app"
+import Table from "../components/Products"
 
 // Landing Page: Landing page (Header. Botones de categorias. Menu deslizable horizontal. Carta entera vertical mapeada de productos -con "sumar al pedido"-, y link al componente de cada producto)
 
@@ -16,10 +18,14 @@ import Products from "../components/Products.jsx";
 //- visual del admin (-agregar, editar, eliminar- nuevas categorias, productos, usuarios, admin.. ver transacciones totales (carritos de todos los usuarios)
 
 const App = () => {
+  const classes = useStyles()
   return (
     <div>
-      <Route exact path="/" render={() => <Heading />} />
-      <Switch>
+      <Heading />
+      <div className={classes.drawerHeader} />
+      {/*DrawerHeader necesario para que la navbar no pise nada  */}
+      <Switch >
+        <Route exact path="/" render={() => <Table />} />
         <Route exact path="/" render={() => <Products />} />
         <Route path="/register" render={() => <Register />} />
         <Route path="/login" render={() => <Login />} />
