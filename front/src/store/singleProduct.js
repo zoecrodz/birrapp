@@ -1,7 +1,7 @@
 import { createReducer, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-export const getProduct = createAsyncThunk("SEARCH", (productId) => {
+export const getProduct = createAsyncThunk("SEARCH_SINGLEPRODUCT", (productId) => {
   return axios.get(`http://localhost:8000/api/product/${productId}`).then((res) => res.data);
 });
 
@@ -20,7 +20,7 @@ export const deleteProduct = createAsyncThunk("DELETE", (id) => {
   }).then(product => product);
 });
 //verficar si hay que agregar al estado
-const singleProductReducer = createReducer([], {
+const singleProductReducer = createReducer({}, {
   [getProduct.fulfilled]: (state, action) => action.payload,
   [updateProduct.fulfilled]: (state, action) => [...state, action.payload],
 });

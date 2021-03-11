@@ -1,33 +1,24 @@
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Button } from '@material-ui/core';
+import { Table, TableBody, TableCell, TableContainer, Box, TableRow, Button, Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux"
+import { Link } from "react-router-dom"
 import { getProducts } from "../store/products"
 import StarRateIcon from '@material-ui/icons/StarRate';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import productStyles from "../Styles/products"
 
-const StyledTableCell = withStyles(() => ({
-    head: {
-        color: 'white',
-        background: '#FF6633	',
-        textAlign: 'center'
-    },
-    body: {
-        fontSize: 14,
-    },
-    image: {
-        width: 128,
-        height: 128,
-    },
-    img: {
-        margin: 'auto',
-        display: 'block',
-        maxWidth: '100%',
-        maxHeight: '100%',
-    },
-}))(TableCell);
+const printStar = (amount) => {
+    let arrRteurn = []
+    for (let i = 0; i < amount; i++) {
+        arrRteurn.push(<StarRateIcon />)
+    }
+    return arrRteurn
+}
+const addToCart = (productId) => { console.log(productId) }
 
 const TableMaterial = () => {
+    const classes = productStyles()
     const dispatch = useDispatch()
     const products = useSelector(state => state.products)
 
@@ -36,38 +27,43 @@ const TableMaterial = () => {
             .then(productoss => console.log(productoss))
     }, [])
 
+
     return (
         <TableContainer>
             <Table>
-                <TableHead>
-                    <TableRow>
-                        <StyledTableCell>Foto</StyledTableCell>
-                        <StyledTableCell>Nombre</StyledTableCell>
-                        <StyledTableCell>Descripcion</StyledTableCell>
-                        <StyledTableCell>Precio</StyledTableCell>
-                        <StyledTableCell>Estrellas</StyledTableCell>
-                        <StyledTableCell>Comprar</StyledTableCell>
-
-
-                    </TableRow>
-                </TableHead>
-                <TableBody>
+                <TableBody >
                     {products.map(product => (
                         <TableRow key={product.id}>
-                            <TableCell>
-                                <img src={product.pictures && product.pictures[0].url} 
-                                width= "128" height= "128" margin= 'auto'
-                                display='block' maxWidth='100%' maxHeight='100%'
-                                /></TableCell>
-                            <TableCell align="center">{product.name}</TableCell>
-                            <TableCell align="center">{product.description}</TableCell>
-                            <TableCell align="center">{product.price + "$"}</TableCell>
-                            <TableCell align="center">{product.stars}<StarRateIcon /></TableCell>
-                            <TableCell align="center"><Button
-                                variant="contained"
-                                color="#FF6633">
-                                Agregar al <ShoppingCartIcon />
-                                </Button></TableCell>
+                            <TableCell><Link to={`/product/${product.id}`}><img src={product.pictures && product.pictures[0].url}
+                                width="128" height="128" margin='auto'
+                                display='block' maxWidth='100%' maxHeight='100%' className={classes.image}
+
+                            /></Link>
+                            </TableCell >
+                            <TableCell align="center">
+                                <Typography variant="h5" align="left">{product.name}</Typography>
+                                <Typography varinat="h6" align="left">{product.description}</Typography>
+                            </TableCell>
+                            <TableCell align="center">
+                                <Typography variant="h6">{product.price + "$"}</Typography>
+                            </TableCell>
+                            <TableCell align="center">{printStar(product.stars)}</TableCell>
+                            <TableCell align="center">
+                                {localStorage.getItem("token") ? <Button
+                                    variant="contained"
+                                    color="primary"
+                                    onClick={() => addToCart(product.id)}
+                                >
+                                    Agregar  <ShoppingCartIcon />
+                                </Button> : <Button
+                                    variant="contained"
+                                    color="primary"
+                                    disabled="true">
+                                    Agregar  <ShoppingCartIcon />
+                                </Button>}
+
+                            </TableCell>
+
                         </TableRow>
                     ))}
                 </TableBody>

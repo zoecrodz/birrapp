@@ -3,7 +3,7 @@ import axios from "axios";
 
 //  FALTA UN GET A CARRITOS
 
-export const getCarrito = createAsyncThunk("SEARCH", (carrito) => {
+export const getCarrito = createAsyncThunk("SEARCH_CART", (carrito) => {
   return axios.get(``).then((res) => res.data);
 });
 

@@ -24,9 +24,9 @@ module.exports = [
     categoryId: 3
   },
   {
-    name: "Nachos",
+    name: "Cervezas",
     description: "dddd bbbb aaaa cccc",
-    price: 320,
+    price: 210,
     stock: 21,
     stars: 2,
     categoryId: 3

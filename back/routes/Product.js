@@ -9,7 +9,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/:id', (req, res, next) => {
-	Product.findByPk(req.params.id)
+	Product.findByPk(req.params.id, {include: Picture})
 	.then(product => res.send(product));
 });
 
