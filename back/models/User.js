@@ -15,7 +15,11 @@ User.init({
     },
     email: {
         type: S.STRING, 
-        allowNull: false
+        allowNull: false,
+        unique: true,
+        validate: {
+            isEmail: true
+        }
     },
     password: {
         type: S.STRING, 
