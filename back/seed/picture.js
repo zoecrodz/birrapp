@@ -5,11 +5,11 @@ module.exports = [
   },
   {
     productId: 2,
-    url: "https://images.clarin.com/2019/06/25/en-2012-empezo-el-proyecto___JRi-sgZEx_720x0__1.jpg"
+    url: "https://www.supermercedes.com.ar/laurino/wp-content/uploads/2020/04/papas-laurino-supermercedes-300x300.png"
   },
   {
     productId: 3,
-    url: "https://www.supermercedes.com.ar/laurino/wp-content/uploads/2020/04/papas-laurino-supermercedes-300x300.png"
+    url: "https://www.laespanolaaceites.com/wp-content/uploads/2019/05/empanadas-de-matambre-1080x671.jpg"
   },
   {
     productId: 4,

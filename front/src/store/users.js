@@ -2,7 +2,7 @@ import { createReducer, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 // ----------Falta el Get--------
-export const getUsers = createAsyncThunk("SEARCH", (users) => {
+export const getUsers = createAsyncThunk("SEARCH_USERS", (users) => {
   return axios.get(`/`).then((res) => res.data);
 });
 

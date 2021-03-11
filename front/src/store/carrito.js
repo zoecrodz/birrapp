@@ -3,6 +3,7 @@ import axios from "axios";
 
 //  FALTA UN GET A CARRITOS
 
+
 export const getCarrito = createAsyncThunk("SEARCH", (id) => {
   return axios.get(`http://localhost:8000/api/cart/${id}`).then((res) => {
     return res.data;

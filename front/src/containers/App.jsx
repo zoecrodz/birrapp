@@ -30,7 +30,7 @@ const App = () => {
         <Route path="/register" render={() => <Register />} />
         <Route path="/login" render={() => <Login />} />
         <Route
-          path="/products/:id"
+          path="/product/:id"
           render={({ match }) => <SingleProduct productId={match.params.id} />}
         />
         {/* para ver despues */}
