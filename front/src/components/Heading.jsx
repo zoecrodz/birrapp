@@ -168,18 +168,11 @@ export default function PrimarySearchAppBar() {
     <div className={classes.grow}>
       <AppBar position="fixed">
         <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="open drawer"
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography className={classes.title} variant="h6" noWrap>
+
+        <Link to="/" style={{ textDecoration: 'none' , color:"inherit" }}><Typography className={classes.title} variant="h6" noWrap>
             <FastfoodIcon />
             BIRRAPP
-          </Typography>
+          </Typography></Link>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
@@ -197,8 +190,8 @@ export default function PrimarySearchAppBar() {
           <div className={classes.sectionDesktop}>
             <IconButton aria-label="show 4 new mails" color="inherit">
               <Badge badgeContent={4} color="secondary">
-              <Link to="/carrito" color="inherit">
-                <ShoppingCartIcon color="white" />
+              <Link to="/carrito" style={{ textDecoration: 'none' , color:"inherit" }}>
+                <ShoppingCartIcon />
                 </Link>
               </Badge>
             </IconButton>
