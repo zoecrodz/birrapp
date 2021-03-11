@@ -1,10 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
+import { registerUser } from "../store/users"
+import { useDispatch } from "react-redux"
+import { useHistory } from "react-router-dom";
 
 
 const Register = () => {
 
+  const dispatch = useDispatch()
+  const history = useHistory()
+  const [newUser, setNewUser] = useState({})
+  const [isLogged, setIsLogged] = useState(false)
 
+  const handleChange = (e) => {
+  setNewUser({...newUser, [e.target.name]: e.target.value})
+  }
 
+  const handleSubmit = (e) => {
+  e.preventDefault()
+  dispatch(registerUser(newUser))
+  .then(() => setIsLogged(true))
+  .then(() => console.log(isLogged))
+
+  if (isLogged) {
+    history.push("/login")
+  }
+
+  }
 
 
   return (
@@ -14,15 +35,16 @@ const Register = () => {
    <img src="https://img.icons8.com/plasticine/2x/beer.png" alt=""/>
     <h3>Registrarse</h3>
     <div>
-      <form>
+      <form onSubmit={handleSubmit}>
          <div>
          <span>Nombre</span>
         <br/>
           <input
+            name="firstName"
+            onChange={handleChange}
             type="text"
             required
             placeholder=""
-       /*      {...firstName} */
           />
         </div>
 
@@ -30,30 +52,33 @@ const Register = () => {
         <span>Apellido</span>
         <br/>
           <input
+            name="lastName"
+            onChange={handleChange}
             type="text"
             required
-            placeholder=""
-          /*   {...lastName} */
+            placeholder=""          
           />
         </div>
         <div>
         <span>Email</span>
         <br/>
           <input
+            name="email"
+            onChange={handleChange}
             type="text"
             required
             placeholder=""
-         /*    {...email} */
           />
         </div>
         <div>
         <span>Contraseña</span>
         <br/>
-          <input 
+          <input
+            name="password"
+            onChange={handleChange}
             type="password"
             required
             placeholder=""
-          /*   {...password} */
           />
         </div>
         <div>

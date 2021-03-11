@@ -7,25 +7,18 @@ export const getUsers = createAsyncThunk("SEARCH", (users) => {
 });
 
 export const registerUser = createAsyncThunk("CREATE_USER", (user) => {
-  const firstName = user.firstName;
-  const lastName = user.lastName;
-  const email = user.email;
-  const password = user.password;
-  return axios({
-    method: "post",
-    url: "/api/register",
-    data: { firstName, lastName, email, password },
-  }).then((product) => product.data);
+  return axios
+  .post("http://localhost:8000/api/register", user)
+  .then(res => res.data)
+  .then(usuario => console.log(usuario))
 });
 
 export const loginUser = createAsyncThunk("LOGIN_USER", (user) => {
-  const email = user.email;
-  const password = user.password;
   return axios({
     method: "post",
-    url: "/api/login",
-    data: { email, password },
-  }).then((user) => user);
+    url: "http://localhost:8000/api/login",
+    data: user,
+  }).then((user) => localStorage.setItem("token", user.data));
 });
 
 //----------Falta el Delete--------
