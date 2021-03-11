@@ -6,6 +6,7 @@ import itemsReducer from "./items";
 import productsReducer from "./products";
 import singleProductReducer from "./singleProduct";
 import usersReducer from "./users";
+import picturesReducer from "./pictures"
 
 const store = configureStore({
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
@@ -16,6 +17,7 @@ const store = configureStore({
     carrito: carritoReducer,
     items: itemsReducer,
     singleProduct: singleProductReducer,
+    pictures: picturesReducer
   },
 });
 export default store;
