@@ -1,7 +1,7 @@
 const Sequelize = require("sequelize");
 
 const sequelize = new Sequelize(
-  "postgres://blinzerd:12345@localhost:5432/birrapp",
+  "postgres:/birrapp",
   {
     logging: false,
     dialect: "postgres",

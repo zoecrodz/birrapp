@@ -16,8 +16,9 @@ import { getCarrito } from "../store/carrito";
 // import StarRateIcon from "@material-ui/icons/StarRate";
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
-import deleteItemFromCarrito, { getItemFromCarrito } from "../store/items";
+import { getItemFromCarrito, deleteItemFromCarrito } from "../store/items";
 import axios from "axios";
+import { useState } from "react";
 
 const StyledTableCell = withStyles(() => ({
   head: {
@@ -43,22 +44,19 @@ const StyledTableCell = withStyles(() => ({
 const Cart = ({ userId }) => {
   const dispatch = useDispatch();
   const carrito = useSelector((state) => state.carrito);
-  const items = useSelector((state) => state.items);
+  const items = useSelector((state) => state.items)
 
   useEffect(() => {
     dispatch(getCarrito(userId));
-    dispatch(getItemFromCarrito(ids));
-  }, []);
+  }, [items]);
   const handleDelete = (item) => {
-    // const productId = item.id;
-    // const cartId = carrito.id;
-    // axios
-    //   .delete(`http://localhost:8000/api/items/${productId}/${cartId}`)
-    //   .then(() => console.log("eliminado"))
-    //   .catch(console.log("hubo un error"));
+  
     const ids = { productId: item.id, cartId: carrito.id };
+    // console.log("ids", ids)
     return dispatch(deleteItemFromCarrito(ids));
   };
+
+  console.log("carro: ", carrito.items)
 
   return (
     <>

@@ -1,15 +1,14 @@
 import { createReducer, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-export const deleteItemFromCarrito = createAsyncThunk(
-  "DELETE_ITEM_FROM_CARRITO",
-  (ids) => {
-    const { productId, cartId } = ids;
-    console.log("ids: ", productId, cartId);
-    return axios
-      .delete(`http://localhost:8000/api/items/${productId}/${cartId}`)
-      .catch(() => console.log("error"));
-  }
+export const deleteItemFromCarrito = createAsyncThunk("DELETE_ITEM_FROM_CARRITO", (ids) => {
+    const { productId, cartId } = ids
+    return axios({
+      method: "delete",
+      url: `http://localhost:8000/api/items/${productId}/${cartId}`,
+    }).then(item => item);
+
+}
 );
 
 export const getItemFromCarrito = createAsyncThunk(

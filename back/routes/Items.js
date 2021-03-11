@@ -18,5 +18,8 @@ router.get("/:productId/:cartId", (req, res, next) => {
     .then(() => res.sendStatus(200))
     .catch((err) => res.status(500).send(err));
 });
-
+router.get("/", (req, res, next) => {
+  Item.findAll()
+    .then(data => res.send(data))
+});
 module.exports = router;
