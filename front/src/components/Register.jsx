@@ -19,11 +19,14 @@ const Register = () => {
   e.preventDefault()
   dispatch(registerUser(newUser))
   .then(() => setIsLogged(true))
-  .then(() => console.log(isLogged))
+  .then(() => {
+    setIsLogged(true)
+    if (isLogged) {
+      history.push("/login")
+      setIsLogged(false)
+    }
 
-  if (isLogged) {
-    history.push("/login")
-  }
+  })
 
   }
 
