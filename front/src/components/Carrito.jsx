@@ -11,13 +11,11 @@ import {
 import { withStyles } from "@material-ui/core/styles";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getCarrito } from "../store/carrito";
+import { getCarrito, updateCarrito } from "../store/carrito";
 // import StarRateIcon from "@material-ui/icons/StarRate";
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
-import { getItemFromCarrito, deleteItemFromCarrito } from "../store/items";
-import axios from "axios";
-import { useState } from "react";
+import { getItemFromCarrito, deleteItemFromCarrito, AddItemToCarrito } from "../store/items";
 
 const StyledTableCell = withStyles(() => ({
   head: {
@@ -46,16 +44,35 @@ const Cart = ({ userId }) => {
   const items = useSelector((state) => state.items)
 
   useEffect(() => {
-    dispatch(getCarrito(userId));
+    dispatch(getCarrito(userId))
   }, [items]);
+
+
+  // HANDLERS -----------------
   const handleDelete = (item) => {
-  
     const ids = { productId: item.id, cartId: carrito.id };
     // console.log("ids", ids)
     return dispatch(deleteItemFromCarrito(ids));
   };
 
-  console.log("carro: ", carrito.items)
+  const handleItem = (item, operation) => {
+    const itemData = {
+      cartId: carrito.id,
+      productId: item.id,
+      operation
+    }
+    return dispatch(AddItemToCarrito(itemData));
+  };
+
+  const handlePayCarrito = () => {
+    const cart = {
+      state: "COMPLETED",
+      id: carrito.id
+    }
+    // console.log("carrito", carrito.id)
+    return dispatch(updateCarrito(cart))
+  }
+
 
   return (
     <>
@@ -92,10 +109,16 @@ const Cart = ({ userId }) => {
                     <TableCell align="center">{item.price + "$"}</TableCell>
                     <TableCell align="center">{item.item.qty}</TableCell>
                     <TableCell align="center">
-                      <Button variant="contained" size="small" color="#FF6633">
+                      <Button variant="contained" size="small" color="#FF6633" onClick={() => {
+                        const suma = "suma"
+                        return handleItem(item, suma)
+                      }}>
                         <AddIcon />
                       </Button>
-                      <Button variant="contained" size="small" color="#FF6633">
+                      <Button variant="contained" size="small" color="#FF6633" onClick={() => {
+                        const resta = "resta"
+                        return handleItem(item, resta)
+                      }}>
                         <RemoveIcon />
                       </Button>
                     </TableCell>
@@ -126,10 +149,19 @@ const Cart = ({ userId }) => {
           </TableHead>
           <TableBody>
             <TableRow>
-              <TableCell>2340$</TableCell>
-              <TableCell>Burga cn cheddar + Papas Grandes + Ipa</TableCell>
               <TableCell>
-                <Button variant="contained" size="small" color="#FF6633">
+                {/* 2340$ */}
+                { carrito.items ? <div></div>
+                : null}
+                </TableCell>
+            {carrito.items ? carrito.items.map((item) => (
+              <TableCell>
+                {/* Burga cn cheddar + Papas Grandes + Ipa */}
+                {item.item.qty} {item.name} 
+                </TableCell>
+            )) : null }
+              <TableCell>
+                <Button variant="contained" size="small" color="#FF6633" onClick={() => handlePayCarrito()}>
                   Pagar
                 </Button>
               </TableCell>

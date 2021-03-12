@@ -7,29 +7,35 @@ export const deleteItemFromCarrito = createAsyncThunk("DELETE_ITEM_FROM_CARRITO"
       method: "delete",
       url: `http://localhost:8000/api/items/${productId}/${cartId}`,
     }).then(item => item);
+});
 
-}
-);
-
-export const getItemFromCarrito = createAsyncThunk(
-  "GET_ITEM_FROM_CARRITO",
-  (ids) => {
+export const getItemFromCarrito = createAsyncThunk("GET_ITEM_FROM_CARRITO", (ids) => {
     const { productId, cartId } = ids;
     return axios
       .get(`http://localhost:8000/api/items/${productId}/${cartId}`)
       .then((res) => res.data);
-  }
-);
+});
 
-// export const postItems = createAsyncThunk("POST", (items) => {});
+export const AddItemToCarrito = createAsyncThunk("ADD_ITEM", (itemData) => {
+  const cartId = itemData.cartId
+  const productId = itemData.productId
+  // const qty = item.qty
+  const operation = itemData.operation
+  // console.log("redux", itemData) FLAMU
+  
+  return axios({
+    method: "put",
+    url: `http://localhost:8000/api/items/${productId}/${cartId}`, 
+    data: { operation },
+  }).then(product => product);
 
-// export const deleteItems = createAsyncThunk("DELETE", (id) => {});
+})
 
-//verficar si hay que agregar al estado
 
 const itemsReducer = createReducer([], {
   [deleteItemFromCarrito.fulfilled]: (state, action) => action.payload,
   [getItemFromCarrito.fulfilled]: (state, action) => action.payload,
+  [AddItemToCarrito.fulfilled]: (state, action) => [...state, action.payload]
 });
 
 export default itemsReducer;

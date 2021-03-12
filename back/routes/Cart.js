@@ -9,6 +9,12 @@ router.post("/", (req, res, next) => {
     .catch((err) => res.status(500).send(err));
 });
 
+router.get("/", (req, res, next) => {
+  Cart.findAll()
+    .then((carts) => res.status(201).send(carts))
+    .catch((err) => res.status(500).send(err));
+});
+
 router.get("/:userId", (req, res, next) => {
   let carrito;
   Cart.findOne({ where: { userId: req.params.userId } })
