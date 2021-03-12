@@ -49,6 +49,14 @@ const Cart = () => {
   const user = useSelector((state) => state.user);
   const precio = []
   const comida = []
+  const count = 0
+
+  const fn = () => {
+    while (count < precio.length) {
+      count = count + 1
+    }
+  }
+
 
   useEffect(() => {
     dispatch(getCarrito(user.id))
@@ -151,24 +159,18 @@ const Cart = () => {
               <StyledTableCell>Ir a pagar</StyledTableCell>
             </TableRow>
           </TableHead>
+          {carrito.items && carrito.items.map((item) => {
+            precio.push(item.item.qty >= 1 ? item.price * item.item.qty : 0)
+          })}
+          {carrito.items && carrito.items.map((item) => {
+            comida.push(item.item.qty >= 1 ? <Typography>{item.name}</Typography> : 0)
+          })}
           <TableBody>
             <TableRow>
-              {carrito.items ? carrito.items.map((item) => (
-                <Typography align="center" >
-                  {precio.push(item.item.qty >= 1 ? <Typography>{item.price * item.item.qty + "$"}</Typography> : console.log("no funca"))}
-                  <Typography>{precio}</Typography>
-
-                </Typography>
-              )) : null}
+              <Typography align="center">{"$" + precio.reduce((a, b) => a + b, 0)}</Typography>
               <TableCell>
-                {carrito.items ? carrito.items.map((item) => (
-                  <Typography align="center" >
-                    {comida.push(item.item.qty >= 1 ? <Typography>{item.name}</Typography> : console.log("no funca"))}
-                    <Typography>{comida}</Typography>
-                  </Typography>
-                )) : null}
+                <Typography align="center">{comida}</Typography>
               </TableCell>
-
               <TableCell align="center" >
                 <Button variant="contained" size="small" color="#FF6633" onClick={() => handlePayCarrito()}>
                   Pagar
