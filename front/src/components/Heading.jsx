@@ -88,27 +88,27 @@ export default function PrimarySearchAppBar() {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-  
+
   const dispatch = useDispatch()
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-  
-  
+
+
 
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  
+
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
   };
-  
+
   const handleMenuClose = () => {
     setAnchorEl(null);
     handleMobileMenuClose();
   };
-  
+
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
@@ -130,7 +130,7 @@ export default function PrimarySearchAppBar() {
       transformOrigin={{ vertical: 'top', horizontal: 'right' }}
       open={isMenuOpen}
       onClose={handleMenuClose}
-    > 
+    >
     </Menu>
   );
 
@@ -151,65 +151,67 @@ export default function PrimarySearchAppBar() {
             <ShoppingCartIcon />
           </Badge>
         </IconButton>
-        <p>Carrito</p>
+        <Link style={{ textDecoration: 'none', color: 'inherit' }} to="/carrito">
+          <p>Carrito</p>
+        </Link>
       </MenuItem>
       {localStorage.getItem("token") ? (
         <div>
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-        <p>Profile</p>
-      </MenuItem>
-      <MenuItem onClick={handleLogOut}>
-        <IconButton
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-        <p>Log out</p>
-      </MenuItem>
+          <MenuItem onClick={handleProfileMenuOpen}>
+            <IconButton
+              aria-label="account of current user"
+              aria-controls="primary-search-account-menu"
+              aria-haspopup="true"
+              color="inherit"
+            >
+              <AccountCircle />
+            </IconButton>
+            <p>Profile</p>
+          </MenuItem>
+          <MenuItem onClick={handleLogOut}>
+            <IconButton
+              aria-label="account of current user"
+              aria-controls="primary-search-account-menu"
+              aria-haspopup="true"
+              color="inherit"
+            >
+              <AccountCircle />
+            </IconButton>
+            <p>Log out</p>
+          </MenuItem>
 
-      </div>
+        </div>
       )
-      :
-      <div>
-        <Link style={{ textDecoration: 'none', color:'inherit' }} to={"/login"}> 
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-        <p>Log in</p>
-      </MenuItem>
-        </Link>
-        <Link style={{ textDecoration: 'none', color:'inherit' }} to={"/register"}> 
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-        <p>Register</p>
-      </MenuItem>
-      </Link>
+        :
+        <div>
+          <Link style={{ textDecoration: 'none', color: 'inherit' }} to={"/login"}>
+            <MenuItem onClick={handleProfileMenuOpen}>
+              <IconButton
+                aria-label="account of current user"
+                aria-controls="primary-search-account-menu"
+                aria-haspopup="true"
+                color="inherit"
+              >
+                <AccountCircle />
+              </IconButton>
+              <p>Log in</p>
+            </MenuItem>
+          </Link>
+          <Link style={{ textDecoration: 'none', color: 'inherit' }} to={"/register"}>
+            <MenuItem onClick={handleProfileMenuOpen}>
+              <IconButton
+                aria-label="account of current user"
+                aria-controls="primary-search-account-menu"
+                aria-haspopup="true"
+                color="inherit"
+              >
+                <AccountCircle />
+              </IconButton>
+              <p>Register</p>
+            </MenuItem>
+          </Link>
 
-      </div>
+        </div>
       }
     </Menu>
   );
@@ -221,7 +223,7 @@ export default function PrimarySearchAppBar() {
       <AppBar position="fixed">
         <Toolbar>
 
-        <Link to="/" style={{ textDecoration: 'none' , color:"inherit" }}><Typography className={classes.title} variant="h6" noWrap>
+          <Link to="/" style={{ textDecoration: 'none', color: "inherit" }}><Typography className={classes.title} variant="h6" noWrap>
             <FastfoodIcon />
             BIRRAPP
           </Typography></Link>
@@ -242,8 +244,8 @@ export default function PrimarySearchAppBar() {
           <div className={classes.sectionDesktop}>
             <IconButton aria-label="show 4 new mails" color="inherit">
               <Badge badgeContent={4} color="secondary">
-              <Link to="/carrito" style={{ textDecoration: 'none' , color:"inherit" }}>
-                <ShoppingCartIcon />
+                <Link to="/carrito" style={{ textDecoration: 'none', color: "inherit" }}>
+                  <ShoppingCartIcon />
                 </Link>
               </Badge>
             </IconButton>

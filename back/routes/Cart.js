@@ -17,13 +17,26 @@ router.get("/", (req, res, next) => {
 
 router.get("/:userId", (req, res, next) => {
   let carrito;
-  Cart.findOne({ where: { userId: req.params.userId, state: "PENDING" } })
+  let userId = req.params.userId;
+  Cart.findOne({ where: { userId: userId, state: "PENDING" } })
     .then((cart) => {
+      if (!cart){
+        return Cart.create({
+          paymentMethod: "Efectivo", //Por defecto efectivo queda cambiar 
+          table: 1, //Por defecto, queda por cambiar
+          state: "PENDING", //Por defecto, siempre tiene que ser PENDING
+          userId: userId
+        })
+          .then((newUser) => {
+            carrito = newUser.dataValues;
+            return newUser.getProducts();
+          });
+      }
       carrito = cart.dataValues;
       return cart.getProducts();
     })
     .then((children) => {
-      children.map((product) => {});
+      children.map(() => {});
       res.send({ ...carrito, items: children });
     })
     .catch(next);

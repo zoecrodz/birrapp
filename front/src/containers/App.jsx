@@ -34,9 +34,7 @@ const App = () => {
           render={({ match }) => <SingleProduct productId={match.params.id} />}
         />
         {/* para ver despues */}
-        <Route
-          path="/carrito/:id"
-          render={({ match }) => <Carrito userId={match.params.id} />}
+        <Route path="/carrito" render={() => <Carrito />}
         />
         <Route path="/*" render={() => <div>Pagina no encontrada</div>} />
       </Switch>

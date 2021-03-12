@@ -15,7 +15,7 @@ import { getCarrito, updateCarrito } from "../store/carrito";
 // import StarRateIcon from "@material-ui/icons/StarRate";
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
-import { getItemFromCarrito, deleteItemFromCarrito, modifyItem } from "../store/items";
+import { deleteItemFromCarrito, modifyItem } from "../store/items";
 
 const StyledTableCell = withStyles(() => ({
   head: {
@@ -38,13 +38,14 @@ const StyledTableCell = withStyles(() => ({
   },
 }))(TableCell);
 
-const Cart = ({ userId }) => {
+const Cart = () => {
   const dispatch = useDispatch();
   const carrito = useSelector((state) => state.carrito);
-  const items = useSelector((state) => state.items)
+  const items = useSelector((state) => state.items);
+  const user = useSelector((state) => state.user);
 
   useEffect(() => {
-    dispatch(getCarrito(userId))
+    dispatch(getCarrito(user.id))
   }, [items]);
 
 
