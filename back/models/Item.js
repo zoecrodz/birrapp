@@ -9,9 +9,15 @@ Item.init({
         allowNull: false, 
         validate: {
             min: 1
-        }
+        },
+        defaultValue: 1
     },
 }, {sequelize: db, modelName: "item"});
 
+Item.prototype.operation = function (sumaResta) {
+
+    return sumaResta == "suma" ? this.increment({ qty: + 1 }) : this.decrement({ qty: + 1 })
+
+}
 
 module.exports = Item;

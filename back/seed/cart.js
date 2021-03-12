@@ -8,7 +8,7 @@ module.exports = [
   {
     paymentMethod: "Efectivo",
     table: 2,
-    state: "REJECTED",
+    state: "PENDING",
     userId: 2
   },
   {
@@ -20,7 +20,7 @@ module.exports = [
   {
     paymentMethod: "Efectivo",
     table: 9,
-    state: "COMPLETE",
+    state: "PENDING",
     userId: 3
   },
 ];
