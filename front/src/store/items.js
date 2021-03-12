@@ -16,7 +16,17 @@ export const getItemFromCarrito = createAsyncThunk("GET_ITEM_FROM_CARRITO", (ids
       .then((res) => res.data);
 });
 
-export const AddItemToCarrito = createAsyncThunk("ADD_ITEM", (itemData) => {
+export const addItemToCarrito = createAsyncThunk("ADD_ITEM_TO_CARRITO", (itemData) => {
+  const { cartId, productId, qty } = itemData
+
+  return axios({
+    method: "post",
+    url: `http://localhost:8000/api/items`, 
+    data: { cartId, productId, qty },
+  }).then(item => item);
+});
+
+export const modifyItem = createAsyncThunk("MODIFY_ITEM", (itemData) => {
   const cartId = itemData.cartId
   const productId = itemData.productId
   // const qty = item.qty
@@ -35,7 +45,8 @@ export const AddItemToCarrito = createAsyncThunk("ADD_ITEM", (itemData) => {
 const itemsReducer = createReducer([], {
   [deleteItemFromCarrito.fulfilled]: (state, action) => action.payload,
   [getItemFromCarrito.fulfilled]: (state, action) => action.payload,
-  [AddItemToCarrito.fulfilled]: (state, action) => [...state, action.payload]
+  [modifyItem.fulfilled]: (state, action) => [...state, action.payload],
+  [addItemToCarrito.fulfilled]: (state, action) => [...state, action.payload]
 });
 
 export default itemsReducer;

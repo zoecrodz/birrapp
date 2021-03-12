@@ -17,7 +17,7 @@ router.get("/", (req, res, next) => {
 
 router.get("/:userId", (req, res, next) => {
   let carrito;
-  Cart.findOne({ where: { userId: req.params.userId } })
+  Cart.findOne({ where: { userId: req.params.userId, state: "PENDING" } })
     .then((cart) => {
       carrito = cart.dataValues;
       return cart.getProducts();

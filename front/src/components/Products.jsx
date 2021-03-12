@@ -4,6 +4,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
 import { getProducts } from "../store/products"
+import { addItemToCarrito } from "../store/items"
 import StarRateIcon from '@material-ui/icons/StarRate';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import productStyles from "../Styles/products"
@@ -15,12 +16,29 @@ const printStar = (amount) => {
     }
     return arrRteurn
 }
-const addToCart = (productId) => { console.log(productId) }
 
 const TableMaterial = () => {
     const classes = productStyles()
     const dispatch = useDispatch()
     const products = useSelector(state => state.products)
+    const carrito = useSelector((state) => state.carrito);
+    
+    const addToCart = (productId) => {
+        const itemData = {
+            cartId: carrito.id,
+            productId,
+            qty: 1
+          }
+          return dispatch(addItemToCarrito(itemData));
+    }
+    // const handleItem = (item, operation) => {
+    //     const itemData = {
+    //       cartId: carrito.id,
+    //       productId: item.id,
+    //       operation
+    //     }
+    //     return dispatch(modifyItem(itemData));
+    //   };
 
     useEffect(() => {
         dispatch(getProducts())

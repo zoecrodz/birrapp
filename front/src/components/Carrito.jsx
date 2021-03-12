@@ -15,7 +15,7 @@ import { getCarrito, updateCarrito } from "../store/carrito";
 // import StarRateIcon from "@material-ui/icons/StarRate";
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
-import { getItemFromCarrito, deleteItemFromCarrito, AddItemToCarrito } from "../store/items";
+import { getItemFromCarrito, deleteItemFromCarrito, modifyItem } from "../store/items";
 
 const StyledTableCell = withStyles(() => ({
   head: {
@@ -61,7 +61,7 @@ const Cart = ({ userId }) => {
       productId: item.id,
       operation
     }
-    return dispatch(AddItemToCarrito(itemData));
+    return dispatch(modifyItem(itemData));
   };
 
   const handlePayCarrito = () => {

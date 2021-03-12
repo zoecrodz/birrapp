@@ -35,12 +35,15 @@ export const updateCarrito = createAsyncThunk("UPDATE_CARRITO", (cart) => {
     method: "put",
     url: `http://localhost:8000/api/cart/${cart.id}`,
     data: { state }
-  }).then((product) => product.data);
+  }).then(() => ({}))
+// El update no devuelve nada para setear el estado. Asi que lo seteamos vacio cuando compra.
+
 })
 
 const carritoReducer = createReducer({}, {
     [getCarrito.fulfilled]: (state, action) => action.payload,
     [postCarrito.fulfilled]: (state, action) => [...state, action.payload],
+    [updateCarrito.fulfilled]: (state, action) => action.payload,
 });
 
 export default carritoReducer;
