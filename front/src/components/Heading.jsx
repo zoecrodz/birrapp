@@ -15,6 +15,8 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 import FastfoodIcon from '@material-ui/icons/Fastfood';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { Link } from "react-router-dom"
+import { useDispatch } from "react-redux"
+import { logOutUser } from "../store/user"
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -87,6 +89,7 @@ export default function PrimarySearchAppBar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   
+  const dispatch = useDispatch()
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
   
@@ -112,7 +115,9 @@ export default function PrimarySearchAppBar() {
 
   const handleLogOut = (e) => {
     localStorage.clear()
+    dispatch(logOutUser({}))
     handleMenuClose()
+
   }
 
   const menuId = 'primary-search-account-menu';

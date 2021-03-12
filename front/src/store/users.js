@@ -34,7 +34,7 @@ export const deleteUsers = createAsyncThunk("DELETE", (id) => {
 export const updateUsers = createAsyncThunk("UPDATE", (data) => {
   return axios({
     method: "put",
-    url: `/api/me`,
+    url: `/api/me`, //esto no tiene que ver con /me xq es para el user en especifico 
     data: { data },
   });
 });
