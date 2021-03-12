@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { loginUser } from "../store/users"
-import { useDispatch } from "react-redux"
+import { loginUser } from "../store/users";
+import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { getUser } from "../store/user"
+import { getUser } from "../store/user";
+import { getCarrito } from '../store/carrito';
 
 
 const Login = () => {
@@ -18,8 +19,9 @@ const Login = () => {
   const handleSubmit = (e) => {
   e.preventDefault()
   dispatch(loginUser(newUser))
-  .then(() => dispatch(getUser()))
-  .then(() => {
+  .then(() => dispatch(getUser())) //te devuelve el usuario conectado 
+  .then((user) => {
+    dispatch(getCarrito(user.id))
     if (localStorage.getItem("token")){
       history.push("/")
     }

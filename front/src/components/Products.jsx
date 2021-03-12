@@ -1,21 +1,13 @@
 import { Table, TableBody, TableCell, TableContainer, Box, TableRow, Button, Typography } from '@material-ui/core';
-import { withStyles } from '@material-ui/core/styles';
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
 import { getProducts } from "../store/products"
 import { addItemToCarrito } from "../store/items"
-import StarRateIcon from '@material-ui/icons/StarRate';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import productStyles from "../Styles/products"
 
-const printStar = (amount) => {
-    let arrRteurn = []
-    for (let i = 0; i < amount; i++) {
-        arrRteurn.push(<StarRateIcon />)
-    }
-    return arrRteurn
-}
+
 
 const TableMaterial = () => {
     const classes = productStyles()
@@ -65,7 +57,7 @@ const TableMaterial = () => {
                             <TableCell align="center">
                                 <Typography variant="h6">{product.price + "$"}</Typography>
                             </TableCell>
-                            <TableCell align="center">{printStar(product.stars)}</TableCell>
+                            <TableCell align="center"></TableCell>
                             <TableCell align="center">
                                 {localStorage.getItem("token") ? <Button
                                     variant="contained"
