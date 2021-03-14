@@ -38,12 +38,7 @@ const TableMaterial = () => {
 
     useEffect(() => {
         dispatch(getProducts())
-            // .then(() => {
-            //     if(user) dispatch(getCarrito(user.id))
-            // })
     }, [])
-
-    
 
     return (
         <TableContainer>

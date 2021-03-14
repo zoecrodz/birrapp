@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { registerUser } from "../store/users"
+import { registerUser } from "../store/user"
 import { useDispatch } from "react-redux"
 import { useHistory } from "react-router-dom";
 

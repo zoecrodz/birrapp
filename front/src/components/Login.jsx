@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { loginUser } from "../store/users";
+import { loginUser } from "../store/user";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { getUser } from "../store/user";
@@ -20,14 +20,10 @@ const Login = () => {
   const handleSubmit = (e) => {
   e.preventDefault()
   dispatch(loginUser(newUser))
-  // .then(() => dispatch(getUser())) //te devuelve el usuario conectado 
-  .then((usuario) => {
-    localStorage.setItem("token", usuario.data)
-    console.log("user.id", user.id)
-    dispatch(getCarrito(user.id))
-    // if (user){
-      history.push("/")
-    // }
+  .then(() => dispatch(getUser())) //te devuelve el usuario conectado 
+  .then(({ payload }) => {
+    dispatch(getCarrito(payload.id))
+    if (user) history.push("/")
   })
   }
 
