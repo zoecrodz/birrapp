@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { loginUser } from "../store/users";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { getUser } from "../store/user";
 import { getCarrito } from '../store/carrito';
@@ -11,6 +11,7 @@ const Login = () => {
   const dispatch = useDispatch()
   const history = useHistory()
   const [newUser, setNewUser] = useState({})
+  const user = useSelector(state => state.user)
 
   const handleChange = (e) => {
   setNewUser({...newUser, [e.target.name]: e.target.value})
@@ -19,12 +20,14 @@ const Login = () => {
   const handleSubmit = (e) => {
   e.preventDefault()
   dispatch(loginUser(newUser))
-  .then(() => dispatch(getUser())) //te devuelve el usuario conectado 
-  .then((user) => {
+  // .then(() => dispatch(getUser())) //te devuelve el usuario conectado 
+  .then((usuario) => {
+    localStorage.setItem("token", usuario.data)
+    console.log("user.id", user.id)
     dispatch(getCarrito(user.id))
-    if (localStorage.getItem("token")){
+    // if (user){
       history.push("/")
-    }
+    // }
   })
   }
 
