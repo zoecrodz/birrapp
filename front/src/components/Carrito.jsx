@@ -59,7 +59,7 @@ const Cart = () => {
 
 
   useEffect(() => {
-    dispatch(getCarrito(user.id))
+    if(user) dispatch(getCarrito(user.id))
   }, [items]);
 
 
