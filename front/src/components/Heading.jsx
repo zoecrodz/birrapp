@@ -149,7 +149,7 @@ export default function PrimarySearchAppBar() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      {(!user || user.id)  &&  (
+      { user &&  (
         <div>
           <MenuItem>
             <IconButton aria-label="show 4 new mails" color="inherit">
@@ -163,7 +163,7 @@ export default function PrimarySearchAppBar() {
           </MenuItem>
         </div>)
       }
-      {localStorage.getItem("token") ? (
+      {user ? (
         <div>
           <MenuItem onClick={handleProfileMenuOpen}>
             <IconButton
