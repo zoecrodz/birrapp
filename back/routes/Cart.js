@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../db");
-const { Cart } = require("../models");
+const { Cart, Product } = require("../models");
 
 router.post("/", (req, res, next) => {
   Cart.create(req.body)
@@ -43,26 +43,18 @@ router.get("/:userId", (req, res, next) => {
 
 router.get("/historial/:userId", (req, res, next) => {
   let userId = req.params.userId;
-  Cart.findAll({ where: { userId, state: "COMPLETED" } })
+  Cart.findAll({ where: { userId, state: "COMPLETED" }, include: Product })
     .then((carts) => {
       res.send(carts);
-      //---------busca todos los items de un carrito pero los mezcla si hay mas carritos---------
-      // const products = carts.map((cart) => {
-      //   return cart.getProducts().then((res) => res);
-      // });
-      // Promise.all(products)
-      //   .then((items) => {
-      //     // console.log(items);
-      //     return items[0].map((item) => item.dataValues);
-      //   })
-      //   .then((data) => {
-      //     const finalData = carts.map((cart) => {
-      //       return { ...cart.dataValues, items: data };
-      //     });
-      //     res.send(finalData);
-      //   });
     })
     .catch((err) => res.status(500).send(err));
+});
+
+router.get("/historial/cart/:cartId", (req, res, next) => {
+  let cartId = req.params.cartId;
+  Cart.findByPk(cartId, { include: Product })
+    .then((cart) => res.send(cart))
+    .catch(next);
 });
 
 router.put("/:id", (req, res) => {
