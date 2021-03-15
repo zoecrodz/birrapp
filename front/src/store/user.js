@@ -27,6 +27,11 @@ export const getUser = createAsyncThunk("SEARCH_SINGLE_USER", () => {
   .get(`http://localhost:8000/api/me`, {headers: {"Authorization": `token ${localStorage.getItem("token")}`}})
   .then((res) => res.data) 
 });
+
+export const promoteUser = createAsyncThunk("PROMOTE_USER", ()=>{
+  return axios.put(`http://localhost:8000/api/users/promote`)
+    .then(res => res.data)
+})
  
 export const logOutUser = createAction("SET_LOG_OUT"); 
 

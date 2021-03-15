@@ -1,11 +1,16 @@
 import React from "react";
-import { Switch, Route } from "react-router-dom";
+import { Redirect, Switch, Route } from "react-router-dom";
 import Register from "../components/Register.jsx";
 import Login from "../components/Login.jsx";
 import SingleProduct from "../components/SingleProduct.jsx";
 import Carrito from "../components/Carrito.jsx";
 import Products from "../components/Products.jsx";
 import Table from "../components/Products";
+import Heading from "../components/Heading";
+import useStylesHeading from "../Styles/heading";
+import { useSelector } from "react-redux"
+
+
 
 // Landing Page: Landing page (Header. Botones de categorias. Menu deslizable horizontal. Carta entera vertical mapeada de productos -con "sumar al pedido"-, y link al componente de cada producto)
 
@@ -16,8 +21,15 @@ import Table from "../components/Products";
 //- visual del admin (-agregar, editar, eliminar- nuevas categorias, productos, usuarios, admin.. ver transacciones totales (carritos de todos los usuarios)
 
 const App = () => {
+  const classes = useStylesHeading();
+  const user = useSelector((state) => state.user)
+
   return (
     <div>
+      {user.admin && <Redirect from="/" to="/admin" />}
+      <Heading />
+      <div className={classes.drawerHeader} />
+      {/*DrawerHeader necesario para que la navbar no pise nada  */}
       <Switch>
         <Route exact path="/" render={() => <Table />} />
         <Route exact path="/" render={() => <Products />} />

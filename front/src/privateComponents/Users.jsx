@@ -35,7 +35,7 @@ export default function SignUp() {
   const classes = useStyles();
   const dispatch = useDispatch()
   const users = useSelector(state => state.users)
-
+  const admin = useSelector(state => state.user)
 
   useEffect(() => {
     dispatch(getUsers())
@@ -46,21 +46,32 @@ export default function SignUp() {
     <TableContainer>
       <Table>
         <TableBody >
-          {users.map(user => (
-            <TableRow key={user.id}>
-              <TableCell align="center">
-                <Typography variant="h6" align="left">{user.firstName}</Typography>
-              </TableCell>
-              <TableCell align="center">
-                <Typography varinat="h6" align="left">{user.lastName}</Typography>
-              </TableCell>
-              <TableCell align="center">
-                <Typography variant="h6">{user.email}</Typography>
-              </TableCell>
-            </TableRow>
-          ))}
+          {users.map(user => {
+            if (admin.id !== user.id) {
+              return (
+                < TableRow key={user.id} >
+                  <TableCell align="center">
+                    <Typography variant="h6" align="left">{user.firstName}</Typography>
+                  </TableCell>
+                  <TableCell align="center">
+                    <Typography varinat="h6" align="left">{user.lastName}</Typography>
+                  </TableCell>
+                  <TableCell align="center">
+                    <Typography variant="h6">{user.email}</Typography>
+                  </TableCell>
+                  <TableCell>
+                    <Button variant="contained"
+                      color="primary"
+                    >
+                      {user.admin ? "Quitar Admin" : "Hacer Admin"}
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              )
+            }
+          })}
         </TableBody>
       </Table>
-    </TableContainer>
+    </TableContainer >
   );
 }
