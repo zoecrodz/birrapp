@@ -1,9 +1,6 @@
 import { createReducer, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-//  FALTA UN GET A CARRITOS
-
-
 export const getCarrito = createAsyncThunk("GET_CARRITO", (id) => {
   return axios.get(`http://localhost:8000/api/cart/${id}`).then((res) => {
     return res.data;
@@ -30,20 +27,22 @@ export const deleteCarrito = createAsyncThunk("DELETE_CARRITO", (id) => {
 });
 
 export const updateCarrito = createAsyncThunk("UPDATE_CARRITO", (cart) => {
-  const state = cart.state
+  const { state, total } = cart;
   return axios({
     method: "put",
     url: `http://localhost:8000/api/cart/${cart.id}`,
-    data: { state }
-  }).then(() => ({}))
-// El update no devuelve nada para setear el estado. Asi que lo seteamos vacio cuando compra.
+    data: { state, total },
+  }).then(() => ({}));
+  // El update no devuelve nada para setear el estado. Asi que lo seteamos vacio cuando compra.
+});
 
-})
-
-const carritoReducer = createReducer({}, {
+const carritoReducer = createReducer(
+  {},
+  {
     [getCarrito.fulfilled]: (state, action) => action.payload,
     [postCarrito.fulfilled]: (state, action) => [...state, action.payload],
     [updateCarrito.fulfilled]: (state, action) => action.payload,
-});
+  }
+);
 
 export default carritoReducer;

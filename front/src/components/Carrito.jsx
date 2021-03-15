@@ -48,9 +48,18 @@ const Cart = () => {
   const user = useSelector((state) => state.user);
   const precio = [];
   const comida = [];
+  let total;
+
+  if (carrito.items) {
+    carrito.items.map((item) => {
+      precio.push(item.item.qty >= 1 ? item.price * item.item.qty : 0);
+      comida.push(item.name);
+    });
+    total = precio.reduce((a, b) => a + b, 0);
+  }
 
   useEffect(() => {
-    if(user) dispatch(getCarrito(user.id))
+    if (user) dispatch(getCarrito(user.id));
   }, [items]);
 
   // HANDLERS -----------------
@@ -69,14 +78,14 @@ const Cart = () => {
     return dispatch(modifyItem(itemData));
   };
 
-  
   const handlePayCarrito = () => {
     const cart = {
       state: "COMPLETED",
       id: carrito.id,
+      total,
     };
-    dispatch(updateCarrito(cart))//Cambia el estado del carrito actual a COMPLETED
-      .then(() => dispatch(getCarrito(user.id))) // Inmediatamente después genera un nuevo carrito.
+    dispatch(updateCarrito(cart)) //Cambia el estado del carrito actual a COMPLETED
+      .then(() => dispatch(getCarrito(user.id))); // Inmediatamente después genera un nuevo carrito.
   };
 
   return (
@@ -172,14 +181,8 @@ const Cart = () => {
             </TableRow>
           </TableHead>
 
-          {carrito.items && carrito.items.map((item) => {
-            precio.push(item.item.qty >= 1 ? item.price * item.item.qty : 0);
-            comida.push(item.name);
-            })
-           }
-
           <TableBody>
-            <TableRow>  
+            <TableRow>
               <TableCell>
                 {precio.map((prc) => (
                   <Typography align="center">
@@ -196,7 +199,7 @@ const Cart = () => {
               </TableCell>
 
               <TableCell align="center">
-                {precio.reduce((a, b) => a + b, 0) + "$       "}
+                {total + "$       "}
                 <Button
                   variant="contained"
                   size="small"

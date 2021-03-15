@@ -161,19 +161,6 @@ export default function PrimarySearchAppBar() {
       )}
       {user.id ? (
         <div>
-          <MenuItem onClick={handleProfileMenuOpen}>
-            <IconButton
-              aria-label="account of current user"
-              aria-controls="primary-search-account-menu"
-              aria-haspopup="true"
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton>
-            <Link style={{ textDecoration: "none", color: "inherit" }} to="/me">
-              <p>Profile</p>
-            </Link>
-          </MenuItem>
           <MenuItem onClick={handleLogOut}>
             <IconButton
               aria-label="account of current user"
@@ -224,7 +211,6 @@ export default function PrimarySearchAppBar() {
       )}
     </Menu>
   );
-
   return (
     <div className={classes.grow}>
       <AppBar position="fixed">
@@ -251,16 +237,20 @@ export default function PrimarySearchAppBar() {
           <div className={classes.grow} />
 
           {/* Por ahora este ninguna funcion ------ */}
-          <IconButton
-            edge="end"
-            aria-label="account of current user"
-            aria-controls={menuId}
-            aria-haspopup="true"
-            // onClick={handleProfileMenuOpen}
-            color="inherit"
-          >
-            <AccountCircle />
-          </IconButton>
+          {user.id && (
+            <Link style={{ textDecoration: "none", color: "inherit" }} to="/me">
+              <IconButton
+                edge="end"
+                aria-label="account of current user"
+                aria-controls={menuId}
+                aria-haspopup="true"
+                // onClick={handleProfileMenuOpen}
+                color="inherit"
+              >
+                <AccountCircle />
+              </IconButton>
+            </Link>
+          )}
 
           <div className={classes.sectionMobile}>
             <IconButton
