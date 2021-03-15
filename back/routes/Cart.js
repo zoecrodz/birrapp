@@ -20,27 +20,49 @@ router.get("/:userId", (req, res, next) => {
   let userId = req.params.userId;
   Cart.findOne({ where: { userId, state: "PENDING" } })
     .then((cart) => {
-      if (!cart){
+      if (!cart) {
         return Cart.create({
-          paymentMethod: "Efectivo", //Por defecto efectivo queda cambiar 
+          paymentMethod: "Efectivo", //Por defecto efectivo queda cambiar
           table: 1, //Por defecto, queda por cambiar
           state: "PENDING", //Por defecto, siempre tiene que ser PENDING
-          userId: userId
-        })
-          .then((newUser) => {
-            carrito = newUser.dataValues
-            return newUser.getProducts()
-          });
+          userId: userId,
+        }).then((newUser) => {
+          carrito = newUser.dataValues;
+          return newUser.getProducts();
+        });
       }
       carrito = cart.dataValues;
       return cart.getProducts();
     })
     .then((children) => {
-      console.log("cart", children)
-      children.map(() => {})
-      res.send({ ...carrito, items: children })
+      children.map(() => {});
+      res.send({ ...carrito, items: children });
     })
     .catch(next);
+});
+
+router.get("/historial/:userId", (req, res, next) => {
+  let userId = req.params.userId;
+  Cart.findAll({ where: { userId, state: "COMPLETED" } })
+    .then((carts) => {
+      res.send(carts);
+      //---------busca todos los items de un carrito pero los mezcla si hay mas carritos---------
+      // const products = carts.map((cart) => {
+      //   return cart.getProducts().then((res) => res);
+      // });
+      // Promise.all(products)
+      //   .then((items) => {
+      //     // console.log(items);
+      //     return items[0].map((item) => item.dataValues);
+      //   })
+      //   .then((data) => {
+      //     const finalData = carts.map((cart) => {
+      //       return { ...cart.dataValues, items: data };
+      //     });
+      //     res.send(finalData);
+      //   });
+    })
+    .catch((err) => res.status(500).send(err));
 });
 
 router.put("/:id", (req, res) => {
