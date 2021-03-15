@@ -90,7 +90,7 @@ const Cart = () => {
     
   }
 
-
+  console.log("carrito", carrito)
   return (
     <>
       <TableContainer>
