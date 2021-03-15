@@ -19,7 +19,8 @@ Cart.init({
     state: {
         type: S.STRING,
         defaultValue: "PENDING", 
-        //enum
+        //enum "PENDING"--> "WAITING" --> "COMPLETED" 
+        //                            --> "REJECTED"
     },
 }, {sequelize: db, modelName: "cart"});
 

@@ -12,7 +12,6 @@ import Users from "../privateComponents/Users";
 const Admin = () => {
   return (
     <div>
-      <Route path="/admin" render={() => <AdminHeader />} />
       <Switch>
         <Route exact path="/admin" render={() => <AdminMenu />} />
         <Route path="/admin/login" render={() => <AdminLogin />} />
