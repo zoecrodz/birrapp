@@ -17,8 +17,7 @@ import { getCarrito, updateCarrito } from "../store/carrito";
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
 import { deleteItemFromCarrito, modifyItem } from "../store/items";
-import productStyles from "../Styles/products"
-
+import productStyles from "../Styles/products";
 
 const StyledTableCell = withStyles(() => ({
   head: {
@@ -43,25 +42,16 @@ const StyledTableCell = withStyles(() => ({
 
 const Cart = () => {
   const dispatch = useDispatch();
-  const classes = productStyles()
+  const classes = productStyles();
   const carrito = useSelector((state) => state.carrito);
   const items = useSelector((state) => state.items);
   const user = useSelector((state) => state.user);
-  const precio = []
-  const comida = []
-  const count = 0
-
-  const fn = () => {
-    while (count < precio.length) {
-      count = count + 1
-    }
-  }
-
+  const precio = [];
+  const comida = [];
 
   useEffect(() => {
-    dispatch(getCarrito(user.id))
+    dispatch(getCarrito(user.id));
   }, [items]);
-
 
   // HANDLERS -----------------
   const handleDelete = (item) => {
@@ -74,20 +64,19 @@ const Cart = () => {
     const itemData = {
       cartId: carrito.id,
       productId: item.id,
-      operation
-    }
+      operation,
+    };
     return dispatch(modifyItem(itemData));
   };
 
   const handlePayCarrito = () => {
     const cart = {
       state: "COMPLETED",
-      id: carrito.id
-    }
+      id: carrito.id,
+    };
     // console.log("carrito", carrito.id)
-    return dispatch(updateCarrito(cart))
-  }
-
+    return dispatch(updateCarrito(cart));
+  };
 
   return (
     <>
@@ -96,56 +85,78 @@ const Cart = () => {
           <TableBody>
             {carrito.items
               ? carrito.items.map((item) => (
-                <TableRow key={item.id}>
-                  <TableCell>
-                    <img
-                      src={""}
-                      width="128" height="128" margin='auto'
-                      display='block' maxWidth='100%' maxHeight='100%' className={classes.image}
-                    />
-                  </TableCell>
-                  <TableCell align="center">
-                    <Typography variant="h5" align="left">
-                      {item.name}
-                    </Typography>
-                    <Typography variant="h6" align="left">
-                      {item.description}
-                    </Typography>
-                  </TableCell >
-                  <TableCell align="center">
-                    <Typography variant="h6" align="center">{item.price + "$"}</Typography>
-                  </TableCell>
-                  <TableCell align="center">{"Cantidad: " + item.item.qty}</TableCell> <br />
-                  <TableCell align="center">
-                    <Typography>
-                      <Button variant="contained" size="small" color="#FF6633" onClick={() => {
-                        const suma = "suma"
-                        return handleItem(item, suma)
-                      }}>
-                        <AddIcon />
+                  <TableRow key={item.id}>
+                    <TableCell>
+                      <img
+                        src={""}
+                        width="128"
+                        height="128"
+                        margin="auto"
+                        display="block"
+                        maxWidth="100%"
+                        maxHeight="100%"
+                        className={classes.image}
+                      />
+                    </TableCell>
+                    <TableCell align="center">
+                      <Typography variant="h5" align="left">
+                        {item.name}
+                      </Typography>
+                      <Typography variant="h6" align="left">
+                        {item.description}
+                      </Typography>
+                    </TableCell>
+                    <TableCell align="center">
+                      <Typography variant="h6" align="center">
+                        {item.price + "$"}
+                      </Typography>
+                    </TableCell>
+                    <TableCell align="center">
+                      {"Cantidad: " + item.item.qty}
+                    </TableCell>{" "}
+                    <br />
+                    <TableCell align="center">
+                      <Typography>
+                        <Button
+                          variant="contained"
+                          size="small"
+                          color="#FF6633"
+                          onClick={() => {
+                            const suma = "suma";
+                            return handleItem(item, suma);
+                          }}
+                        >
+                          <AddIcon />
+                        </Button>
+                      </Typography>{" "}
+                      <br />
+                      <Typography>
+                        <Button
+                          variant="contained"
+                          size="small"
+                          color="#FF6633"
+                          onClick={() => {
+                            const resta = "resta";
+                            return handleItem(item, resta);
+                          }}
+                        >
+                          <RemoveIcon />
+                        </Button>
+                      </Typography>{" "}
+                      <br />
+                    </TableCell>
+                    <TableCell>
+                      <Button
+                        variant="contained"
+                        size="small"
+                        color="#FF6633"
+                        onClick={() => handleDelete(item)}
+                      >
+                        Delete
                       </Button>
-                    </Typography> <br />
-                    <Typography>
-                      <Button variant="contained" size="small" color="#FF6633" onClick={() => {
-                        const resta = "resta"
-                        return handleItem(item, resta)
-                      }}>
-                        <RemoveIcon />
-                      </Button>
-                    </Typography> <br />
-                  </TableCell>
-                  <TableCell>
-                    <Button
-                      variant="contained"
-                      size="small"
-                      color="#FF6633"
-                      onClick={() => handleDelete(item)}
-                    >
-                      Delete
-                      </Button>
-                  </TableCell>
-                </TableRow>
-              ))
+                    </TableCell>
+                  </TableRow>
+                ))
               : null}
           </TableBody>
         </Table>
@@ -159,20 +170,38 @@ const Cart = () => {
               <StyledTableCell>Ir a pagar</StyledTableCell>
             </TableRow>
           </TableHead>
+
           {carrito.items && carrito.items.map((item) => {
-            precio.push(item.item.qty >= 1 ? item.price * item.item.qty : 0)
-          })}
-          {carrito.items && carrito.items.map((item) => {
-            comida.push(item.item.qty >= 1 ? <Typography>{item.name}</Typography> : 0)
-          })}
+            precio.push(item.item.qty >= 1 ? item.price * item.item.qty : 0);
+            comida.push(item.name);
+            })
+           }
+
           <TableBody>
-            <TableRow>
-              <Typography align="center">{"$" + precio.reduce((a, b) => a + b, 0)}</Typography>
+            <TableRow>  
               <TableCell>
-                <Typography align="center">{comida}</Typography>
+                {precio.map((prc) => (
+                  <Typography align="center">
+                    <Typography>{prc + "$"}</Typography>
+                  </Typography>
+                ))}
               </TableCell>
-              <TableCell align="center" >
-                <Button variant="contained" size="small" color="#FF6633" onClick={() => handlePayCarrito()}>
+              <TableCell>
+                {comida.map((comida) => (
+                  <Typography align="center">
+                    <Typography>{comida}</Typography>
+                  </Typography>
+                ))}
+              </TableCell>
+
+              <TableCell align="center">
+                {precio.reduce((a, b) => a + b, 0) + "$       "}
+                <Button
+                  variant="contained"
+                  size="small"
+                  color="#FF6633"
+                  onClick={() => handlePayCarrito()}
+                >
                   Pagar
                 </Button>
               </TableCell>
