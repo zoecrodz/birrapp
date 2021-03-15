@@ -6,6 +6,7 @@ import { getProducts } from "../store/products"
 import { addItemToCarrito } from "../store/items"
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import productStyles from "../Styles/products"
+import { getCarrito } from "../store/carrito";
 
 
 
@@ -14,15 +15,18 @@ const TableMaterial = () => {
     const dispatch = useDispatch()
     const products = useSelector(state => state.products)
     const carrito = useSelector((state) => state.carrito);
-    
+    const user = useSelector((state) => state.user);
+
+
     const addToCart = (productId) => {
         const itemData = {
             cartId: carrito.id,
             productId,
             qty: 1
-          }
-          return dispatch(addItemToCarrito(itemData));
+        }
+        return dispatch(addItemToCarrito(itemData));
     }
+
     // const handleItem = (item, operation) => {
     //     const itemData = {
     //       cartId: carrito.id,
@@ -34,7 +38,7 @@ const TableMaterial = () => {
 
     useEffect(() => {
         dispatch(getProducts())
-            .then(productoss => console.log(productoss))
+            .then(() => dispatch(getCarrito(user.id)))
     }, [])
 
 

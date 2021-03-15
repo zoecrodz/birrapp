@@ -170,14 +170,15 @@ const Cart = () => {
               <StyledTableCell>Ir a pagar</StyledTableCell>
             </TableRow>
           </TableHead>
+
+          {carrito.items && carrito.items.map((item) => {
+            precio.push(item.item.qty >= 1 ? item.price * item.item.qty : 0);
+            comida.push(item.name);
+            })
+           }
+
           <TableBody>
-            <TableRow>
-              {carrito.items
-                ? carrito.items.map((item) => {
-                    precio.push(item.price * item.item.qty);
-                    comida.push(item.name);
-                  })
-                : null}
+            <TableRow>  
               <TableCell>
                 {precio.map((prc) => (
                   <Typography align="center">

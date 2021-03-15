@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -15,8 +15,11 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 import FastfoodIcon from '@material-ui/icons/Fastfood';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { Link } from "react-router-dom"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { logOutUser } from "../store/user"
+import { useHistory } from "react-router-dom";
+
+
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -88,12 +91,12 @@ export default function PrimarySearchAppBar() {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-
+  const history = useHistory()
   const dispatch = useDispatch()
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
-
+  const user = useSelector(state => state.user)
 
 
   const handleProfileMenuOpen = (event) => {
@@ -117,6 +120,7 @@ export default function PrimarySearchAppBar() {
     localStorage.clear()
     dispatch(logOutUser({}))
     handleMenuClose()
+    history.push("/")
 
   }
 
@@ -145,16 +149,20 @@ export default function PrimarySearchAppBar() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
-        <IconButton aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="secondary">
-            <ShoppingCartIcon />
-          </Badge>
-        </IconButton>
-        <Link style={{ textDecoration: 'none', color: 'inherit' }} to="/carrito">
-          <p>Carrito</p>
-        </Link>
-      </MenuItem>
+      {(!user || user.id)  &&  (
+        <div>
+          <MenuItem>
+            <IconButton aria-label="show 4 new mails" color="inherit">
+              <Badge badgeContent={4} color="secondary">
+                <ShoppingCartIcon />
+              </Badge>
+            </IconButton>
+            <Link style={{ textDecoration: 'none', color: 'inherit' }} to="/carrito">
+              <p>Carrito</p>
+            </Link>
+          </MenuItem>
+        </div>)
+      }
       {localStorage.getItem("token") ? (
         <div>
           <MenuItem onClick={handleProfileMenuOpen}>
