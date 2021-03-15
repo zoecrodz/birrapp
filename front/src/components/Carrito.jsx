@@ -86,7 +86,8 @@ const Cart = () => {
     }
     // console.log("carrito", carrito.id)
     dispatch(updateCarrito(cart))
-    dispatch(getCarrito(user.id))
+      .then(() => dispatch(getCarrito(user.id)))
+    
   }
 
 

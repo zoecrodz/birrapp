@@ -18,7 +18,8 @@ export const loginUser = createAsyncThunk("LOGIN_USER", (user) => {
     method: "post",
     url: "http://localhost:8000/api/login",
     data: user,
-  }).then((user) => localStorage.setItem("token", user.data));
+  }).then((user) => localStorage.setItem("token", user.data))
+  .catch()
 });
 
 export const getUser = createAsyncThunk("SEARCH_SINGLE_USER", () => {

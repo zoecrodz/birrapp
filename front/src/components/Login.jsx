@@ -19,14 +19,17 @@ const Login = () => {
 
   const handleSubmit = (e) => {
   e.preventDefault()
-  dispatch(loginUser(newUser))
-  .then(() => dispatch(getUser())) //te devuelve el usuario conectado 
-  .then(({ payload }) => {
-    dispatch(getCarrito(payload.id))
-    if (user) history.push("/")
+  dispatch(loginUser(newUser)) 
+  .then(() => dispatch(getUser()))
+  .then((usuario) => {
+    // pregunto por usuario y no por el estado user porque por alguna razon en este paso todavia no existe
+    if (usuario.payload) {
+          // console.log("usuario", usuario) 
+          dispatch(getCarrito(usuario.payload.id))
+          return history.push("/")
+    }
   })
   }
-
 
   return (
   <div>
