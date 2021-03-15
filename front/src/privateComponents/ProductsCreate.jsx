@@ -3,14 +3,12 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import FastfoodIcon from '@material-ui/icons/Fastfood';
 
 
 
@@ -42,23 +40,59 @@ export default function SignUp() {
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
+          <FastfoodIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          New Category
+          New Product
         </Typography>
         <form className={classes.form} noValidate>
+          <Grid container spacing={2}>
+            <Grid item xs={12} >
+              <TextField
+                autoComplete="pName"
+                name="productName"
+                variant="outlined"
+                required
+                fullWidth
+                id="productName"
+                label="Product Name"
+                autoFocus
+              />
+            </Grid>
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
                 required
                 fullWidth
-                id="categoryName"
-                label="Category Name"
+                id="precio"
+                label="Price $"
+                name="precio"
+                autoComplete="precio"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                id="description"
+                label="Description"
+                name="description"
+                autoComplete="description"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                variant="outlined"
+                required
+                fullWidth
+                id="category"
+                label="Category"
                 name="category"
                 autoComplete="category"
               />
             </Grid>
+          </Grid>
           <Button
             type="submit"
             fullWidth

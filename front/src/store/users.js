@@ -3,7 +3,7 @@ import axios from "axios";
 
 
 export const getUsers = createAsyncThunk("SEARCH_USERS", (users) => {
-  return axios.get(`/`).then((res) => res.data);
+  return axios.get(`http://localhost:8000/api/users`).then((res) => res.data);
 });
 
 
