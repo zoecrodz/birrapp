@@ -18,7 +18,7 @@ router.get("/", (req, res, next) => {
 router.get("/:userId", (req, res, next) => {
   let carrito;
   let userId = req.params.userId;
-  Cart.findOne({ where: { userId: userId, state: "PENDING" } })
+  Cart.findOne({ where: { userId, state: "PENDING" } })
     .then((cart) => {
       if (!cart){
         return Cart.create({
@@ -28,16 +28,17 @@ router.get("/:userId", (req, res, next) => {
           userId: userId
         })
           .then((newUser) => {
-            carrito = newUser.dataValues;
-            return newUser.getProducts();
+            carrito = newUser.dataValues
+            return newUser.getProducts()
           });
       }
       carrito = cart.dataValues;
       return cart.getProducts();
     })
     .then((children) => {
-      children.map(() => {});
-      res.send({ ...carrito, items: children });
+      console.log("cart", children)
+      children.map(() => {})
+      res.send({ ...carrito, items: children })
     })
     .catch(next);
 });

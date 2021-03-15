@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { registerUser } from "../store/users"
-import { useDispatch } from "react-redux"
+import { registerUser } from "../store/user"
+import { useDispatch, useSelector } from "react-redux"
 import { useHistory } from "react-router-dom";
 
 
@@ -11,7 +11,7 @@ const Register = () => {
   const dispatch = useDispatch()
   const history = useHistory()
   const [newUser, setNewUser] = useState({})
-  const [isLogged, setIsLogged] = useState(false)
+  const user = useSelector(state => state.user)
 
   const handleChange = (e) => {
     setNewUser({ ...newUser, [e.target.name]: e.target.value })
@@ -20,14 +20,8 @@ const Register = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
     dispatch(registerUser(newUser))
-      .then(() => setIsLogged(true))
       .then(() => {
-        setIsLogged(true)
-        if (isLogged) {
-          history.push("/login")
-          setIsLogged(false)
-        }
-
+        if(user) history.push("/login")
       })
 
   }

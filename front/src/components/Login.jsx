@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { loginUser } from "../store/users";
-import { useDispatch } from "react-redux";
+import { loginUser } from "../store/user";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { getUser } from "../store/user";
 import { getCarrito } from '../store/carrito';
@@ -11,6 +11,7 @@ const Login = () => {
   const dispatch = useDispatch()
   const history = useHistory()
   const [newUser, setNewUser] = useState({})
+  const user = useSelector(state => state.user)
 
   const handleChange = (e) => {
   setNewUser({...newUser, [e.target.name]: e.target.value})
@@ -18,16 +19,17 @@ const Login = () => {
 
   const handleSubmit = (e) => {
   e.preventDefault()
-  dispatch(loginUser(newUser))
-  .then(() => dispatch(getUser())) //te devuelve el usuario conectado 
-  .then((user) => {
-    dispatch(getCarrito(user.id))
-    if (localStorage.getItem("token")){
-      history.push("/")
+  dispatch(loginUser(newUser)) 
+  .then(() => dispatch(getUser()))
+  .then((usuario) => {
+    // pregunto por usuario y no por el estado user porque por alguna razon en este paso todavia no existe
+    if (usuario.payload) {
+          // console.log("usuario", usuario) 
+          dispatch(getCarrito(usuario.payload.id))
+          return history.push("/")
     }
   })
   }
-
 
   return (
   <div>

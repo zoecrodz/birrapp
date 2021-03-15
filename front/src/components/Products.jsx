@@ -38,9 +38,7 @@ const TableMaterial = () => {
 
     useEffect(() => {
         dispatch(getProducts())
-            .then(() => dispatch(getCarrito(user.id)))
     }, [])
-
 
     return (
         <TableContainer>
@@ -63,7 +61,7 @@ const TableMaterial = () => {
                             </TableCell>
                             <TableCell align="center"></TableCell>
                             <TableCell align="center">
-                                {localStorage.getItem("token") ? <Button
+                                { user && user.id ? <Button
                                     variant="contained"
                                     color="primary"
                                     onClick={() => addToCart(product.id)}

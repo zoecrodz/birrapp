@@ -50,7 +50,7 @@ const Cart = () => {
   const comida = [];
 
   useEffect(() => {
-    dispatch(getCarrito(user.id));
+    if(user) dispatch(getCarrito(user.id))
   }, [items]);
 
   // HANDLERS -----------------
@@ -69,13 +69,14 @@ const Cart = () => {
     return dispatch(modifyItem(itemData));
   };
 
+  
   const handlePayCarrito = () => {
     const cart = {
       state: "COMPLETED",
       id: carrito.id,
     };
-    // console.log("carrito", carrito.id)
-    return dispatch(updateCarrito(cart));
+    dispatch(updateCarrito(cart))//Cambia el estado del carrito actual a COMPLETED
+      .then(() => dispatch(getCarrito(user.id))) // Inmediatamente después genera un nuevo carrito.
   };
 
   return (
