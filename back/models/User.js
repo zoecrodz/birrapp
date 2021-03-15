@@ -25,6 +25,10 @@ User.init({
         type: S.STRING, 
         allowNull: false
     },
+    admin: {
+        type: S.BOOLEAN,
+        defaultValue: false
+    },
     salt: S.STRING
 }, {sequelize: db, modelName: "user"});
 
