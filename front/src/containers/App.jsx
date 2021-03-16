@@ -8,6 +8,7 @@ import Carrito from "../components/Carrito.jsx";
 import Products from "../components/Products.jsx";
 import useStyles from "../Styles/app";
 import Table from "../components/Products";
+import Reviews from "../components/Reviews";
 
 // Landing Page: Landing page (Header. Botones de categorias. Menu deslizable horizontal. Carta entera vertical mapeada de productos -con "sumar al pedido"-, y link al componente de cada producto)
 
@@ -36,6 +37,7 @@ const App = () => {
         {/* para ver despues */}
         <Route path="/carrito" render={() => <Carrito />}
         />
+        <Route path="/review/:id" render={({ match }) => <Reviews productId={match.params.id} />}/>
         <Route path="/*" render={() => <div>Pagina no encontrada</div>} />
       </Switch>
     </div>

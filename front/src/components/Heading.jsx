@@ -148,7 +148,7 @@ export default function PrimarySearchAppBar() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      { user.id &&  (
+      { user && user.id &&  (
         <div className={classes.sectionMobile}>
           <MenuItem>
             <IconButton aria-label="show 4 new mails" color="inherit">
@@ -162,7 +162,7 @@ export default function PrimarySearchAppBar() {
           </MenuItem>
         </div>)
       }
-      {user.id ? (
+      {user && user.id ? (
         <div>
           <MenuItem onClick={handleProfileMenuOpen}>
             <IconButton
@@ -276,7 +276,7 @@ export default function PrimarySearchAppBar() {
 
           {/*  PARTE DESKTOP                                ------------------------------- */}
 
-          {user.id ? (
+          {user && user.id ? (
             <div className={classes.sectionDesktop}>
 
               <Link style={{ textDecoration: 'none', color: 'inherit' }} to="/carrito">

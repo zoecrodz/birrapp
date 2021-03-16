@@ -23,6 +23,7 @@ const SingleProduct = ({ productId }) => {
   const dispatch = useDispatch()
   const product = useSelector(state => state.singleProduct)
   const carrito = useSelector((state) => state.carrito);
+  const reviews = product.reviews
 
 
   useEffect(() => {
@@ -48,6 +49,18 @@ const SingleProduct = ({ productId }) => {
     return arrRteurn
   }
 
+  const averageRating=()=> {
+    let sumaFinal=0
+    const promedio=[]
+  
+    reviews && reviews.map((e)=>promedio.push(e.stars))
+
+    for (let i=0; i<promedio.length; i++) {
+      sumaFinal=sumaFinal +promedio[i]
+      }
+    return (Math.round(sumaFinal/promedio.length))
+  }
+
  
 
   return (
@@ -70,8 +83,8 @@ const SingleProduct = ({ productId }) => {
                     Descripción: {product.description}
                   </Typography>
                   <Typography variant="body2" color="textSecondary">
-                    {printStar(product.stars)}
-                  </Typography>
+                   {printStar((averageRating()))}           
+                   </Typography>
                 </Grid>
                 <Grid item>
                   <TableCell align="center">
@@ -89,7 +102,33 @@ const SingleProduct = ({ productId }) => {
                     </Button>}
 
                   </TableCell>
+
+                  <Grid>
+                   <Typography variant="h6" gutterBottom>
+                    Reviews:
+                    </Typography> 
+                    <TableCell>
+                    {reviews && reviews.map(review => (
+                      <Typography variant="h6" align="left">
+                      <Typography variant="body2" color="textSecondary">
+                      {printStar(review.stars)}
+                    </Typography>
+                        {review.title}
+                        <br/>
+                        <Typography variant="body2" align="left">
+                        "{review.description}"
+                        <br/>
+                        <br/>
+                        </Typography>
+                        </Typography>
+                                    ))}
+                    </TableCell> 
+                 
+                  </Grid>
+
                 </Grid>
+                
+
               </Grid>
               <Grid item>
                 <Typography variant="subtitle1">Precio: ${product.price}</Typography>

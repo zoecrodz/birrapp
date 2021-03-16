@@ -1,15 +1,16 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../db")
-const { Product, Picture } = require("../models")
+const { Product, Picture, Review } = require("../models")
 
 router.get('/', (req, res) => {
 	Product.findAll({include: Picture})
-	.then(product => res.send(product));
+	.then(product => res.send(product))
+
 });
 
 router.get('/:id', (req, res, next) => {
-	Product.findByPk(req.params.id, {include: Picture})
+	Product.findByPk(req.params.id, {include: [Picture, Review]})
 	.then(product => res.send(product));
 });
 

@@ -16,7 +16,7 @@ const TableMaterial = () => {
     const products = useSelector(state => state.products)
     const carrito = useSelector((state) => state.carrito);
     const user = useSelector((state) => state.user);
-
+    
 
     const addToCart = (productId) => {
         const itemData = {
