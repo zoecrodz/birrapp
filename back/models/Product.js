@@ -34,6 +34,10 @@ Product.init({
             min: 0, 
         }
     },
+    active: {
+        type: S.BOOLEAN,
+        defaultValue: true,
+    }
 }, {sequelize: db, modelName: "product"});
 
 
