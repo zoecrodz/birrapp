@@ -5,7 +5,6 @@ import Login from "../components/Login.jsx";
 import SingleProduct from "../components/SingleProduct.jsx";
 import Carrito from "../components/Carrito.jsx";
 import Products from "../components/Products.jsx";
-import Table from "../components/Products";
 import Heading from "../components/Heading";
 import useStylesHeading from "../Styles/heading";
 import { useSelector } from "react-redux"
@@ -34,8 +33,6 @@ const App = () => {
       <div className={classes.drawerHeader} />
       {/*DrawerHeader necesario para que la navbar no pise nada  */}
       <Switch>
-        <Route exact path="/" render={() => <Table />} />
-        <Route exact path="/" render={() => <Products />} />
         <Route path="/register" render={() => <Register />} />
         <Route path="/login" render={() => <Login />} />
         <Route
@@ -47,6 +44,7 @@ const App = () => {
         <Route path="/carrito" render={() => <Carrito />} />
         <Route path="/me" render={() => <Profile />} />
         <Route path="/profileCarrito" render={() => <ProfileCarrito />} />
+        <Route exact path="/" render={() => <Products />} />
         <Route path="/*" render={() => <div>Pagina no encontrada</div>} />
       </Switch>
     </div>

@@ -17,9 +17,8 @@ const Reviews = ({ productId }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(getUser()).then((foundUser) => {
-      const user = foundUser;
-      const data = { review, productId, user };
-      console.log(data);
+      const user = foundUser.payload;
+      const data = { review, productId, user};
       dispatch(writeReview(data)).then(() => history.push("/")); //despues lo cambio al historial de carritos
     });
   };
