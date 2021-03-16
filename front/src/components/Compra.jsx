@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, TextField, Container, Grid, CssBaseline } from "@material-ui/core";
 import { getCarrito, updateCarrito } from "../store/carrito";
+import { sendEmailToUser } from "../store/emails"
 import { makeStyles } from '@material-ui/core/styles';
+import axios from "axios";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -51,9 +53,14 @@ const Compra = () => {
         paymentMethod: compraData.pago,
         table: Number(compraData.mesa)
       };
-      console.log("cart", cart)
+      const emailData = {
+          email: user.email,
+          subject: `su compra por un total de $${total}, ha sido realizada.`,
+          text: "ha comprado lindo rey, esperamos volver a verle."
+      }
       dispatch(updateCarrito(cart)) //Cambia el estado del carrito actual a COMPLETED
-        .then(() => dispatch(getCarrito(user.id))); // Inmediatamente después genera un nuevo carrito.
+        .then(() => dispatch(getCarrito(user.id))) // Inmediatamente después genera un nuevo carrito.
+        .then(() => dispatch(sendEmailToUser(emailData)))
     };
     
   
