@@ -13,6 +13,17 @@ router.get('/:id', (req, res, next) => {
 	.then(product => res.send(product));
 });
 
+// Por categoria
+router.get('/category/:category', (req, res) => {
+	Product.findAll({ where: { categoryId: req.params.category}, include: Picture })
+	.then(product => res.send(product));
+});
+// Por nombre
+router.get('/name/:name', (req, res) => {
+	Product.findAll({ where: { name: req.params.name}, include: Picture  })
+	.then(product => res.send(product));
+});
+
 router.put('/:id', (req, res) => {
 	Product.findByPk(req.params.id)
 		.then(product => product.update(req.body))

@@ -20,10 +20,19 @@ export const postProducts = createAsyncThunk("POST", (products) => {
   }).then(product => product);
 });
 
+export const getProductName = createAsyncThunk("SEARCH_PRODUCT_NAME", (name) => {
+  return axios.get(`http://localhost:8000/api/product/name/${name}`).then((res) => res.data);
+});
+export const getProductByCategorie = createAsyncThunk("SEARCH_PRODUCT_CATEGORIE", (id) => {
+  return axios.get(`http://localhost:8000/api/product/category/${id}`).then((res) => res.data);
+});
+
 //verficar si hay que agregar al estado
 const productsReducer = createReducer([], {
   [getProducts.fulfilled]: (state, action) => action.payload,
   [postProducts.fulfilled]: (state, action) => [...state, action.payload],
+  [getProductName.fulfilled]: (state, action) => action.payload,
+  [getProductByCategorie.fulfilled]: (state, action) => action.payload,
 });
 
 export default productsReducer;
