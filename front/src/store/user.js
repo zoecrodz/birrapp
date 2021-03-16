@@ -28,16 +28,8 @@ export const loginUser = createAsyncThunk("LOGIN_USER", (user) => {
 
 export const getUser = createAsyncThunk("SEARCH_SINGLE_USER", () => {
   return axios
-    .get(`http://localhost:8000/api/me`, {
-      headers: { Authorization: `token ${localStorage.getItem("token")}` },
-    })
-    .then((res) => {
-      if (res.data) {
-        return res.data;
-      } else {
-        return {};
-      }
-    });
+  .get(`http://localhost:8000/api/me`, {headers: {"Authorization": `token ${localStorage.getItem("token")}`}})
+  .then((res) => res.data) 
 });
 
 export const logOutUser = createAction("SET_LOG_OUT");

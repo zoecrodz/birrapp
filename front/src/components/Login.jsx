@@ -23,12 +23,13 @@ const Login = () => {
   .then(() => dispatch(getUser()))
   .then((usuario) => {
     // pregunto por usuario y no por el estado user porque por alguna razon en este paso todavia no existe
+    
     if (usuario.payload) {
           // console.log("usuario", usuario) 
           dispatch(getCarrito(usuario.payload.id))
           return history.push("/")
     }
-  })
+  }).catch()
   }
 
   return (
