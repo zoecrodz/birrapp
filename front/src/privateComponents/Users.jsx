@@ -74,7 +74,6 @@ export default function SignUp() {
   }, [])
 
   const changeUserRole = (id) => {
-    console.log('asdasdas', id)
     axios({
       method: `put`,
       url: `http://localhost:8000/api/users/promote`,
@@ -82,8 +81,8 @@ export default function SignUp() {
         id
       }
     })
-      .then(() => dispatch(getUsers()))
-    //LO UNICO MALO ES QUE SE RE POSICIONAN LOS ELEMENTOS. ANDA A SABER PORQUE, COSA DEL DIABLO
+    .then( () => dispatch(getUsers()))
+
   }
   const deleteUser = (id) => {
     axios({

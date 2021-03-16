@@ -29,6 +29,10 @@ User.init({
         type: S.BOOLEAN,
         defaultValue: false
     },
+    active: {
+        type: S.BOOLEAN,
+        defaultValue: true,
+    },
     salt: S.STRING
 }, {sequelize: db, modelName: "user"});
 
