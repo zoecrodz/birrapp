@@ -20,7 +20,7 @@ router.get('/', (req, res) => {
 router.get('/:id', (req, res) => {
 	Product.findByPk(req.params.id, 
 		{
-			include: [Picture, Review], 
+			include: [Picture, Review, Category], 
 			where: {
 				active: true
 			} 
@@ -55,10 +55,12 @@ router.get('/category/:category', (req, res) => {
 });
 
 router.put('/:id', (req, res) => {
-	const {name, price, stock, categoryId, url, description} = req.body;
+	const {name, price, stock, categoryId, pictures, description} = req.body;
 	Product.findByPk(req.params.id)
 		.then(product => product.update({name, price, stock, categoryId, description}))
-		.then(product => res.status(201).send(product))
+		.then(()=> Pictures.findByPk(pictures[0].id))
+		.then(pic=> pic.update(pictures[0]))
+		.then(() => res.sendStatus(200))
 })
 
 router.post('/', (req, res) => {

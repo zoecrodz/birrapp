@@ -31,7 +31,7 @@ const Admin = () => {
         <Route path="/admin/categories" render={() => <Categories />} />
         <Route path="/admin/products/create" render={() => <PorductCreate />} />
         <Route path="/admin/products" render={() => <Products />} />
-        <Route path="/admin/product/edit" render={()=> <FormEditProduct />}/>
+        <Route path="/admin/product/edit/:id" render={({ match }) => <FormEditProduct productId={match.params.id} />} />
         <Route path="/admin/product/:id" render={({ match }) => <SingleProductAdmin productId={match.params.id} />} />
         <Route path="/admin/users" render={() => <Users />} />
         <Route path="/admin/*" render={() => <div>Pagina no encontrada</div>} />

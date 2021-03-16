@@ -14,7 +14,7 @@ import { useDispatch, useSelector } from "react-redux"
 import axios from "axios"
 import { useHistory } from "react-router-dom";
 import { getProduct } from "../store/singleProduct"
-
+import { getProducts } from "../store/products"
 
 
 const useStyles = makeStyles((theme) => ({
@@ -43,23 +43,23 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignUp() {
+export default function FormEditProduct({ productId }) {
   const classes = useStyles();
   const dispatch = useDispatch()
   const categories = useSelector(state => state.categories)
-  const product = useSelector(state => state.product)
+  const product = useSelector(state => state.singleProduct)
   const [editProduct, setEditProduct] = useState({})
   const history = useHistory()
-
+  
 
   useEffect(() => {
-    dispatch(getProduct())
-    dispatch(getCategories())
+    dispatch(getProduct(productId))
+      .then((producto) => setEditProduct(producto.payload))
   }, [])
 
   const handleSubmit = (id) => {
     id.preventDefault()
-    console.log("enviando producto")
+    console.log(editProduct , "enviando producto")
     axios({
       method: `put`,
       url: `http://localhost:8000/api/product/${id}`,
@@ -89,94 +89,100 @@ export default function SignUp() {
         <Typography component="h1" variant="h5">
           Edit Product
         </Typography>
-        <form className={classes.form} noValidate onSubmit={handleSubmit}>
-          <Grid container spacing={2}>
-            <Grid item xs={12} >
-              <TextField
-                name="name"
-                variant="outlined"
-                required
-                fullWidth
-                id="productName"
-                label="Product Name"
-                autoFocus
-                onChange={handleInputChange}
-              />
+        {product && product.id && (
+
+          <form className={classes.form} noValidate onSubmit={handleSubmit}>
+            <Grid container spacing={2}>
+              <Grid item xs={12} >
+                <TextField
+                  name="name"
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="productName"
+                  autoFocus
+                  defaultValue={product.name}
+                  onChange={handleInputChange}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="url"
+                  name="url"
+                  defaultValue={product.pictures[0].url}
+                  onChange={handleInputChange}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  label="Price"
+                  disabledAnimation = "true"
+                  id="precio"
+                  name="price"
+                  defaultValue={product.price}
+                  onChange={handleInputChange}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="description"
+                  name="description"
+                  defaultValue={product.description}
+                  onChange={handleInputChange}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  id="stock"
+                  name="stock"
+                  defaultValue={product.stock}
+                  onChange={handleInputChange}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  value=""
+                  id="outlined-select-currency"
+                  select
+                  required
+                  fullWidth
+                  label="Category"
+                  variant="outlined"
+                  name="categoryId"
+                  value={product.categoryId}
+                  onChange={handleInputChange}
+                >
+                  {categories.map((category) => (
+                    <MenuItem key={category.id} value={category.id}>
+                      {category.name}
+                    </MenuItem>
+                  ))}
+                </TextField>
+              </Grid>
             </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="url"
-                label="URL"
-                name="url"
-                onChange={handleInputChange}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="precio"
-                label="Price $"
-                name="price"
-                onChange={handleInputChange}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="description"
-                label="Description"
-                name="description"
-                onChange={handleInputChange}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="stock"
-                label="stock"
-                name="stock"
-                onChange={handleInputChange}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                defaultValue=""
-                id="outlined-select-currency"
-                select
-                required
-                fullWidth
-                label="Category"
-                variant="outlined"
-                name="categoryId"
-                onChange={handleInputChange}
-              >
-                {categories.map((category) => (
-                  <MenuItem key={category.id} value={category.id}>
-                    {category.name}
-                  </MenuItem>
-                ))}
-              </TextField>
-            </Grid>
-          </Grid>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-          >
-            Save & Edit
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+            >
+              Save & Edit
           </Button>
-        </form>
+          </form>
+        )}
       </div>
     </Container>
   );
