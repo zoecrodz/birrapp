@@ -26,8 +26,6 @@ router.put('/:id', (req, res) => {
 	Product.findByPk(req.params.id)
 		.then(product => product.update(req.body))
 		.then(product => res.status(201).send(product))
-	// Product.update(req.body, {where: {id: req.params.id}})
-	// .then(product => res.status(201).send(product));
 })
 
 router.post('/', (req, res) => {
