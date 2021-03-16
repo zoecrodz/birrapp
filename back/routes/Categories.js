@@ -8,6 +8,7 @@ router.get("/", (req, res) => {
 	.then(categories => res.send(categories));
 });
 
+
 router.post("/", (req, res) => {
     Category.create(req.body)
     .then(category => res.status(201).send(category))

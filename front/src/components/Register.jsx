@@ -20,10 +20,9 @@ const Register = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
     dispatch(registerUser(newUser))
-      .then(() => {
-        if(user) history.push("/login")
+      .then((usuario) => {
+        if(usuario) history.push("/login")
       })
-
   }
 
 

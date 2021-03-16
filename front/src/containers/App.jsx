@@ -9,6 +9,9 @@ import Table from "../components/Products";
 import Heading from "../components/Heading";
 import useStylesHeading from "../Styles/heading";
 import { useSelector } from "react-redux"
+import Reviews from "../components/Reviews";
+import Profile from "../components/Profile.jsx";
+import ProfileCarrito from "../components/ProfileCarrito.jsx";
 
 
 
@@ -40,8 +43,10 @@ const App = () => {
           render={({ match }) => <SingleProduct productId={match.params.id} />}
         />
         {/* para ver despues */}
-        <Route path="/carrito" render={() => <Carrito />}
-        />
+        <Route path="/review/:id" render={({ match }) => <Reviews productId={match.params.id} />}/>
+        <Route path="/carrito" render={() => <Carrito />} />
+        <Route path="/me" render={() => <Profile />} />
+        <Route path="/profileCarrito" render={() => <ProfileCarrito />} />
         <Route path="/*" render={() => <div>Pagina no encontrada</div>} />
       </Switch>
     </div>

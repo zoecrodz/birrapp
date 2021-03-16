@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../db")
-const { Product, Picture, Category } = require("../models")
+const { Product, Picture, Category, Review } = require("../models")
 
 router.get('/', (req, res) => {
 	Product.findAll({
@@ -17,8 +17,40 @@ router.get('/', (req, res) => {
 	.then(product => res.send(product));
 });
 
-router.get('/:id', (req, res, next) => {
-	Product.findByPk(req.params.id, {include: Picture, where: {active: true} })
+router.get('/:id', (req, res) => {
+	Product.findByPk(req.params.id, 
+		{
+			include: [Picture, Review], 
+			where: {
+				active: true
+			} 
+		})
+	.then(product => res.send(product));
+});
+
+// Por nombre
+router.get('/name/:name', (req, res) => {
+	Product.findAll(
+		{ 
+			where: { 
+				name: req.params.name, 
+				active: true
+			}, 
+			include: Picture  
+		})
+	.then(product => res.send(product));
+});
+
+// Por categoria
+router.get('/category/:category', (req, res) => {
+	Product.findAll(
+		{ 
+			where: { 
+				categoryId: req.params.category,
+				active: true
+			}, 
+			include: Picture 
+		})
 	.then(product => res.send(product));
 });
 
