@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Table, 
+  Table,
   Box,
   TableBody,
   TableCell,
@@ -85,6 +85,13 @@ export default function SignUp() {
       .then(() => dispatch(getUsers()))
     //LO UNICO MALO ES QUE SE RE POSICIONAN LOS ELEMENTOS. ANDA A SABER PORQUE, COSA DEL DIABLO
   }
+  const deleteUser = (id) => {
+    axios({
+      method: `delete`,
+      url: `http://localhost:8000/api/users/${id}`,
+    })
+      .then(() => dispatch(getUsers()))
+  }
 
   return (
     <TableContainer>
@@ -95,6 +102,8 @@ export default function SignUp() {
             <StyledTableCell>Apellido</StyledTableCell>
             <StyledTableCell>Email</StyledTableCell>
             <StyledTableCell>Cambiar Rol</StyledTableCell>
+            <StyledTableCell>Cambiar Vigencia</StyledTableCell>
+
           </TableRow>
         </TableHead>
         <TableBody >
@@ -116,8 +125,16 @@ export default function SignUp() {
                       color="primary"
                       onClick={() => changeUserRole(user.id)}
                     >
-                      {user.admin ? "Quitar Admin" : "Hacer Admin"}
+                      {user.admin ? "Remove Admin" : "Make Admin"}
                     </Button>
+                  </TableCell>
+                  <TableCell align="center">
+                    <Button variant="contained"
+                      color="primary"
+                      onClick={() => deleteUser(user.id)}
+                    >
+                      Delete User
+                      </Button>
                   </TableCell>
                 </TableRow>
               )
