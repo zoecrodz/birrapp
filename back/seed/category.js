@@ -1,14 +1,11 @@
 module.exports = [
   {
-    name: "Comida"
+    name: "Entradas"
   },
   {
     name: "Hamburguesas"
   },
   {
-    name: "Entradas"
-  },
-  {
-    name: "Guarnicion"
+    name: "Bebidas"
   },
 ];

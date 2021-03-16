@@ -131,7 +131,7 @@ module.exports = [
     price: 100,
     stars: 4,
     stock: 70,
-    categoryId: 2
+    categoryId: 3
     /*   "https://d2vwsr3mua7yp8.cloudfront.net/c5615cc9-0afb-400a-b510-7f3fadb3976b.jpg" */
 
   },
@@ -141,7 +141,7 @@ module.exports = [
     price: 100,
     stars: 4,
     stock: 70,
-    categoryId: 2
+    categoryId: 3
     /*   "https://d2vwsr3mua7yp8.cloudfront.net/0345361f-2d7f-4e3f-bcb8-e197c110b13d.jpg" */
 
   },
@@ -151,7 +151,7 @@ module.exports = [
     price: 100,
     stars: 4,
     stock: 70,
-    categoryId: 2
+    categoryId: 3
     /*   "https://d2vwsr3mua7yp8.cloudfront.net/e36c4ac4-8957-4b9d-b222-391b9908d37d.jpg" */
 
   },
@@ -161,7 +161,7 @@ module.exports = [
     price: 100,
     stars: 4,
     stock: 70,
-    categoryId: 2
+    categoryId: 3
     /*   "https://d2vwsr3mua7yp8.cloudfront.net/915be811-c587-4582-9450-cdfc2c0fccea.jpg" */
 
   },
@@ -171,7 +171,7 @@ module.exports = [
     price: 100,
     stars: 4,
     stock: 70,
-    categoryId: 2
+    categoryId: 3
     /*   "https://d2vwsr3mua7yp8.cloudfront.net/e324e853-376c-42df-acdd-354534f6555f.jpg" */
 
   },
@@ -181,7 +181,7 @@ module.exports = [
     price: 100,
     stars: 4,
     stock: 70,
-    categoryId: 2
+    categoryId: 3
     /*   "https://d2vwsr3mua7yp8.cloudfront.net/fd98688e-6676-4f8a-820a-14b9e06e0033_d2.jpg" */
 
   },
@@ -191,7 +191,7 @@ module.exports = [
     price: 140,
     stars: 4,
     stock: 70,
-    categoryId: 2
+    categoryId: 3
     /*   "https://d2vwsr3mua7yp8.cloudfront.net/dd5d6592-1950-4881-9309-e0e2da2c316e_d2.jpg" */
 
   },
@@ -201,7 +201,7 @@ module.exports = [
     price: 140,
     stars: 4,
     stock: 70,
-    categoryId: 2
+    categoryId: 3
     /*   "https://d2vwsr3mua7yp8.cloudfront.net/7e82825e-38fd-41b8-8165-dd7959db0d68_d2.jpg" */
 
   },
@@ -211,7 +211,7 @@ module.exports = [
     price: 140,
     stars: 4,
     stock: 70,
-    categoryId: 2
+    categoryId: 3
     /*   "https://d2vwsr3mua7yp8.cloudfront.net/bad7a1aa-1df1-4293-9bfa-2ab4e45797b0.jpg" */
 
   },
@@ -221,7 +221,7 @@ module.exports = [
     price: 140,
     stars: 4,
     stock: 70,
-    categoryId: 2
+    categoryId: 3
     /*   "https://d2vwsr3mua7yp8.cloudfront.net/a5ba8167-83b6-4e12-9765-3604eeb68c0f_d3.jpg" */
 
   },
@@ -231,7 +231,7 @@ module.exports = [
     price: 140,
     stars: 4,
     stock: 70,
-    categoryId: 2
+    categoryId: 3
     /*   "https://d2vwsr3mua7yp8.cloudfront.net/ef6c60df-379a-4fc7-8641-8ad2766b0e85_d2.jpg" */
 
   },
@@ -241,7 +241,7 @@ module.exports = [
     price: 250,
     stars: 2,
     stock: 70,
-    categoryId: 2
+    categoryId: 1
     /* https://d2vwsr3mua7yp8.cloudfront.net/88607129-da70-4137-ba89-364eae991afa_d3.jpg */
   },
   {
@@ -250,7 +250,7 @@ module.exports = [
     price: 200,
     stars: 2,
     stock: 70,
-    categoryId: 2
+    categoryId: 1
     /* https://d2vwsr3mua7yp8.cloudfront.net/a98c53ad-828a-4b34-9e0a-f17dbb49c3a3_d3.jpg */
   },
   {
@@ -259,7 +259,7 @@ module.exports = [
     price: 400,
     stars: 5,
     stock: 70,
-    categoryId: 2
+    categoryId: 1
     /* https://d2vwsr3mua7yp8.cloudfront.net/d600dc66-ee70-4458-8765-7f8ffbdf4a63_d3.jpg */
   },
   {
@@ -268,7 +268,7 @@ module.exports = [
     price: 200,
     stars: 2,
     stock: 70,
-    categoryId: 2
+    categoryId: 1
     /* https://d2vwsr3mua7yp8.cloudfront.net/df0c41f7-5522-4fa0-bda3-85475735bd35_d3.jpg */
   },
   {
@@ -277,7 +277,7 @@ module.exports = [
     price: 400,
     stars: 4,
     stock: 70,
-    categoryId: 2
+    categoryId: 1
     /* https://d2vwsr3mua7yp8.cloudfront.net/d069296c-6193-41fa-9ade-a7c05868e1c1_d3.jpg */
   },
   {//productId: 31
@@ -286,7 +286,7 @@ module.exports = [
     price: 400,
     stars: 5,
     stock: 70,
-    categoryId: 2
+    categoryId: 1
     /* https://d2vwsr3mua7yp8.cloudfront.net/7f31e916-cc1b-47a1-9ede-e2e04417b8e1_d3.jpg */
   },
 

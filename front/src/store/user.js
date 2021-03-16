@@ -27,6 +27,7 @@ export const getUser = createAsyncThunk("SEARCH_SINGLE_USER", () => {
   .get(`http://localhost:8000/api/me`, {headers: {"Authorization": `token ${localStorage.getItem("token")}`}})
   .then((res) => res.data) 
 });
+
  
 export const logOutUser = createAction("SET_LOG_OUT"); 
 
@@ -35,7 +36,7 @@ const userReducer = createReducer({}, {
     [registerUser.fulfilled]: (state, action) => action.payload,
     [loginUser.fulfilled]: (state, action) => action.payload,
     [getUser.fulfilled]: (state, action) => action.payload,
-    [logOutUser]: (state, action) => action.payload
+    [logOutUser]: (state, action) => action.payload,
   });
   
   export default userReducer;
