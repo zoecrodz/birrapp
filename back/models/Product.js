@@ -25,15 +25,7 @@ Product.init({
         validate: {
             min:0
         }
-    },
-    // stars: {
-    //     type: S.FLOAT, 
-    //     defaultValue: 0,
-    //     validate: {
-    //         max: 5, 
-    //         min: 0, 
-    //     }
-    // },
+    }
 }, {sequelize: db, modelName: "product"});
 
 
