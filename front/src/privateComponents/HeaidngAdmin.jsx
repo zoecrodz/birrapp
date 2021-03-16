@@ -13,7 +13,6 @@ import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import FastfoodIcon from '@material-ui/icons/Fastfood';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { Link } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import { logOutUser } from "../store/user"
@@ -148,20 +147,7 @@ export default function PrimarySearchAppBar() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      { user && user.id &&  (
-        <div className={classes.sectionMobile}>
-          <MenuItem>
-            <IconButton aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <ShoppingCartIcon />
-              </Badge>
-            </IconButton>
-            <Link style={{ textDecoration: 'none', color: 'inherit' }} to="/carrito">
-              <p>Carrito</p>
-            </Link>
-          </MenuItem>
-        </div>)
-      }
+      
       {user && user.id ? (
         <div>
           <MenuItem onClick={handleProfileMenuOpen}>

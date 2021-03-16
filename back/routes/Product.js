@@ -23,8 +23,6 @@ router.put('/:id', (req, res) => {
 	Product.findByPk(req.params.id)
 		.then(product => product.update(req.body))
 		.then(product => res.status(201).send(product))
-	// Product.update(req.body, {where: {id: req.params.id}})
-	// .then(product => res.status(201).send(product));
 })
 
 router.post('/', (req, res, next) => {
@@ -37,10 +35,6 @@ router.delete("/:id", (req, res) => {
         .then(product => product.destroy())
         .then(() => res.sendStatus(200))
         .catch(err => res.status(500).send(err));
-    // const id = req.params.id;
-    // Product.destroy(req.body, {where: id})
-    //       .then(() => res.sendStatus(204))
-    //       .catch(err => res.status(500).send(err));
 })
 
 module.exports = router;
