@@ -30,6 +30,7 @@ const Reviews = ({ productId }) => {
         <div>
           <label name="stars"for="stars">Evalúa el producto</label>
           <br/>
+          {/*for para estrellas*/}
           <StarRateIcon /><StarRateIcon /><StarRateIcon /><StarRateIcon /><StarRateIcon />
           <br/>
         
