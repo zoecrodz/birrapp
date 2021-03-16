@@ -6,16 +6,21 @@ import { getProducts } from "../store/products"
 import { addItemToCarrito } from "../store/items"
 import productStyles from "../Styles/products"
 import { getCarrito } from "../store/carrito";
+import InputBase from '@material-ui/core/InputBase';
+import SearchIcon from '@material-ui/icons/Search';
+import productSearchStyles from "../Styles/productSearchBar"
+import Toolbar from '@material-ui/core/Toolbar';
+
 
 
 
 const TableMaterial = () => {
     const classes = productStyles()
+    const classes2 = productSearchStyles()
     const dispatch = useDispatch()
     const products = useSelector(state => state.products)
     const carrito = useSelector((state) => state.carrito);
     const user = useSelector((state) => state.user);
-
 
     const addToCart = (productId) => {
         const itemData = {
@@ -41,14 +46,32 @@ const TableMaterial = () => {
 
     return (
         <TableContainer>
-            <Grid align = "center"> <Link to="/admin/products/create" style={{ textDecoration: 'none', color: "inherit" }}>
-                <Button
-                    align="center"
-                    variant="contained"
-                    color="primary"
-                >
-                    Create New Product
-                                </Button></Link></Grid>
+            <Grid align="center">
+                <Link to="/admin/products/create" style={{ textDecoration: 'none', color: "inherit" }}>
+                    <Button
+                        align="center"
+                        variant="contained"
+                        color="primary"
+                    >Create New Product
+                    </Button>
+                </Link>
+
+
+                <div className={classes2.search}>
+                    <div className={classes2.searchIcon}>
+                        <SearchIcon />
+                    </div>
+                    <InputBase
+                        placeholder="Search…"
+                        classes={{
+                            root: classes2.inputRoot,
+                            input: classes2.inputInput,
+                        }}
+                        inputProps={{ 'aria-label': 'search' }}
+                    />
+                </div>
+            </Grid>
+
             <Table>
                 <TableBody >
                     {products.map(product => (

@@ -1,10 +1,16 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../db")
-const { Product, Picture } = require("../models")
+const { Product, Picture, Category } = require("../models")
 
 router.get('/', (req, res) => {
-	Product.findAll({include: Picture})
+	Product.findAll({
+		include: [Picture, Category],
+		order: [
+			['categoryId', 'ASC'],
+			['id', 'ASC'] 
+		]
+	})
 	.then(product => res.send(product));
 });
 
