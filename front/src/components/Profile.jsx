@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 
 import { makeStyles } from '@material-ui/core/styles';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import { Button } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -62,7 +63,6 @@ const Profile = () => {
               <div className={classes.children}>Numero de compra: {carrito.id}</div>
               <div className={classes.children}>Metodo de pago: {carrito.paymentMethod}</div>
               <div className={classes.children}>Numero de mesa: {carrito.table}</div>
-              <div className={classes.children}>Total: {carrito.total} $</div>
               
               {carrito.products.map((item) => {
                 return (
@@ -70,13 +70,16 @@ const Profile = () => {
                     <Link
                       style={{ textDecoration: "none", color: "inherit" }}
                       to={`/product/${item.id}`}
-                    >
+                      >
+                      <Button variant="outlined" color="secondary">
                       - {item.item.qty} {item.name}
-                      <br />
+                      </Button>
                     </Link>
+                      <br />
                   </div>
                 );
               })}
+              <div className={classes.children}>Total: {carrito.total} $</div>
               </div>
               <br />
               <br />
