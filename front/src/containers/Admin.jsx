@@ -9,6 +9,7 @@ import SingleProductAdmin from "../privateComponents/SingleProductAdmin"
 import PorductCreate from "../privateComponents/ProductsCreate"
 import HeadingAdmin from "../privateComponents/HeaidngAdmin"
 import useStylesHeading from "../Styles/heading";
+import FormEditProduct from "../privateComponents/FormEditProduct"
 
 
 
@@ -30,6 +31,7 @@ const Admin = () => {
         <Route path="/admin/categories" render={() => <Categories />} />
         <Route path="/admin/products/create" render={() => <PorductCreate />} />
         <Route path="/admin/products" render={() => <Products />} />
+        <Route path="/admin/product/edit" render={()=> <FormEditProduct />}/>
         <Route path="/admin/product/:id" render={({ match }) => <SingleProductAdmin productId={match.params.id} />} />
         <Route path="/admin/users" render={() => <Users />} />
         <Route path="/admin/*" render={() => <div>Pagina no encontrada</div>} />

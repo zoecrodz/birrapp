@@ -23,14 +23,19 @@ router.get('/:id', (req, res, next) => {
 });
 
 router.put('/:id', (req, res) => {
+	const {name, price, stock, categoryId, url, description} = req.body;
 	Product.findByPk(req.params.id)
-		.then(product => product.update(req.body))
+		.then(product => product.update({name, price, stock, categoryId, description}))
 		.then(product => res.status(201).send(product))
 })
 
 router.post('/', (req, res) => {
-	Product.create(req.body)
-	.then(product => res.status(201).send(product));
+	const {name, price, stock, categoryId, url, description} = req.body;
+	Product.create({name, price, stock, categoryId, description})
+	.then(product => {
+		Picture.create({url, productId: product.id})
+			.then(() => res.status(201).send(product))
+	});
 })
 
 router.delete("/:id", (req, res) => {
