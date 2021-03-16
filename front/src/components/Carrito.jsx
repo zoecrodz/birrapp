@@ -11,6 +11,7 @@ import {
 } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getCarrito, updateCarrito } from "../store/carrito";
 // import StarRateIcon from "@material-ui/icons/StarRate";
@@ -46,18 +47,7 @@ const Cart = () => {
   const carrito = useSelector((state) => state.carrito);
   const items = useSelector((state) => state.items);
   const user = useSelector((state) => state.user);
-  const precio = [];
-  const comida = [];
-  let total;
-
-  if (carrito.items) {
-    carrito.items.map((item) => {
-      precio.push(item.item.qty >= 1 ? item.price * item.item.qty : 0);
-      comida.push(item.name);
-    });
-    total = precio.reduce((a, b) => a + b, 0);
-  }
-
+  
   useEffect(() => {
     if (user) dispatch(getCarrito(user.id));
   }, [items]);
@@ -78,15 +68,28 @@ const Cart = () => {
     return dispatch(modifyItem(itemData));
   };
 
-  const handlePayCarrito = () => {
-    const cart = {
-      state: "COMPLETED",
-      id: carrito.id,
-      total,
-    };
-    dispatch(updateCarrito(cart)) //Cambia el estado del carrito actual a COMPLETED
-      .then(() => dispatch(getCarrito(user.id))); // Inmediatamente después genera un nuevo carrito.
-  };
+
+  const precio = [];
+  const comida = [];
+  let total;
+  if (carrito.items) {
+    carrito.items.map((item) => {
+      precio.push(item.item.qty >= 1 ? item.price * item.item.qty : 0);
+      comida.push(item.name);
+    });
+    total = precio.reduce((a, b) => a + b, 0);
+  }
+  
+  // Esta logica Pasa al componente "compra.jsx" ------------------------
+  // const handlePayCarrito = () => {
+  //   const cart = {
+    //     state: "COMPLETED",
+  //     id: carrito.id,
+  //     total,
+  //   };
+  //   dispatch(updateCarrito(cart)) //Cambia el estado del carrito actual a COMPLETED
+  //     .then(() => dispatch(getCarrito(user.id))); // Inmediatamente después genera un nuevo carrito.
+  // };
 
   return (
     <>
@@ -200,14 +203,18 @@ const Cart = () => {
 
               <TableCell align="center">
                 {total + "$       "}
+                <Link
+                  style={{ textDecoration: "none", color: "inherit" }}
+                  to="/compra"
+                >
                 <Button
                   variant="contained"
                   size="small"
-                  color="#FF6633"
-                  onClick={() => handlePayCarrito()}
+                  color="primary"
                 >
                   Pagar
                 </Button>
+                </Link>
               </TableCell>
             </TableRow>
           </TableBody>

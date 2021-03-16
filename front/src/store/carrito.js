@@ -27,11 +27,11 @@ export const deleteCarrito = createAsyncThunk("DELETE_CARRITO", (id) => {
 });
 
 export const updateCarrito = createAsyncThunk("UPDATE_CARRITO", (cart) => {
-  const { state, total } = cart;
+  const { state, total, paymentMethod, table } = cart;
   return axios({
     method: "put",
     url: `http://localhost:8000/api/cart/${cart.id}`,
-    data: { state, total },
+    data: { state, total, paymentMethod, table },
   }).then(() => ({}));
   // El update no devuelve nada para setear el estado. Asi que lo seteamos vacio cuando compra.
 });
