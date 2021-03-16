@@ -21,7 +21,7 @@ const Register = () => {
     e.preventDefault()
     dispatch(registerUser(newUser))
       .then((usuario) => {
-        if(usuario) history.push("/login")
+        if(usuario) history.push("/")
       })
   }
 
