@@ -13,6 +13,7 @@ import { getCategories } from "../store/categories"
 import { useDispatch, useSelector } from "react-redux"
 import axios from "axios"
 import { useHistory } from "react-router-dom";
+import { getProduct } from "../store/singleProduct"
 
 
 
@@ -46,21 +47,23 @@ export default function SignUp() {
   const classes = useStyles();
   const dispatch = useDispatch()
   const categories = useSelector(state => state.categories)
-  const [newProduct, setNewProduct] = useState({})
+  const product = useSelector(state => state.product)
+  const [editProduct, setEditProduct] = useState({})
   const history = useHistory()
 
 
   useEffect(() => {
+    dispatch(getProduct())
     dispatch(getCategories())
   }, [])
 
-  const handleSubmit = (event) => {
-    event.preventDefault()
+  const handleSubmit = (id) => {
+    id.preventDefault()
     console.log("enviando producto")
     axios({
-      method: `post`,
-      url: `http://localhost:8000/api/product`,
-      data: newProduct
+      method: `put`,
+      url: `http://localhost:8000/api/product/${id}`,
+      data: editProduct
     })
       .then((product) => {
         console.log(product)
@@ -69,8 +72,8 @@ export default function SignUp() {
   }
 
   const handleInputChange = (event) => {
-    setNewProduct({ ...newProduct, [event.target.name]: event.target.value })
-    console.log("newProductttttt", newProduct)
+    setEditProduct({ ...editProduct, [event.target.name]: event.target.value })
+    console.log("editProductttttt", editProduct)
 
   }
 
@@ -84,7 +87,7 @@ export default function SignUp() {
           <FastfoodIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          New Product
+          Edit Product
         </Typography>
         <form className={classes.form} noValidate onSubmit={handleSubmit}>
           <Grid container spacing={2}>
@@ -171,7 +174,7 @@ export default function SignUp() {
             color="primary"
             className={classes.submit}
           >
-            Create
+            Save & Edit
           </Button>
         </form>
       </div>

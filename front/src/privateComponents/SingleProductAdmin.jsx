@@ -10,6 +10,7 @@ import productStyles from "../Styles/products"
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { TableCell, Button } from '@material-ui/core';
 import { addItemToCarrito } from "../store/items"
+import axios from "axios"
 
 
 
@@ -31,15 +32,6 @@ const SingleProduct = ({ productId }) => {
   }, [])
 
 
-  const addToCart = (productId) => {
-    const itemData = {
-      cartId: carrito.id,
-      productId,
-      qty: 1
-    }
-    return dispatch(addItemToCarrito(itemData));
-  }
-
   const printStar = (amount) => {
     let arrRteurn = []
     for (let i = 0; i < amount; i++) {
@@ -47,6 +39,8 @@ const SingleProduct = ({ productId }) => {
     }
     return arrRteurn
   }
+
+
 
 
 
@@ -82,11 +76,7 @@ const SingleProduct = ({ productId }) => {
                     >
                       Editar
                     </Button>
-                    <Button
-                      variant="contained"
-                      color="primary">
-                      Eliminar
-                    </Button>
+                    
               </Grid>
             </Grid>
             <Grid item>
