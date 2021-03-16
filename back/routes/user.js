@@ -5,7 +5,6 @@ const { User } = require("../models");
 
 //users
 router.put(`/promote`, (req, res) => {
-
     User.findByPk(Number(req.body.id))
         .then(res => res.dataValues)
         .then(user => {
@@ -15,7 +14,7 @@ router.put(`/promote`, (req, res) => {
 })
 
 router.get("/", (req, res) => {
-    User.findAll()
+    User.findAll({order: [ ['id', 'ASC'] ]})
         .then(users => res.send(users))
         .catch(err => console.log(err));
 })
