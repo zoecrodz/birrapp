@@ -8,8 +8,7 @@ import singleProductReducer from "./singleProduct";
 import usersReducer from "./users";
 import picturesReducer from "./pictures";
 import userReducer from "./user";
-import carritosProfileReducer from "./carritosProfile";
-import carritoProfileReducer from "./carritoProfile";
+import carritosProfileReducer from "./carritosProfile"
 
 const store = configureStore({
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
@@ -23,7 +22,6 @@ const store = configureStore({
     pictures: picturesReducer,
     user: userReducer,
     carritosProfile: carritosProfileReducer,
-    // carritoProfile: carritoProfileReducer,
   },
 });
 export default store;

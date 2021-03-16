@@ -7,6 +7,10 @@ router.get("/", (req, res) => {
     Category.findAll()
 	.then(categorias => res.send(categorias));
 })
+// router.get("/:category", (req, res) => {
+//     Category.findOne({ where: { name: req.params.category}})
+// 	.then(categorias => res.send(categorias));
+// })
 router.post("/", (req, res) => {
     Category.create(req.body)
     .then(categoria => res.status(201).send(categoria))

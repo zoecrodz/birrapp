@@ -14,10 +14,12 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import FastfoodIcon from "@material-ui/icons/Fastfood";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+import Button from "@material-ui/core/Button"
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logOutUser } from "../store/user";
 import { useHistory } from "react-router-dom";
+import { getProductName, getProducts } from "../store/products"
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -93,6 +95,16 @@ export default function PrimarySearchAppBar() {
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
   const user = useSelector((state) => state.user);
+
+
+  // SEARCH logica
+  const products = useSelector(state => state.products)
+  const [name, setName] = React.useState("")
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    return dispatch(getProductName(name))
+  }
+
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -216,16 +228,22 @@ export default function PrimarySearchAppBar() {
       <AppBar position="fixed">
         <Toolbar>
           <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
-            <Typography className={classes.title} variant="h6" noWrap>
-              <FastfoodIcon />
-              BIRRAPP
-            </Typography>
+            <Button variant="contained" color="primary"
+              onClick={() => dispatch(getProducts())}
+            >
+                <Typography className={classes.title} variant="h6" noWrap>
+                  <FastfoodIcon />
+                  BIRRAPP
+                </Typography>
+            </Button>
           </Link>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
             </div>
+            <form onSubmit={(e) => handleSubmit(e)}>
             <InputBase
+              onChange = {(e) => setName(e.target.value)} value = {name} type="text" name="movies"
               placeholder="Search…"
               classes={{
                 root: classes.inputRoot,
@@ -233,6 +251,8 @@ export default function PrimarySearchAppBar() {
               }}
               inputProps={{ "aria-label": "search" }}
             />
+            <Button variant="contained" color="primary" type="submit">Search</Button>
+            </form>
           </div>
           <div className={classes.grow} />
 
