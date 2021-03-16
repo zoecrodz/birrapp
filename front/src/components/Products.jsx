@@ -1,12 +1,13 @@
-import { Table, TableBody, TableCell, TableContainer, Box, TableRow, Button, Typography } from '@material-ui/core';
+import { Table, TableBody, TableCell, TableContainer, Box, TableRow, Button, Typography, AppBar } from '@material-ui/core';
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
-import { getProducts } from "../store/products"
+import { getProducts, getProductByCategorie } from "../store/products"
 import { addItemToCarrito } from "../store/items"
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import productStyles from "../Styles/products"
 import { getCarrito } from "../store/carrito";
+import { getCategories } from "../store/categories"
 
 
 
@@ -16,7 +17,8 @@ const TableMaterial = () => {
     const products = useSelector(state => state.products)
     const carrito = useSelector((state) => state.carrito);
     const user = useSelector((state) => state.user);
-    
+    const categories = useSelector(state => state.categories)
+
 
     const addToCart = (productId) => {
         const itemData = {
@@ -27,21 +29,18 @@ const TableMaterial = () => {
         return dispatch(addItemToCarrito(itemData));
     }
 
-    // const handleItem = (item, operation) => {
-    //     const itemData = {
-    //       cartId: carrito.id,
-    //       productId: item.id,
-    //       operation
-    //     }
-    //     return dispatch(modifyItem(itemData));
-    //   };
-
     useEffect(() => {
         dispatch(getProducts())
+        .then(dispatch(getCategories()))
     }, [])
 
     return (
         <TableContainer>
+            { categories && categories.map(categorie => {
+                return <Button onClick={() => dispatch(getProductByCategorie(categorie.id))}>{categorie.name}</Button>
+            })
+            }
+            
             <Table>
                 <TableBody >
                     {products.map(product => (
