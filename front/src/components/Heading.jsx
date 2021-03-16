@@ -154,6 +154,7 @@ export default function PrimarySearchAppBar() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
+
       {user && user.id && (
         <div className={classes.sectionMobile}>
           <MenuItem>
@@ -314,6 +315,7 @@ export default function PrimarySearchAppBar() {
                 <p>Log out</p>
               </IconButton>
             </div>
+
           ) : (
             <div className={classes.sectionDesktop}>
               <Link

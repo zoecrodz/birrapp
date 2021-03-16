@@ -8,6 +8,7 @@ import Carrito from "../components/Carrito.jsx";
 import Products from "../components/Products.jsx";
 import useStyles from "../Styles/app";
 import Table from "../components/Products";
+import Reviews from "../components/Reviews";
 import Profile from "../components/Profile.jsx";
 import ProfileCarrito from "../components/ProfileCarrito.jsx";
 
@@ -36,6 +37,7 @@ const App = () => {
           render={({ match }) => <SingleProduct productId={match.params.id} />}
         />
         {/* para ver despues */}
+        <Route path="/review/:id" render={({ match }) => <Reviews productId={match.params.id} />}/>
         <Route path="/carrito" render={() => <Carrito />} />
         <Route path="/me" render={() => <Profile />} />
         <Route path="/profileCarrito" render={() => <ProfileCarrito />} />

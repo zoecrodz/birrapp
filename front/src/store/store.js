@@ -7,6 +7,7 @@ import productsReducer from "./products";
 import singleProductReducer from "./singleProduct";
 import usersReducer from "./users";
 import picturesReducer from "./pictures";
+import reviewReducer from "./review"
 import userReducer from "./user";
 import carritosProfileReducer from "./carritosProfile"
 
@@ -21,6 +22,7 @@ const store = configureStore({
     singleProduct: singleProductReducer,
     pictures: picturesReducer,
     user: userReducer,
+    review: reviewReducer,
     carritosProfile: carritosProfileReducer,
   },
 });
