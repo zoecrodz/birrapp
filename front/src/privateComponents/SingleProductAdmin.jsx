@@ -7,16 +7,8 @@ import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import StarRateIcon from '@material-ui/icons/StarRate';
 import productStyles from "../Styles/products"
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import { TableCell, Button } from '@material-ui/core';
-import { addItemToCarrito } from "../store/items"
-import axios from "axios"
-
-
 
 // - visual de cada item: (imagen del producto, descripcion del producto, precio, reviews, y valoracion)
-
-
 
 
 const SingleProduct = ({ productId }) => {
@@ -41,9 +33,6 @@ const SingleProduct = ({ productId }) => {
   }
 
 
-
-
-
   return (
     <div className={classes.root}>
       <Grid>
@@ -52,8 +41,14 @@ const SingleProduct = ({ productId }) => {
         <Grid container spacing={2}>
           <Grid item>
             <ButtonBase className={classes.image}>
-              <img src={product.pictures && product.pictures[0].url} width="128" height="128" margin='auto'
-                display='block' maxWidth='100%' maxHeight='100%' className={classes.image} />
+              <img src={product.url}
+                width="128"
+                height="128"
+                margin='auto'
+                display='block'
+                maxWidth='100%'
+                maxHeight='100%'
+                className={classes.image} />
             </ButtonBase>
           </Grid>
           <Grid item xs={12} sm container>
@@ -68,15 +63,6 @@ const SingleProduct = ({ productId }) => {
                 <Typography variant="body2" color="textSecondary">
                   {printStar(product.stars)}
                 </Typography>
-              </Grid>
-              <Grid item>
-                    <Button
-                      variant="contained"
-                      color="primary"
-                    >
-                      Editar
-                    </Button>
-                    
               </Grid>
             </Grid>
             <Grid item>

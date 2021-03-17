@@ -45,7 +45,7 @@ const TableMaterial = () => {
                 <TableBody >
                     {products.map(product => (
                         <TableRow key={product.id}>
-                            <TableCell><Link to={`/product/${product.id}`}><img src={product.pictures && product.pictures[0].url}
+                            <TableCell><Link to={`/product/${product.id}`}><img src={product.url}
                                 width="128" height="128" margin='auto'
                                 display='block' maxWidth='100%' maxHeight='100%' className={classes.image}
 
