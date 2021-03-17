@@ -11,6 +11,7 @@ import { useSelector } from "react-redux"
 import Reviews from "../components/Reviews";
 import Profile from "../components/Profile.jsx";
 import ProfileCarrito from "../components/ProfileCarrito.jsx";
+import Compra from "../components/Compra.jsx";
 
 
 
@@ -42,6 +43,7 @@ const App = () => {
         {/* para ver despues */}
         <Route path="/review/:id" render={({ match }) => <Reviews productId={match.params.id} />}/>
         <Route path="/carrito" render={() => <Carrito />} />
+        <Route path="/compra" render={() => <Compra />} />
         <Route path="/me" render={() => <Profile />} />
         <Route path="/profileCarrito" render={() => <ProfileCarrito />} />
         <Route exact path="/" render={() => <Products />} />
