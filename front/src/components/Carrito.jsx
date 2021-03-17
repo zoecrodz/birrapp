@@ -47,7 +47,7 @@ const Cart = () => {
   const carrito = useSelector((state) => state.carrito);
   const items = useSelector((state) => state.items);
   const user = useSelector((state) => state.user);
-  
+  // console.log("carrito", carrito);
   useEffect(() => {
     if (user) dispatch(getCarrito(user.id));
   }, [items]);
@@ -68,7 +68,6 @@ const Cart = () => {
     return dispatch(modifyItem(itemData));
   };
 
-
   const precio = [];
   const comida = [];
   let total;
@@ -79,7 +78,6 @@ const Cart = () => {
     });
     total = precio.reduce((a, b) => a + b, 0);
   }
-  
 
   return (
     <>
@@ -91,7 +89,7 @@ const Cart = () => {
                   <TableRow key={item.id}>
                     <TableCell>
                       <img
-                        src={""}
+                        src={item.img.url}
                         width="128"
                         height="128"
                         margin="auto"
@@ -197,13 +195,9 @@ const Cart = () => {
                   style={{ textDecoration: "none", color: "inherit" }}
                   to="/compra"
                 >
-                <Button
-                  variant="contained"
-                  size="small"
-                  color="primary"
-                >
-                  Pagar
-                </Button>
+                  <Button variant="contained" size="small" color="primary">
+                    Pagar
+                  </Button>
                 </Link>
               </TableCell>
             </TableRow>

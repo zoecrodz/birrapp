@@ -17,6 +17,7 @@ router.get("/", (req, res, next) => {
 
 router.get("/:userId", (req, res, next) => {
   let carrito;
+  let productos;
   let userId = req.params.userId;
   Cart.findOne({ where: { userId, state: "PENDING" } })
     .then((cart) => {
@@ -35,8 +36,19 @@ router.get("/:userId", (req, res, next) => {
       return cart.getProducts();
     })
     .then((children) => {
-      children.map(() => {});
-      res.send({ ...carrito, items: children });
+      productos = children;
+      let promises = children.map((item) => {
+        return item.getPictures().then((pictures) => pictures[0].dataValues);
+      });
+      return Promise.all(promises);
+    })
+    .then((imgs) => {
+      let productWithImages = productos.map((producto, index) => {
+        return { ...producto.dataValues, img: imgs[index] };
+      });
+      console.log();
+      console.log(productWithImages);
+      res.send({ ...carrito, items: productWithImages });
     })
     .catch(next);
 });
