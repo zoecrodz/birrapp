@@ -102,7 +102,8 @@ export default function PrimarySearchAppBar() {
   const handleChange = (e) => {
     setName(e.target.value);
     const mayuscula = name.toUpperCase();
-    dispatch(getProductName(mayuscula));
+    if(mayuscula.length > 1) dispatch(getProductName(mayuscula));
+    else dispatch(getProducts());
   };
 
   const handleProfileMenuOpen = (event) => {

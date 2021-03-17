@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom"
+import { Link, useHistory } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux";
 import { Button, ButtonGroup, Container, Grid } from "@material-ui/core";
 import { getCarrito, updateCarrito } from "../store/carrito";
@@ -24,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Compra = () => {
+  const history = useHistory()
   const dispatch = useDispatch();
   const classes = useStyles();
   const carrito = useSelector((state) => state.carrito);
@@ -59,6 +60,7 @@ const Compra = () => {
       dispatch(updateCarrito(cart)) //Cambia el estado del carrito actual a COMPLETED
         .then(() => dispatch(getCarrito(user.id))) // Inmediatamente después genera un nuevo carrito.
         .then(() => dispatch(sendEmailToUser(emailData))) // Y le envio un mail al usuario avisandole de la compra
+      history.push('/');
     };
     
   
