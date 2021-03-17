@@ -13,7 +13,7 @@ import { withStyles } from "@material-ui/core/styles";
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getCarrito, updateCarrito } from "../store/carrito";
+import { getCarrito } from "../store/carrito";
 // import StarRateIcon from "@material-ui/icons/StarRate";
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
@@ -91,7 +91,7 @@ const Cart = () => {
                   <TableRow key={item.id}>
                     <TableCell>
                       <img
-                        src={""}
+                        src={item.url}
                         width="128"
                         height="128"
                         margin="auto"

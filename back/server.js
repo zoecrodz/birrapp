@@ -51,7 +51,7 @@ app.post("/send-email", (req, res) => {
       res.status(200).json(req.body)
     }
   })
-
+  
 })
 
 sequelize.sync({ force: false }).then(() => {

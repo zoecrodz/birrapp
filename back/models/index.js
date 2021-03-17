@@ -1,14 +1,9 @@
 const User = require("./User");
 const Category = require("./Category");
-const Picture = require("./Picture");
 const Product = require("./Product");
 const Item = require("./Item");
 const Cart = require("./Cart");
-const Review = require("./Review")
-
-
-Picture.belongsTo(Product);
-Product.hasMany(Picture);
+const Review = require("./Review");
 
 Product.belongsTo(Category);
 Category.hasMany(Product);
@@ -32,7 +27,6 @@ module.exports = {
     Cart, 
     Category, 
     Item, 
-    Picture, 
     Product, 
     Review
 }

@@ -48,97 +48,103 @@ const SingleProduct = ({ productId }) => {
     return arrRteurn
   }
 
-  const averageRating=()=> {
-    let sumaFinal=0
-    const promedio=[]
-  
-    reviews && reviews.map((e)=>promedio.push(e.stars))
+  const averageRating = () => {
+    let sumaFinal = 0;
+    const promedio = [];
 
-    for (let i=0; i<promedio.length; i++) {
-      sumaFinal=sumaFinal +promedio[i]
-      }
-    return (Math.round(sumaFinal/promedio.length))
+    reviews && reviews.map((e) => promedio.push(e.stars))
+
+    for (let i = 0; i < promedio.length; i++) {
+      sumaFinal = sumaFinal + promedio[i];
+    }
+    return Math.round(sumaFinal / promedio.length);
   }
 
- 
+
 
   return (
-      <div className={classes.root}>
-        <Paper className={classes.paper}>
-          <Grid container spacing={2}>
-            <Grid item>
-              <ButtonBase className={classes.image}>
-                <img src={product.pictures && product.pictures[0].url} width="128" height="128" margin='auto'
-                  display='block' maxWidth='100%' maxHeight='100%' className={classes.image} />
-              </ButtonBase>
-            </Grid>
-            <Grid item xs={12} sm container>
-              <Grid item xs container direction="column" spacing={2}>
-                <Grid item xs>
-                  <Typography gutterBottom variant="subtitle1">
-                    {product.name}
-                  </Typography>
-                  <Typography variant="body2" gutterBottom>
-                    Descripción: {product.description}
-                  </Typography>
-                  <Typography variant="body2" color="textSecondary">
-                   {printStar((averageRating()))}           
-                   </Typography>
-                </Grid>
-                <Grid item>
-                  <TableCell align="center">
-                    {localStorage.getItem("token") ? <Button
-                      variant="contained"
-                      color="primary"
-                      onClick={() => addToCart(product.id)}
-                    >
-                      Agregar  <ShoppingCartIcon />
-                    </Button> : <Button
-                      variant="contained"
-                      color="primary"
-                      disabled="true">
-                      Agregar  <ShoppingCartIcon />
-                    </Button>}
-
-                  </TableCell>
-
-                  <Grid>
-                   <Typography variant="h6" gutterBottom>
-                    Reviews:
-                    </Typography> 
-                    <TableCell>
-                    {reviews && reviews.map(review => (
-                      <Typography variant="h6" align="left">
-                      <Typography variant="body2" color="textSecondary">
-                      {printStar(review.stars)}
-                    </Typography>
-                        {review.title}
-                        <br/>
-                        <Typography variant="body2" align="left">
-                        "{review.description}"
-                        <br/>
-                        <br/>
-                        </Typography>
-                        </Typography>
-                                    ))}
-                    </TableCell> 
-                 
-                  </Grid>
-
-                </Grid>
-                
-
+    <div className={classes.root}>
+      <Paper className={classes.paper}>
+        <Grid container spacing={2}>
+          <Grid item>
+            <ButtonBase className={classes.image}>
+              <img src={product.url}
+                width="128"
+                height="128"
+                margin='auto'
+                display='block'
+                maxWidth='100%'
+                maxHeight='100%'
+                className={classes.image} />
+            </ButtonBase>
+          </Grid>
+          <Grid item xs={12} sm container>
+            <Grid item xs container direction="column" spacing={2}>
+              <Grid item xs>
+                <Typography gutterBottom variant="subtitle1">
+                  {product.name}
+                </Typography>
+                <Typography variant="body2" gutterBottom>
+                  Descripción: {product.description}
+                </Typography>
+                <Typography variant="body2" color="textSecondary">
+                  {printStar((averageRating()))}
+                </Typography>
               </Grid>
               <Grid item>
-                <Typography variant="subtitle1">Precio: ${product.price}</Typography>
+                <TableCell align="center">
+                  {localStorage.getItem("token") ? <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={() => addToCart(product.id)}
+                  >
+                    Agregar  <ShoppingCartIcon />
+                  </Button> : <Button
+                    variant="contained"
+                    color="primary"
+                    disabled="true">
+                    Agregar  <ShoppingCartIcon />
+                  </Button>}
+
+                </TableCell>
+
+                <Grid>
+                  <Typography variant="h6" gutterBottom>
+                    Reviews:
+                    </Typography>
+                  <TableCell>
+                    {reviews && reviews.map(review => (
+                      <Typography variant="h6" align="left">
+                        <Typography variant="body2" color="textSecondary">
+                          {printStar(review.stars)}
+                        </Typography>
+                        {review.title}
+                        <br />
+                        <Typography variant="body2" align="left">
+                          "{review.description}"
+                        <br />
+                          <br />
+                        </Typography>
+                      </Typography>
+                    ))}
+                  </TableCell>
+
+                </Grid>
+
               </Grid>
+
+
+            </Grid>
+            <Grid item>
+              <Typography variant="subtitle1">Precio: ${product.price}</Typography>
             </Grid>
           </Grid>
-        </Paper>
-      </div>
-    )
-  };
-  export default SingleProduct;
+        </Grid>
+      </Paper>
+    </div>
+  )
+};
+export default SingleProduct;
 
 
 

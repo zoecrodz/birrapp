@@ -104,7 +104,7 @@ export default function FormEditProduct({ productId }) {
                 id="url"
                 name="url"
                 label="Picture URL"
-                value={editProduct.pictures && editProduct.pictures[0].url}
+                value={editProduct.url}
                 onChange={handleInputChange}
               />
             </Grid>
