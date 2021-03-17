@@ -80,16 +80,6 @@ const Cart = () => {
     total = precio.reduce((a, b) => a + b, 0);
   }
   
-  // Esta logica Pasa al componente "compra.jsx" ------------------------
-  // const handlePayCarrito = () => {
-  //   const cart = {
-    //     state: "COMPLETED",
-  //     id: carrito.id,
-  //     total,
-  //   };
-  //   dispatch(updateCarrito(cart)) //Cambia el estado del carrito actual a COMPLETED
-  //     .then(() => dispatch(getCarrito(user.id))); // Inmediatamente después genera un nuevo carrito.
-  // };
 
   return (
     <>

@@ -24,18 +24,20 @@ app.use("/api", authAPI);
 // envio de emails
 app.post("/send-email", (req, res) => {
 
+  let admin = "pablo.munaretto@gmail.com"
+
   let transporter = nodemailer.createTransport({
-    host: "smtp.ethereal.email",
-    post: 587,
-    secure: false,
+    host: "smtp.gmail.com",
+    post: 465,
+    secure: true,
     auth: {
-      user: "amani.koelpin77@ethereal.email",
-      pass: "n3C1B8kn4VAz9WTynr"
+      user: admin, // mail del bar de donde se envian los mails
+      pass: "lszfmieviiiewtmg" // pass de gmail de google 
     } 
   })
 
   let mailOptions = {
-    from: "Remitente",
+    from: admin,
     to: req.body.email,
     subject: req.body.subject,
     text: req.body.text,

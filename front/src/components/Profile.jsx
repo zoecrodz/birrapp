@@ -24,7 +24,8 @@ const useStyles = makeStyles(theme => ({
         margin: "20px",
         backgroundColor: "#A41313",
         borderRadius: "20px",
-        color: "white"
+        color: "white",
+        fontSize: "120%"
       },
       cuadro: {
         padding: "20px",
@@ -79,7 +80,7 @@ const Profile = () => {
                   </div>
                 );
               })}
-              <div className={classes.children}>Total: {carrito.total} $</div>
+              <div className={classes.children}>Total: ${carrito.total}</div>
               </div>
               <br />
               <br />

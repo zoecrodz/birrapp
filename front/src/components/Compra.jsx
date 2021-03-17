@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux";
-import { Button, TextField, Container, Grid, CssBaseline } from "@material-ui/core";
+import { Button, ButtonGroup, Container, Grid } from "@material-ui/core";
 import { getCarrito, updateCarrito } from "../store/carrito";
 import { sendEmailToUser } from "../store/emails"
 import { makeStyles } from '@material-ui/core/styles';
-import axios from "axios";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -53,14 +53,12 @@ const Compra = () => {
         paymentMethod: compraData.pago,
         table: Number(compraData.mesa)
       };
-      const emailData = {
-          email: user.email,
-          subject: `su compra por un total de $${total}, ha sido realizada.`,
-          text: "ha comprado lindo rey, esperamos volver a verle."
-      }
+      let subject = `Birrap - Gran compra, Rey` 
+      let text = `Su compra por un total de $${total}, ha sido realizada. Has comprado lindo ${user.firstName} ${user.lastName}.. esperamos volver a verte.`
+      const emailData = { email: user.email, subject, text }
       dispatch(updateCarrito(cart)) //Cambia el estado del carrito actual a COMPLETED
         .then(() => dispatch(getCarrito(user.id))) // Inmediatamente después genera un nuevo carrito.
-        .then(() => dispatch(sendEmailToUser(emailData)))
+        .then(() => dispatch(sendEmailToUser(emailData))) // Y le envio un mail al usuario avisandole de la compra
     };
     
   
@@ -70,36 +68,46 @@ const Compra = () => {
         <form noValidate onSubmit={e => handlePayCarrito(e)}>
             
         <Grid container spacing={2} className={classes.form}>
-            <Grid item xs={12} className={classes.hijos} >
-                <TextField
-                    name="pago"
-                    variant="outlined"
-                    required
-                    fullWidth
-                    id="paymentMethod"
-                    label="Método de pago"
-                    autoFocus
-                    onChange={handleChange}
-                />
+            <Grid item xs={12} >
+                <select className={classes.form} name="pago" size="1" onChange={handleChange}>
+                    <option value="Efectivo">Efectivo</option>
+                    <option value="Tarjeta de crédito">Tarjeta de crédito</option>
+                    <option value="Tarjeta de debito">Tarjeta de debito</option>
+                    <option value="Mercado Pago">Mercado Pago</option>
+                    <option value="Pablito Tokens">Pablito Tokens</option>
+                </select>
                     </Grid>
-            <Grid item xs={12} className={classes.hijos} >
-                <label>Nº de mesa: 
-                <input type="number"
-                    name="mesa"
-                    onChange={handleChange}
-                />
+            <Grid item xs={12} className={classes.form}  >
+                <label >Nº de mesa: 
+                    <input type="number"
+                        name="mesa"
+                        onChange={handleChange}
+                    />
                 </label>
             </Grid>
-            <Grid item xs={12} className={classes.hijos} >
-                <Button
-                    variant="contained"
-                    size="small"
-                    color="primary"
-                    type="submit"
-                >
-                    Pagar
-                </Button>
+            <Grid item xs={12} className={classes.form} >
+            <ButtonGroup variant="text" aria-label="contained primary button group" size="small">
+                    <Button
+                        variant="outlined"
+                        size="small"
+                        color="primary"
+                        type="submit"
+                    >
+                        Confirmar compra
+                    </Button>
+                <Link style={{ textDecoration: "none", color: "inherit" }}
+                to="/carrito">
+                    <Button
+                        variant="outlined"
+                        size="small"
+                        color="primary"
+                    >
+                        Volver al carrito
+                    </Button>
+                </Link>
+                </ButtonGroup>
             </Grid>
+            
         </Grid>
         
       </form>
