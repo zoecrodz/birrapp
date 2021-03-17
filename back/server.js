@@ -1,4 +1,4 @@
-const nodemailer = require("nodemailer") // Libreria para enviar emails
+const nodemailer = require("nodemailer"); // Libreria para enviar emails
 const express = require("express");
 const app = express();
 const sequelize = require("./db");
@@ -23,8 +23,7 @@ app.use("/api", authAPI);
 
 // envio de emails
 app.post("/send-email", (req, res) => {
-
-  let admin = "pablo.munaretto@gmail.com"
+  let admin = "pablo.munaretto@gmail.com";
 
   let transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
@@ -32,27 +31,26 @@ app.post("/send-email", (req, res) => {
     secure: true,
     auth: {
       user: admin, // mail del bar de donde se envian los mails
-      pass: "lszfmieviiiewtmg" // pass de gmail de google 
-    } 
-  })
+      pass: "lszfmieviiiewtmg", // pass de gmail de google
+    },
+  });
 
   let mailOptions = {
     from: admin,
     to: req.body.email,
     subject: req.body.subject,
     text: req.body.text,
-  }
+  };
 
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
-      res.status(500).send(error.message)
+      res.status(500).send(error.message);
     } else {
-      console.log("email enviado")
-      res.status(200).json(req.body)
+      console.log("email enviado");
+      res.status(200).json(req.body);
     }
-  })
-
-})
+  });
+});
 
 sequelize.sync({ force: false }).then(() => {
   app.listen(config.port, () => {

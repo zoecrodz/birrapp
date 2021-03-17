@@ -46,8 +46,6 @@ router.get("/:userId", (req, res, next) => {
       let productWithImages = productos.map((producto, index) => {
         return { ...producto.dataValues, img: imgs[index] };
       });
-      console.log();
-      console.log(productWithImages);
       res.send({ ...carrito, items: productWithImages });
     })
     .catch(next);
