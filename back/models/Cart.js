@@ -18,10 +18,10 @@ Cart.init(
       },
     },
     state: {
-        type: S.STRING,
-        defaultValue: "PENDING", 
-        //enum "PENDING"--> "WAITING" --> "COMPLETED" 
-        //                            --> "REJECTED"
+      type: S.ENUM({
+        values: ["PENDING", "WAITING", "COMPLETED", "REJECTED"],
+      }),
+      defaultValue: "PENDING",
     },
     total: {
       type: S.INTEGER,
