@@ -1,12 +1,53 @@
 import React, { useState } from "react";
-import { FormControl, InputLabel, Input, Button } from "@material-ui/core";
+import {
+  Container,
+  makeStyles,
+  CssBaseline,
+  FormControl,
+  InputLabel,
+  Input,
+  Button,
+  Avatar,
+  Typography,
+  Grid,
+  TextField,
+  NativeSelect
+} from "@material-ui/core";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { writeReview } from "../store/review";
 import { getUser } from "../store/user";
-import StarRateIcon from '@material-ui/icons/StarRate';
+import StarRateIcon from "@material-ui/icons/StarRate";
+import FastfoodIcon from "@material-ui/icons/Fastfood";
+
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    marginTop: theme.spacing(8),
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main,
+  },
+  form: {
+    width: "100%", // Fix IE 11 issue.
+    marginTop: theme.spacing(3),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+  root: {
+    "& .MuiTextField-root": {
+      margin: theme.spacing(1),
+      width: "25ch",
+    },
+  },
+}));
 
 const Reviews = ({ productId }) => {
+  const classes = useStyles();
   const history = useHistory();
   const dispatch = useDispatch();
   const [review, setReview] = useState({});
@@ -18,58 +59,93 @@ const Reviews = ({ productId }) => {
     e.preventDefault();
     dispatch(getUser()).then((foundUser) => {
       const user = foundUser.payload;
-      const data = { review, productId, user};
-      dispatch(writeReview(data)).then(() => history.push("/")); //despues lo cambio al historial de carritos
+      const data = { review, productId, user };
+      dispatch(writeReview(data)).then(() => history.push("/me"));
     });
   };
 
-  return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label name="stars"for="stars">Evalúa el producto</label>
-          <br/>
-          {/*for para estrellas*/}
-          <StarRateIcon /><StarRateIcon /><StarRateIcon /><StarRateIcon /><StarRateIcon />
-          <br/>
-        
+  const printStar = (amount) => {
+    let arrRteurn = [];
+    for (let i = 0; i < amount; i++) {
+      arrRteurn.push(<StarRateIcon />);
+    }
+    return arrRteurn;
+  };
 
-          <select name="stars" value={review.stars}  size="1" onChange={handleChange}>
-            <option value="1">1 estrella </option>
-            <option value="2">2 estrellas</option>
-            <option value="3">3 estrellas</option>
-            <option value="4">4 estrellas</option>
-            <option value="5">5 estrellas</option>
-          </select>
-          <br />
-          <br />
-          <span>Titulo</span>
-          <br />
-          <input
-            name="title"
-            type="text"
-            required
-            placeholder=""
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <span>Descripción</span>
-          <br />
-          <input
-            name="description"
-            type="text"
-            required
-            placeholder=""
-            onChange={handleChange}
-          />
-        </div>
-        <div>
-          <br />
-          <button type="submit">Enviar</button>
-        </div>
-      </form>
-    </div>
+  return (
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
+      <div className={classes.paper}>
+        <Avatar className={classes.avatar}>
+          <FastfoodIcon />
+        </Avatar>
+        <form onSubmit={handleSubmit} className={classes.form}>
+        <Grid container spacing={2}>
+        <Grid item xs={12} >
+            <Typography component="h1" variant="h5">
+              <label name="stars" for="stars">
+                Evalúa el producto
+              </label>
+            </Typography>
+            </Grid>
+            <br />
+            
+            {printStar(review.stars)}
+            <br />
+            <Grid item xs={12} >
+            <NativeSelect id="select"
+            fullWidth
+              name="stars"
+              value={review.stars}
+              size="1"
+              required
+              onChange={handleChange}
+            >
+              <option> </option>
+              <option value="1">1 estrella </option>
+              <option value="2">2 estrellas</option>
+              <option value="3">3 estrellas</option>
+              <option value="4">4 estrellas</option>
+              <option value="5">5 estrellas</option>
+            </NativeSelect>
+            </Grid>
+            <br />
+            <br />
+            <Grid item xs={12} >
+            <span>Titulo</span>
+            <br />
+            <TextField
+              name="title"
+              type="text"
+              fullWidth
+              required
+              placeholder=""
+              onChange={handleChange}
+            />
+            </Grid>
+            <Grid item xs={12} >
+            <span>Descripción</span>
+            <br />
+            <TextField
+              name="description"
+              type="text"
+              required
+              fullWidth
+              placeholder=""
+              onChange={handleChange}
+            />
+            </Grid>
+            </Grid>
+          <div>
+            <br />
+            <Button fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submit} type="submit">Enviar</Button>
+          </div>
+        </form>
+      </div>
+    </Container>
   );
 };
 
