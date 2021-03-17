@@ -25,6 +25,7 @@ const TableMaterial = () => {
     const user = useSelector((state) => state.user);
 
     const deleteProduct = (id) => {
+        console.log(`el Id es :`, id)
         axios({
             method: `delete`,
             url: `http://localhost:8000/api/product/${id}`,

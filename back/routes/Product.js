@@ -56,16 +56,18 @@ router.get('/category/:category', (req, res) => {
 
 router.put('/:id', (req, res) => {
 	const {name, price, stock, categoryId, pictures, description} = req.body;
+	const nameNormalized = name.toUpperCase()
 	Product.findByPk(req.params.id)
-		.then(product => product.update({name, price, stock, categoryId, description}))
-		.then(()=> Pictures.findByPk(pictures[0].id))
+		.then(product => product.update({name: nameNormalized, price, stock, categoryId, description}))
+		.then(()=> Picture.findByPk(pictures[0].id))
 		.then(pic=> pic.update(pictures[0]))
-		.then(() => res.sendStatus(200))
+		.then(() => res.sendStatus(200));
 })
 
 router.post('/', (req, res) => {
 	const {name, price, stock, categoryId, url, description} = req.body;
-	Product.create({name, price, stock, categoryId, description})
+	const nameNormalized = name.toUpperCase()
+	Product.create({name: nameNormalized, price, stock, categoryId, description})
 	.then(product => {
 		Picture.create({url, productId: product.id})
 			.then(() => res.status(201).send(product))
