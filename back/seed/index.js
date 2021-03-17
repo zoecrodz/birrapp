@@ -1,11 +1,10 @@
-const { User, Cart, Category, Item, Picture, Product, Review } = require("../models");
+const { User, Cart, Category, Item, Product, Review } = require("../models");
 const userArray = require("./user");
 const productArray = require("./product");
 const categoryArray = require("./category");
 const reviewArray = require("./review");
 const itemArray = require("./item");
 const cartArray = require("./cart");
-const pictureArray = require("./picture");
 
 /** Al crear una tabla que contiene un FK. El método bulkCreate revisa que 
  *  dicho id exista en la tabla a la cual quiero relacionar. Por ende se debe
@@ -19,12 +18,10 @@ const pictureArray = require("./picture");
  *    3-Cart
  *    4-Product
  * 
- *    5-Picture
- *    6-Review
- *    7-Items
+ *    5-Review
+ *    6-Items
  *  *El orden no necesariamente debe ser este pero un orden posible.
  */
-
 
 let userPromise = () => User.bulkCreate(userArray)
     .then(res => {
@@ -51,12 +48,6 @@ let productPromise = () => Product.bulkCreate(productArray)
     return res;
   });
 
-let picturePromise = () => Picture.bulkCreate(pictureArray)
-  .then(res => {
-    console.log(`-->pictures creados`);
-    return res;
-  });
-
 let reviewPromise = () => Review.bulkCreate(reviewArray)
   .then(res => {
     console.log(`-->reviews creados`);
@@ -73,7 +64,6 @@ userPromise()
   .then(() => categoryPromise() )
   .then(() => cartPromise() )
   .then(() => productPromise() )
-  .then(() => picturePromise() )
   .then(() => reviewPromise() )
   .then(() => itemPromise() )
   .then(() => console.log(`----Seed terminado----`));

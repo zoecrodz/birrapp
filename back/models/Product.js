@@ -29,7 +29,11 @@ Product.init({
     active: {
         type: S.BOOLEAN,
         defaultValue: true,
-    }
+    },
+    url: {
+        type: S.STRING, 
+        allowNull: false
+    },
 }, {sequelize: db, modelName: "product"});
 
 
