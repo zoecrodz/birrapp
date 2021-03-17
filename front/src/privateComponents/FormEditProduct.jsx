@@ -9,12 +9,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import FastfoodIcon from '@material-ui/icons/Fastfood';
 import MenuItem from '@material-ui/core/MenuItem';
-import { getCategories } from "../store/categories"
 import { useDispatch, useSelector } from "react-redux"
 import axios from "axios"
 import { useHistory } from "react-router-dom";
 import { getProduct } from "../store/singleProduct"
-
 
 
 const useStyles = makeStyles((theme) => ({
@@ -43,32 +41,27 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignUp() {
+export default function FormEditProduct({ productId }) {
   const classes = useStyles();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const categories = useSelector(state => state.categories)
-  const product = useSelector(state => state.product)
-  const [editProduct, setEditProduct] = useState({})
+  const [editProduct, setEditProduct] = useState({categoryId: 1}) //El select es un componente controlado, pero si no el primer valor que toma al renderizarse es `undefined`, react lo considera un componente descontrolado. Lo que genera problemas al renderizar. De esta manera se le agrega provisoriamente un `categoryId` el cual es mas tarde cambiado por el setEditProduct correctamente.
   const history = useHistory()
 
 
   useEffect(() => {
-    dispatch(getProduct())
-    dispatch(getCategories())
+    dispatch(getProduct(productId))
+      .then(res => setEditProduct(res.payload))
   }, [])
 
-  const handleSubmit = (id) => {
-    id.preventDefault()
-    console.log("enviando producto")
+  const handleSubmit = (e, id) => {
+    e.preventDefault();
     axios({
       method: `put`,
       url: `http://localhost:8000/api/product/${id}`,
       data: editProduct
     })
-      .then((product) => {
-        console.log(product)
-        return history.push("/admin/products")
-      })
+      .then(() => history.push("/admin/products"))
   }
 
   const handleInputChange = (event) => {
@@ -89,7 +82,7 @@ export default function SignUp() {
         <Typography component="h1" variant="h5">
           Edit Product
         </Typography>
-        <form className={classes.form} noValidate onSubmit={handleSubmit}>
+        <form className={classes.form} noValidate onSubmit={(e) => handleSubmit(e, editProduct.id)}>
           <Grid container spacing={2}>
             <Grid item xs={12} >
               <TextField
@@ -99,7 +92,7 @@ export default function SignUp() {
                 fullWidth
                 id="productName"
                 label="Product Name"
-                autoFocus
+                value={editProduct.name}
                 onChange={handleInputChange}
               />
             </Grid>
@@ -109,8 +102,9 @@ export default function SignUp() {
                 required
                 fullWidth
                 id="url"
-                label="URL"
                 name="url"
+                label="Picture URL"
+                value={editProduct.pictures && editProduct.pictures[0].url}
                 onChange={handleInputChange}
               />
             </Grid>
@@ -119,37 +113,37 @@ export default function SignUp() {
                 variant="outlined"
                 required
                 fullWidth
-                id="precio"
-                label="Price $"
+                label="Price"
+                id="price"
                 name="price"
+                value={editProduct.price}
                 onChange={handleInputChange}
               />
             </Grid>
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
-                required
                 fullWidth
                 id="description"
-                label="Description"
                 name="description"
+                label="Description"
+                value={editProduct.description}
                 onChange={handleInputChange}
               />
             </Grid>
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
-                required
                 fullWidth
                 id="stock"
-                label="stock"
                 name="stock"
+                label="Stock"
+                value={editProduct.stock}
                 onChange={handleInputChange}
               />
             </Grid>
             <Grid item xs={12}>
               <TextField
-                defaultValue=""
                 id="outlined-select-currency"
                 select
                 required
@@ -157,6 +151,7 @@ export default function SignUp() {
                 label="Category"
                 variant="outlined"
                 name="categoryId"
+                value={editProduct.categoryId}
                 onChange={handleInputChange}
               >
                 {categories.map((category) => (

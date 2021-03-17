@@ -20,7 +20,7 @@ import { addItemToCarrito } from "../store/items"
 
 const SingleProduct = ({ productId }) => {
   const classes = productStyles();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const product = useSelector(state => state.singleProduct)
   const carrito = useSelector((state) => state.carrito);
   const reviews = product.reviews
@@ -28,7 +28,6 @@ const SingleProduct = ({ productId }) => {
 
   useEffect(() => {
     dispatch(getProduct(productId))
-      .then(producto => console.log(producto))
   }, [])
 
 

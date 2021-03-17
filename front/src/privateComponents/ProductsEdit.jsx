@@ -25,6 +25,7 @@ const TableMaterial = () => {
     const user = useSelector((state) => state.user);
 
     const deleteProduct = (id) => {
+        console.log(`el Id es :`, id)
         axios({
             method: `delete`,
             url: `http://localhost:8000/api/product/${id}`,
@@ -46,7 +47,7 @@ const TableMaterial = () => {
 
     return (
         <TableContainer>
-            <Grid align="center">
+            <Grid align="center" >
                 <Link to="/admin/products/create" style={{ textDecoration: 'none', color: "inherit" }}>
                     <Button
                         align="center"
@@ -57,19 +58,7 @@ const TableMaterial = () => {
                 </Link>
 
 
-                <div className={classes2.search}>
-                    <div className={classes2.searchIcon}>
-                        <SearchIcon />
-                    </div>
-                    <InputBase
-                        placeholder="Search…"
-                        classes={{
-                            root: classes2.inputRoot,
-                            input: classes2.inputInput,
-                        }}
-                        inputProps={{ 'aria-label': 'search' }}
-                    />
-                </div>
+
             </Grid>
 
             <Table>
@@ -92,7 +81,7 @@ const TableMaterial = () => {
                             </TableCell>
                             <TableCell align="center"></TableCell>
                             <TableCell align="center">
-                                {<Link to="/admin/product/edit"
+                                {<Link to={`/admin/product/edit/${product.id}`}
                                     style={{ textDecoration: 'none', color: "inherit" }} >
                                     <Button variant="contained"
                                         color="primary"

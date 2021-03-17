@@ -18,13 +18,16 @@ router.get("/", (req, res) => {
   }).then((product) => res.send(product));
 });
 
-router.get("/:id", (req, res) => {
-  Product.findByPk(req.params.id, {
-    include: [Picture, Review],
-    where: {
-      active: true,
-    },
-  }).then((product) => res.send(product));
+
+router.get('/:id', (req, res) => {
+	Product.findByPk(req.params.id, 
+		{
+			include: [Picture, Review, Category], 
+			where: {
+				active: true
+			} 
+		})
+	.then(product => res.send(product));
 });
 
 // Por nombre
@@ -52,25 +55,27 @@ router.get("/category/:category", (req, res) => {
   }).then((product) => res.send(product));
 });
 
-router.put("/:id", (req, res) => {
-  const { name, price, stock, categoryId, url, description } = req.body;
-  Product.findByPk(req.params.id)
-    .then((product) =>
-      product.update({ name, price, stock, categoryId, description })
-    )
-    .then((product) => res.status(201).send(product));
+
+router.put('/:id', (req, res) => {
+	const {name, price, stock, categoryId, pictures, description} = req.body;
+	const nameNormalized = name.toUpperCase()
+	Product.findByPk(req.params.id)
+		.then(product => product.update({name: nameNormalized, price, stock, categoryId, description}))
+		.then(()=> Picture.findByPk(pictures[0].id))
+		.then(pic=> pic.update(pictures[0]))
+		.then(() => res.sendStatus(200));
+})
+
+router.post('/', (req, res) => {
+	const {name, price, stock, categoryId, url, description} = req.body;
+	const nameNormalized = name.toUpperCase()
+	Product.create({name: nameNormalized, price, stock, categoryId, description})
+	.then(product => {
+		Picture.create({url, productId: product.id})
+			.then(() => res.status(201).send(product))
+	});
 });
 
-router.post("/", (req, res) => {
-  const { name, price, stock, categoryId, url, description } = req.body;
-  Product.create({ name, price, stock, categoryId, description }).then(
-    (product) => {
-      Picture.create({ url, productId: product.id }).then(() =>
-        res.status(201).send(product)
-      );
-    }
-  );
-});
 
 router.delete("/:id", (req, res) => {
   Product.update(
