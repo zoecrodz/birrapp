@@ -14,7 +14,7 @@ Review.init({
     }, 
     stars: {
         type: S.FLOAT, 
-        defaultValue: 0,
+        defaultValue: 1,
         validate: {
             max: 5, 
             min: 0, 

@@ -69,7 +69,7 @@ const Profile = () => {
                   <div className={classes.children}>
                     <Link
                       style={{ textDecoration: "none", color: "inherit" }}
-                      to={`/product/${item.id}`}
+                      to={`/review/${item.id}`}
                       >
                       <Button variant="outlined" color="secondary">
                       - {item.item.qty} {item.name}
