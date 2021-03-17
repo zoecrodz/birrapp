@@ -23,7 +23,7 @@ app.use("/api", authAPI);
 
 // envio de emails
 app.post("/send-email", (req, res) => {
-  let admin = "pablo.munaretto@gmail.com";
+  let admin = "birrAppB@gmail.com";
 
   let transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
@@ -31,7 +31,7 @@ app.post("/send-email", (req, res) => {
     secure: true,
     auth: {
       user: admin, // mail del bar de donde se envian los mails
-      pass: "lszfmieviiiewtmg", // pass de gmail de google
+      pass: "gqdbviznrlslggzd", // pass de gmail de google
     },
   });
 
