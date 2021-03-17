@@ -10,7 +10,7 @@ import PorductCreate from "../privateComponents/ProductsCreate"
 import HeadingAdmin from "../privateComponents/HeaidngAdmin"
 import useStylesHeading from "../Styles/heading";
 import FormEditProduct from "../privateComponents/FormEditProduct"
-
+import EditCategory from "../privateComponents/EditCategory"
 
 
 
@@ -28,6 +28,7 @@ const Admin = () => {
       {/*DrawerHeader necesario para que la navbar no pise nada  */}
       <Switch>
         <Route exact path="/admin" render={() => <AdminMenu />} />
+        <Route path="/admin/categories/edit/:id" render={({ match }) => <EditCategory categoryId={match.params.id} />} />
         <Route path="/admin/categories" render={() => <Categories />} />
         <Route path="/admin/products/create" render={() => <PorductCreate />} />
         <Route path="/admin/products" render={() => <Products />} />

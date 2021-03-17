@@ -4,10 +4,16 @@ const { Category } = require("../models/index")
 
 
 router.get("/", (req, res) => {
-    Category.findAll()
+    Category.findAll({
+        order: [["id", "ASC"]]
+    })
 	.then(categories => res.send(categories));
 });
 
+router.get("/:id", (req, res) => {
+    Category.findByPk(req.params.id)
+	.then(category => res.send(category));
+});
 
 router.post("/", (req, res) => {
     Category.create(req.body)
@@ -15,8 +21,8 @@ router.post("/", (req, res) => {
     .catch(err => res.status(500).send(err));
 });
 
-router.put("/:id", (req, res) => {
-    Category.findByPk(req.params.id)
+router.put("/", (req, res) => {
+    Category.findByPk(req.body.id)
     .then(category => category.update(req.body))
     .then(category => res.status(201).send(category))
 });
