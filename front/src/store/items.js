@@ -36,9 +36,9 @@ export const addItemToCarrito = createAsyncThunk(
 );
 
 export const modifyItem = createAsyncThunk("MODIFY_ITEM", (itemData) => {
-  const cartId = itemData.cartId
-  const productId = itemData.productId
-  const operation = itemData.operation
+  const cartId = itemData.cartId;
+  const productId = itemData.productId;
+  const operation = itemData.operation;
   // console.log("redux", itemData) FLAMU
 
   return axios({
@@ -51,7 +51,7 @@ export const modifyItem = createAsyncThunk("MODIFY_ITEM", (itemData) => {
 const itemsReducer = createReducer([], {
   [deleteItemFromCarrito.fulfilled]: (state, action) => action.payload,
   [getItemFromCarrito.fulfilled]: (state, action) => action.payload,
-  [modifyItem.fulfilled]: (state, action) => [...state, action.payload],
+  [modifyItem.fulfilled]: (state, action) => action.payload,
 });
 
 export default itemsReducer;

@@ -44,7 +44,7 @@ const TableMaterial = () => {
   }, []);
 
   return (
-    <TableContainer>
+    <TableContainer style={{ marginTop: "1.4%" }}>
       {categories &&
         categories.map((categorie) => {
           return (
