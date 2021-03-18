@@ -35,6 +35,16 @@ const useStyles = makeStyles(theme => ({
         padding: theme.spacing(2), 
         alignSelf: "flex-start"
       },
+      waiting: {
+        backgroundColor: "blue",
+      },
+      completed: {
+        backgroundColor: "green",
+      },
+      rejected: {
+        backgroundColor: "red",
+      },
+
 }))
 
 const Profile = () => {
@@ -45,10 +55,12 @@ const Profile = () => {
   useEffect(() => {
     dispatch(getCarritosProfile(user.id));
   }, []);
+
+  console.log("carritossss", carritos[0])
+  let status;
   return (
     <div >
       
-
       <div className={classes.cuadro}>
           <div>{user.firstName} {user.lastName}</div> 
           <div >{user.email}</div>
@@ -81,6 +93,8 @@ const Profile = () => {
                 );
               })}
               <div className={classes.children}>Total: ${carrito.total}</div>
+              
+              <div className={classes.children, classes.completed}>Estado: {carrito.state}</div>
               </div>
               <br />
               <br />
