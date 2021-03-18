@@ -29,7 +29,6 @@ export const addItemToCarrito = createAsyncThunk("ADD_ITEM_TO_CARRITO", (itemDat
 export const modifyItem = createAsyncThunk("MODIFY_ITEM", (itemData) => {
   const cartId = itemData.cartId
   const productId = itemData.productId
-  // const qty = item.qty
   const operation = itemData.operation
   // console.log("redux", itemData) FLAMU
   

@@ -88,7 +88,7 @@ const Compra = () => {
           <Grid item xs={12} className={classes.form}>
             <label>
               Nº de mesa:
-              <input type="number" name="mesa" onChange={handleChange} />
+              <input type="number" name="mesa" min="1" step="1" onChange={handleChange} />
             </label>
           </Grid>
           <Grid item xs={12} className={classes.form}>
