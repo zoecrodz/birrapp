@@ -3,7 +3,7 @@ import { Route, Switch } from "react-router-dom";
 import App from "./App";
 import Admin from "./Admin";
 import { useDispatch, useSelector } from "react-redux"
-import { getUser } from "../store/user"
+import { getUser, getFbUser } from "../store/user"
 import { getCarrito } from "../store/carrito";
 
 
@@ -15,7 +15,7 @@ const Index = () => {
   const carrito = useSelector(state => state.carrito)
 
   useEffect(() => {
-    //preguntar si hay carrito con estado pending y si no, crearlo. con el usuario que tengo, hacer un getCart
+    // preguntar si hay carrito con estado pending y si no, crearlo. con el usuario que tengo, hacer un getCart    
     dispatch(getUser())
       .then((usuario) => {
         if (usuario.payload && !usuario.payload.admin) {
