@@ -11,12 +11,14 @@ import reviewReducer from "./review"
 import userReducer from "./user";
 import carritosProfileReducer from "./carritosProfile"
 import emailReducer from "./emails"
+import categoryReducer from "./category"
 
 const store = configureStore({
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
   reducer: {
     products: productsReducer,
     categories: categoriesReducer,
+    category: categoryReducer,
     users: usersReducer,
     carrito: carritoReducer,
     items: itemsReducer,

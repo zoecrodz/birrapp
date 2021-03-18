@@ -5,7 +5,7 @@ export const getCategories = createAsyncThunk("SEARCH_CATEGORIES", () => {
   return axios.get(`http://localhost:8000/api/category`).then((res) => res.data);
 });
 
-export const postCategories = createAsyncThunk("POST", (categories) => {
+export const postCategories = createAsyncThunk("POST_CATEGORIES", (categories) => {
   return axios({
     method: "post",
     url: "?",
@@ -13,7 +13,7 @@ export const postCategories = createAsyncThunk("POST", (categories) => {
   }).then(categoria => categoria);
 });
 
-export const deleteCategories = createAsyncThunk("DELETE", (categories) => {
+export const deleteCategories = createAsyncThunk("DELETE_CATEGORIES", (categories) => {
   return axios({
     method: "delete",
     url: "?",
