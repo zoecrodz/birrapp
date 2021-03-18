@@ -1,17 +1,31 @@
 import React, { useState } from "react";
-import { loginUser } from "../store/user";
+import { loginUser, logFbUser, getFbUser } from "../store/user";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { getUser } from "../store/user";
 import { getCarrito } from '../store/carrito';
+import FacebookLogin from "react-facebook-login"
+
+
 
 
 const Login = () => {
-
+  
   const dispatch = useDispatch()
   const history = useHistory()
   const [newUser, setNewUser] = useState({})
   const user = useSelector(state => state.user)
+  
+  const responseFacebook = (response) => {
+    dispatch(logFbUser(response))
+    .then(() => dispatch(getFbUser(localStorage.getItem("id"))))
+    .then(() => history.push("/"))
+  }
+
+  const componentClicked = () => {
+    console.log("logueado")
+    console.log(localStorage.getItem("id"))
+  }
 
   const handleChange = (e) => {
   setNewUser({...newUser, [e.target.name]: e.target.value})
@@ -68,9 +82,26 @@ const Login = () => {
           Login
          </button>
       </div>
+      <FacebookLogin
+    appId="193196372226034"
+    autoLoad={false}
+    fields="name,email,picture"
+    onClick={componentClicked}
+    icon="fa-facebook"
+    callback={responseFacebook} />,
     </form>
   </div>
 </div>
 
 )};
 export default Login;
+
+
+
+
+
+
+
+
+
+

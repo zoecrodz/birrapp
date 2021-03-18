@@ -26,6 +26,11 @@ router.get("/", (req, res) => {
         .catch(err => console.log(err));
 });
 
+router.get("/:id", (req, res) => {
+    User.findByPk(req.params.id)
+    .then(user => res.send(user))
+})
+
 router.delete("/:id", (req, res) => {
     User.update({ active: false }, { where: { id: req.params.id } })
         .then((user) => res.send(user))

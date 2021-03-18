@@ -95,6 +95,7 @@ export default function PrimarySearchAppBar() {
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
   const user = useSelector((state) => state.user);
+  
 
 
   // SEARCH logica
