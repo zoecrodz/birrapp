@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const db = require("../db");
 const { Cart, Product } = require("../models");
+const sequelize = require("sequelize")
 
 router.post("/", (req, res, next) => {
   Cart.create(req.body)
@@ -44,9 +45,8 @@ router.get("/:userId", (req, res, next) => {
 router.get("/historial/:userId", (req, res, next) => {
   let userId = req.params.userId;
   Cart.findAll({ 
-    where: { userId }, 
-    include: Product, 
-    exclude: { attributes: {state: "PENDING"} } // NO AGARRA. BUSCAR COMO EXCLUIR PENDING
+    where: er{ usId, state: { [sequelize.Op.not] : 'PENDING'} }, 
+    include: Product,
   })
     .then((carts) => {
       res.send(carts);
