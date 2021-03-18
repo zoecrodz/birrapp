@@ -23,8 +23,7 @@ const Login = () => {
   }
 
   const componentClicked = () => {
-    console.log("logueado")
-    console.log(localStorage.getItem("id"))
+    console.log("logueado desde facebook")
   }
 
   const handleChange = (e) => {
