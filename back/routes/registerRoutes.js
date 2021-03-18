@@ -15,13 +15,13 @@ router.post("/fb", (req, res) => {
     },
   })
     .then((usuario) => {
-      const user = usuario
+      let user = usuario
         if (user) {
           res.send(user)
         }
         else {
           user = User.create(req.body)
-          .then(us => console.log("usuario creado", us.dataValues))
+          .then(us => res.send (us))
         }
       })
 });
