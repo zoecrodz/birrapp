@@ -62,7 +62,7 @@ export const logOutUser = createAction("SET_LOG_OUT");
 const userReducer = createReducer(
   {},
   {
-    [registerUser.fulfilled]: (state, action) => action.payload,
+    // [registerUser.fulfilled]: (state, action) => action.payload,
     [loginUser.fulfilled]: (state, action) => action.payload,
     [getUser.fulfilled]: (state, action) => action.payload,
     [logOutUser]: (state, action) => action.payload,
