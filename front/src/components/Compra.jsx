@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, ButtonGroup, Container, Grid } from "@material-ui/core";
 import { getCarrito, updateCarrito } from "../store/carrito";
-import { sendEmailToUser } from "../store/emails";
+import { sendEmailToUser, sendEmailToAdmin } from "../store/emails";
+import { getUsers } from "../store/users";
+
+import { Button, ButtonGroup, Container, Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   form: {
     width: "100%", // Fix IE 11 issue.
     marginTop: theme.spacing(3),
@@ -23,53 +25,70 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Compra = () => {
-  const history = useHistory();
-  const dispatch = useDispatch();
   const classes = useStyles();
-  const carrito = useSelector((state) => state.carrito);
-  const user = useSelector((state) => state.user);
-  let fullFilled = true;
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const carrito = useSelector(state => state.carrito);
+  const user = useSelector(state => state.user);
+  const [admin, setAdmin] = useState("");
 
+  // Si no hay un user admin se rompe. Poner un admin cualquiera
+  // Podria poner un if (admin) en varios lugares, pero es un lio.
+  // La realidad es que siempre deberia haber un admin
+  useEffect(() => {
+    return dispatch(getUsers()).then(({ payload }) => {
+      let adminUser = payload.filter(usuario => usuario.admin === true);
+      setAdmin(adminUser[0]);
+    });
+  }, []);
+
+  let fullFilled = true;
   const [compraData, setCompraData] = useState({ pago: "Efectivo" });
-  const handleChange = (e) => {
+  const handleChange = e => {
     setCompraData({ ...compraData, [e.target.name]: e.target.value });
   };
   if (compraData.pago && compraData.mesa) {
     fullFilled = false;
   }
 
+  // lógica para setear el total de la compra en el carrito del backend
   const precio = [];
   let total;
-
   if (carrito.items) {
-    carrito.items.map((item) => {
+    carrito.items.map(item => {
       precio.push(item.item.qty >= 1 ? item.price * item.item.qty : 0);
     });
     total = precio.reduce((a, b) => a + b, 0);
   }
 
-  const handlePayCarrito = (e) => {
+  // 1-modifica estado del carrito 2-crea carrito nuevo 3-envia emails a user confirmando compra, y a admin avisandole de una nueva orden "WAITING" para aprobar "COMPLETED" o rechazar "REJECTED"
+  const handlePayCarrito = e => {
     e.preventDefault();
     const cart = {
-      state: "COMPLETED",
+      state: "WAITING",
       id: carrito.id,
       total,
       paymentMethod: compraData.pago,
       table: Number(compraData.mesa),
     };
+
     let subject = `Birrap - Gran compra, Rey`;
     let text = `Su compra por un total de $${total}, ha sido realizada. Has comprado lindo ${user.firstName} ${user.lastName}.. esperamos volver a verte.`;
-    const emailData = { email: user.email, subject, text };
+    const userEmailData = { email: user.email, subject, text };
+
+    const adminEmailData = { email: admin.email };
     dispatch(updateCarrito(cart)) //Cambia el estado del carrito actual a COMPLETED
       .then(() => dispatch(getCarrito(user.id))) // Inmediatamente después genera un nuevo carrito.
-      .then(() => dispatch(sendEmailToUser(emailData))); // Y le envio un mail al usuario avisandole de la compra
-    history.push("/");
+      .then(() => dispatch(sendEmailToUser(userEmailData))) // Y le envio un mail al usuario avisandole de la compra
+      .then(() => dispatch(sendEmailToAdmin(adminEmailData))) // le envia un mail al admin para aprobarla
+      .then(() => history.push("/"));
+      // Los then anidados es para que antes del redirect, se hagan los dispatch de este componente, asi no tenemos 10 dispatch distintos aleatoriamente cuando redirige a la home, y prevenir bugs
   };
 
   return (
     <Container component="main" maxWidth="xs">
       <br />
-      <form noValidate onSubmit={(e) => handlePayCarrito(e)}>
+      <form noValidate onSubmit={e => handlePayCarrito(e)}>
         <Grid container spacing={2} className={classes.form}>
           <Grid item xs={12}>
             <select
@@ -97,6 +116,14 @@ const Compra = () => {
               aria-label="contained primary button group"
               size="small"
             >
+              <Link
+                style={{ textDecoration: "none", color: "inherit" }}
+                to="/carrito"
+              >
+                <Button variant="outlined" size="small" color="primary">
+                  Volver al carrito
+                </Button>
+              </Link>
               <Button
                 disabled={fullFilled}
                 variant="outlined"
@@ -106,14 +133,6 @@ const Compra = () => {
               >
                 Confirmar compra
               </Button>
-              <Link
-                style={{ textDecoration: "none", color: "inherit" }}
-                to="/carrito"
-              >
-                <Button variant="outlined" size="small" color="primary">
-                  Volver al carrito
-                </Button>
-              </Link>
             </ButtonGroup>
           </Grid>
         </Grid>

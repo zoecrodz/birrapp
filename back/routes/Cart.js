@@ -43,7 +43,11 @@ router.get("/:userId", (req, res, next) => {
 
 router.get("/historial/:userId", (req, res, next) => {
   let userId = req.params.userId;
-  Cart.findAll({ where: { userId, state: "COMPLETED" }, include: Product })
+  Cart.findAll({ 
+    where: { userId }, 
+    include: Product, 
+    exclude: { attributes: {state: "PENDING"} } // NO AGARRA. BUSCAR COMO EXCLUIR PENDING
+  })
     .then((carts) => {
       res.send(carts);
     })
