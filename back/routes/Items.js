@@ -22,12 +22,7 @@ router.put("/:productId/:cartId", (req, res, next) => {
   })
     .then((item) => {
       return item.operation(req.body.operation);
-      // return item.operation(req.body.operacion)
-      // const result = item.operation(req.body.operacion)
-      // return item.update({
-      //   qty: result
-      // })
-    }) //----- VER ----
+    })
     .then(() => res.sendStatus(200))
     .catch((err) => res.status(500).send(err));
 });
