@@ -11,7 +11,7 @@ router.post("/", (req, res, next) => {
 });
 
 router.get("/", (req, res, next) => {
-  Cart.findAll()
+  Cart.findAll({ where: { state: "WAITING" } })
     .then((carts) => res.status(201).send(carts))
     .catch((err) => res.status(500).send(err));
 });
@@ -45,7 +45,7 @@ router.get("/:userId", (req, res, next) => {
 router.get("/historial/:userId", (req, res, next) => {
   let userId = req.params.userId;
   Cart.findAll({ 
-    where: er{ usId, state: { [sequelize.Op.not] : 'PENDING'} }, 
+    where: { userId, state: { [sequelize.Op.not] : 'PENDING'} }, 
     include: Product,
   })
     .then((carts) => {

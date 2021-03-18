@@ -12,6 +12,7 @@ import userReducer from "./user";
 import carritosProfileReducer from "./carritosProfile"
 import emailReducer from "./emails"
 import categoryReducer from "./category"
+import ordersReducer from "./orders"
 
 const store = configureStore({
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
@@ -27,7 +28,8 @@ const store = configureStore({
     user: userReducer,
     review: reviewReducer,
     carritosProfile: carritosProfileReducer,
-    email: emailReducer
+    email: emailReducer,
+    orders: ordersReducer
   },
 });
 export default store;
