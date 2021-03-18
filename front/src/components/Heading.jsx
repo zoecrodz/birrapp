@@ -95,7 +95,6 @@ export default function PrimarySearchAppBar() {
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
   const user = useSelector((state) => state.user);
-  
 
   // SEARCH logica
   // const products = useSelector(state => state.products)
@@ -103,7 +102,7 @@ export default function PrimarySearchAppBar() {
   const handleChange = (e) => {
     setName(e.target.value);
     const mayuscula = name.toUpperCase();
-    if(mayuscula.length > 1) dispatch(getProductName(mayuscula));
+    if (mayuscula.length > 1) dispatch(getProductName(mayuscula));
     else dispatch(getProducts());
   };
 
@@ -226,7 +225,7 @@ export default function PrimarySearchAppBar() {
   );
   return (
     <div className={classes.grow}>
-      <AppBar position="fixed">
+      <AppBar position="fixed" style={{ height: "10%" }}>
         <Toolbar>
           <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
             <Button

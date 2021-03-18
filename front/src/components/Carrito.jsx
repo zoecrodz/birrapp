@@ -44,9 +44,9 @@ const StyledTableCell = withStyles(() => ({
 const Cart = () => {
   const dispatch = useDispatch();
   const classes = productStyles();
-  const carrito = useSelector(state => state.carrito);
-  const items = useSelector(state => state.items);
-  const user = useSelector(state => state.user);
+  const carrito = useSelector((state) => state.carrito);
+  const items = useSelector((state) => state.items);
+  const user = useSelector((state) => state.user);
 
   // // Logica boton de resta
   let disable = null;
@@ -56,7 +56,7 @@ const Cart = () => {
   }, [items]);
 
   // HANDLERS -----------------
-  const handleDelete = item => {
+  const handleDelete = (item) => {
     const ids = { productId: item.id, cartId: carrito.id };
     // console.log("ids", ids)
     return dispatch(deleteItemFromCarrito(ids));
@@ -76,7 +76,7 @@ const Cart = () => {
   const comida = [];
   let total;
   if (carrito.items) {
-    carrito.items.map(item => {
+    carrito.items.map((item) => {
       precio.push(item.item.qty >= 1 ? item.price * item.item.qty : 0);
       comida.push(item.name);
     });
@@ -86,11 +86,11 @@ const Cart = () => {
   console.log(disable);
   return (
     <>
-      <TableContainer>
+      <TableContainer style={{ marginTop: "1.4%" }}>
         <Table>
           <TableBody>
             {carrito.items
-              ? carrito.items.map(item => (
+              ? carrito.items.map((item) => (
                   <TableRow key={item.id}>
                     <TableCell>
                       <img
@@ -136,18 +136,20 @@ const Cart = () => {
                         </Button>
                       </Typography>{" "}
                       <br />
-                      {item.item.qty == 1 ? <Button
-                            disabled={true}
-                            variant="contained"
-                            size="small"
-                            color="primary"
-                            onClick={() => {
-                              const resta = "resta";
-                              handleItem(item, resta);
-                            }}
-                          >
-                            <RemoveIcon />
-                          </Button> : (
+                      {item.item.qty == 1 ? (
+                        <Button
+                          disabled={true}
+                          variant="contained"
+                          size="small"
+                          color="primary"
+                          onClick={() => {
+                            const resta = "resta";
+                            handleItem(item, resta);
+                          }}
+                        >
+                          <RemoveIcon />
+                        </Button>
+                      ) : (
                         <Typography>
                           <Button
                             // disabled={disable}
@@ -194,14 +196,14 @@ const Cart = () => {
           <TableBody>
             <TableRow>
               <TableCell>
-                {precio.map(prc => (
+                {precio.map((prc) => (
                   <Typography align="center">
                     <Typography>{prc + "$"}</Typography>
                   </Typography>
                 ))}
               </TableCell>
               <TableCell>
-                {comida.map(comida => (
+                {comida.map((comida) => (
                   <Typography align="center">
                     <Typography>{comida}</Typography>
                   </Typography>
