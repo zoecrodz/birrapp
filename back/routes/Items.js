@@ -20,9 +20,7 @@ router.put("/:productId/:cartId", (req, res, next) => {
   Item.findOne({
     where: { productId: req.params.productId, cartId: req.params.cartId },
   })
-    .then((item) => {
-      return item.operation(req.body.operation);
-    })
+    .then((item) => item.operation(req.body.operation))
     .then(() => res.sendStatus(200))
     .catch((err) => res.status(500).send(err));
 });

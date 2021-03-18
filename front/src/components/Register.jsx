@@ -14,11 +14,12 @@ const Register = () => {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch(registerUser(newUser)).then((usuario) => {
-      if (usuario) history.push("/login");
-    });
-  };
+    e.preventDefault()
+    dispatch(registerUser(newUser))
+      .then((usuario) => {
+        if(usuario) history.push("/login")
+      })
+  }
 
   return (
     <div>

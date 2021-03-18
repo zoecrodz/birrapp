@@ -44,16 +44,19 @@ const StyledTableCell = withStyles(() => ({
 const Cart = () => {
   const dispatch = useDispatch();
   const classes = productStyles();
-  const carrito = useSelector((state) => state.carrito);
-  const items = useSelector((state) => state.items);
-  const user = useSelector((state) => state.user);
-  
+  const carrito = useSelector(state => state.carrito);
+  const items = useSelector(state => state.items);
+  const user = useSelector(state => state.user);
+
+  // // Logica boton de resta
+  let disable = null;
+
   useEffect(() => {
     if (user) dispatch(getCarrito(user.id));
   }, [items]);
 
   // HANDLERS -----------------
-  const handleDelete = (item) => {
+  const handleDelete = item => {
     const ids = { productId: item.id, cartId: carrito.id };
     // console.log("ids", ids)
     return dispatch(deleteItemFromCarrito(ids));
@@ -65,29 +68,29 @@ const Cart = () => {
       productId: item.id,
       operation,
     };
+
     return dispatch(modifyItem(itemData));
   };
-
 
   const precio = [];
   const comida = [];
   let total;
   if (carrito.items) {
-    carrito.items.map((item) => {
+    carrito.items.map(item => {
       precio.push(item.item.qty >= 1 ? item.price * item.item.qty : 0);
       comida.push(item.name);
     });
     total = precio.reduce((a, b) => a + b, 0);
   }
-  
 
+  console.log(disable);
   return (
     <>
       <TableContainer>
         <Table>
           <TableBody>
             {carrito.items
-              ? carrito.items.map((item) => (
+              ? carrito.items.map(item => (
                   <TableRow key={item.id}>
                     <TableCell>
                       <img
@@ -123,7 +126,7 @@ const Cart = () => {
                         <Button
                           variant="contained"
                           size="small"
-                          color="#FF6633"
+                          color="primary"
                           onClick={() => {
                             const suma = "suma";
                             return handleItem(item, suma);
@@ -133,26 +136,40 @@ const Cart = () => {
                         </Button>
                       </Typography>{" "}
                       <br />
-                      <Typography>
-                        <Button
-                          variant="contained"
-                          size="small"
-                          color="#FF6633"
-                          onClick={() => {
-                            const resta = "resta";
-                            return handleItem(item, resta);
-                          }}
-                        >
-                          <RemoveIcon />
-                        </Button>
-                      </Typography>{" "}
+                      {item.item.qty == 1 ? <Button
+                            disabled={true}
+                            variant="contained"
+                            size="small"
+                            color="primary"
+                            onClick={() => {
+                              const resta = "resta";
+                              handleItem(item, resta);
+                            }}
+                          >
+                            <RemoveIcon />
+                          </Button> : (
+                        <Typography>
+                          <Button
+                            // disabled={disable}
+                            variant="contained"
+                            size="small"
+                            color="primary"
+                            onClick={() => {
+                              const resta = "resta";
+                              if (item.item.qty > 1) handleItem(item, resta);
+                            }}
+                          >
+                            <RemoveIcon />
+                          </Button>
+                        </Typography>
+                      )}
                       <br />
                     </TableCell>
                     <TableCell>
                       <Button
-                        variant="contained"
+                        variant="outlined"
                         size="small"
-                        color="#FF6633"
+                        color="secondary"
                         onClick={() => handleDelete(item)}
                       >
                         Delete
@@ -177,14 +194,14 @@ const Cart = () => {
           <TableBody>
             <TableRow>
               <TableCell>
-                {precio.map((prc) => (
+                {precio.map(prc => (
                   <Typography align="center">
                     <Typography>{prc + "$"}</Typography>
                   </Typography>
                 ))}
               </TableCell>
               <TableCell>
-                {comida.map((comida) => (
+                {comida.map(comida => (
                   <Typography align="center">
                     <Typography>{comida}</Typography>
                   </Typography>
@@ -197,13 +214,9 @@ const Cart = () => {
                   style={{ textDecoration: "none", color: "inherit" }}
                   to="/compra"
                 >
-                <Button
-                  variant="contained"
-                  size="small"
-                  color="primary"
-                >
-                  Pagar
-                </Button>
+                  <Button variant="contained" size="small" color="primary">
+                    Pagar
+                  </Button>
                 </Link>
               </TableCell>
             </TableRow>
