@@ -64,6 +64,7 @@ const SingleProduct = ({ productId }) => {
 
   return (
     <div className={classes.root}>
+      <br/>
       <Paper className={classes.paper}>
         <Grid container spacing={2}>
           <Grid item>

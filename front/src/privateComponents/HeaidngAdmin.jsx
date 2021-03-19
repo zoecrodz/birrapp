@@ -13,6 +13,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import FastfoodIcon from "@material-ui/icons/Fastfood";
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logOutUser } from "../store/user";
@@ -82,17 +83,6 @@ export default function PrimarySearchAppBar() {
       onClose={handleMobileMenuClose}
     >
       <div>
-        <MenuItem onClick={handleProfileMenuOpen}>
-          <IconButton
-            aria-label="account of current user"
-            aria-controls="primary-search-account-menu"
-            aria-haspopup="true"
-            color="inherit"
-          >
-            <AccountCircle />
-          </IconButton>
-          <p>Profile</p>
-        </MenuItem>
         <MenuItem onClick={handleLogOut}>
           <IconButton
             aria-label="account of current user"
@@ -100,7 +90,7 @@ export default function PrimarySearchAppBar() {
             aria-haspopup="true"
             color="inherit"
           >
-            <AccountCircle />
+            <ExitToAppIcon />
           </IconButton>
           <p>Log out</p>
         </MenuItem>
@@ -145,21 +135,6 @@ export default function PrimarySearchAppBar() {
 
           {/*  PARTE DESKTOP                                ------------------------------- */}
           <div className={classes.sectionDesktop}>
-            <Link
-              style={{ textDecoration: "none", color: "inherit" }}
-              to="/carrito"
-            >
-              <IconButton
-                aria-label="account of current user"
-                aria-controls="primary-search-account-menu"
-                aria-haspopup="true"
-                color="inherit"
-              >
-                {/* <AccountCircle /> */}
-                <p>Mi carrito</p>
-              </IconButton>
-            </Link>
-
             <IconButton
               aria-label="account of current user"
               aria-controls="primary-search-account-menu"

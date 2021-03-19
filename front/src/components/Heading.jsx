@@ -13,6 +13,7 @@ import MoreIcon from "@material-ui/icons/MoreVert";
 import FastfoodIcon from "@material-ui/icons/Fastfood";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import heading2Styles from "../Styles/heading2"
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logOutUser } from "../store/user";
@@ -131,7 +132,7 @@ export default function PrimarySearchAppBar() {
               aria-haspopup="true"
               color="inherit"
             >
-              <AccountCircle />
+              <ExitToAppIcon />
             </IconButton>
             <p>Log out</p>
           </MenuItem>

@@ -82,14 +82,10 @@ const Login = () => {
             autoComplete="current-password"
             onChange={handleChange}
           />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
           <br />
           <Button
             type="submit"
-            
+            fullWidth
             variant="contained"
             color="primary"
             className={classes.submit}
@@ -98,9 +94,12 @@ const Login = () => {
           </Button>
           <br />
           <FacebookLogin
+            size="small"
+            cssClass={classes.fbButton}
             appId="193196372226034"
             autoLoad={false}
             fullWidth
+            textButton=" LOGIN WITH FACEBOOK"
             fields="name,email,picture"
             onClick={componentClicked}
             icon="fa-facebook"
