@@ -9,19 +9,20 @@ router.post("/", (req, res) => {
 });
 
 router.post("/fb", (req, res) => {
+  console.log("llegando a la ruta", req.body)
   User.findOne({
     where: {
       email: req.body.email,
     },
   })
     .then((usuario) => {
-      const user = usuario
-        if (user) {
-          res.send(user)
+
+        if (usuario) {
+          res.send(usuario)
         }
         else {
-          user = User.create(req.body)
-          .then(us => console.log("usuario creado", us.dataValues))
+          User.create(req.body)
+          .then(us => res.send(us))
         }
       })
 });

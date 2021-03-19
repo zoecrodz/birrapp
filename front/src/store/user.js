@@ -34,27 +34,22 @@ export const getUser = createAsyncThunk("SEARCH_SINGLE_USER", () => {
     .then((res) => res.data);
 });
 
-export const logFbUser = createAsyncThunk(
-  "SEARCH_SINGLE_FBUSER",
-  (response) => {
-    const user = {
-      firstName: response.name.split(" ")[0],
-      lastName: response.name.split(" ")[1],
-      email: response.email,
-      password: "facebook",
-    };
+export const logFbUser = createAsyncThunk("SEARCH_SINGLE_FBUSER", (response) => {
+  const user= {
+    firstName: response.name.split(" ")[0],
+    lastName: response.name.split(" ")[1],
+    email: response.email,
+    password: "facebook"   
+  }
 
-    axios
-      .post("http://localhost:8000/api/register/fb", user)
-      .then((res) => res.data)
-      .then((usuario) => localStorage.setItem("id", usuario.id));
-
-    return user;
+  return axios
+    .post("http://localhost:8000/api/register/fb", user)
+    .then((res) => {return res.data})
+    .then((usuario) => localStorage.setItem("id", usuario.id));
   }
 );
 
 export const getFbUser = createAsyncThunk("SEARCH_SINGLE_USER", (id) => {
-  console.log("aca el id", id);
   return axios
     .get(`http://localhost:8000/api/users/${id}`)
     .then((res) => res.data);
@@ -62,8 +57,7 @@ export const getFbUser = createAsyncThunk("SEARCH_SINGLE_USER", (id) => {
 
 export const logOutUser = createAction("SET_LOG_OUT");
 
-const userReducer = createReducer(
-  {},
+const userReducer = createReducer({},
   {
     [loginUser.fulfilled]: (state, action) => action.payload,
     [getUser.fulfilled]: (state, action) => action.payload,

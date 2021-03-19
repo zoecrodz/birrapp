@@ -213,7 +213,7 @@ module.exports = [
     stars: 4,
     stock: 70,
     categoryId: 3,
-    url: "https://d2vwsr3mua7yp8.cloudfront.net/a5ba8167-83b6-4e12-9765-3604eeb68c0f_d3.jpg"
+    url: "https://www.cervezaocaso.com/wp-content/uploads/2020/08/HONEY-white.jpg"
   },
   {//productId: 25
     name: "CERVEZA OCAZO AAA",
