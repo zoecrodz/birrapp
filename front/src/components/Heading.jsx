@@ -19,6 +19,8 @@ import { logOutUser } from "../store/user";
 import { useHistory } from "react-router-dom";
 import { getProductName, getProducts } from "../store/products";
 import { Grid } from "@material-ui/core";
+import { getCarrito } from "../store/carrito";
+
 
 
 export default function PrimarySearchAppBar() {
@@ -27,6 +29,8 @@ export default function PrimarySearchAppBar() {
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const history = useHistory();
   const dispatch = useDispatch();
+  const items = useSelector((state) => state.items);
+  const carrito = useSelector((state) => state.carrito);
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
@@ -41,6 +45,10 @@ export default function PrimarySearchAppBar() {
     if (mayuscula.length > 1) dispatch(getProductName(mayuscula));
     else dispatch(getProducts());
   };
+
+  useEffect(() => {
+    if (user) dispatch(getCarrito(user.id));
+  }, [items]);
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -93,21 +101,26 @@ export default function PrimarySearchAppBar() {
       onClose={handleMobileMenuClose}
     >
       {user && user.id && (
-        <div className={classes.sectionMobile}>
-          <MenuItem>
-            <IconButton aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <ShoppingCartIcon />
-              </Badge>
-            </IconButton>
-            <Link
-              style={{ textDecoration: "none", color: "inherit" }}
-              to="/carrito"
-            >
-              <p>Carrito</p>
-            </Link>
-          </MenuItem>
-        </div>
+        <>
+          <div>
+              <Typography variant="h6" align="center">  Hola {user.firstName}</Typography>
+          </div>
+          <div className={classes.sectionMobile}>
+            <MenuItem>
+              <IconButton aria-label="show 4 new mails" color="inherit">
+                <Badge badgeContent={carrito.items && carrito.items.length} color="secondary">
+                  <ShoppingCartIcon />
+                </Badge>
+              </IconButton>
+              <Link
+                style={{ textDecoration: "none", color: "inherit" }}
+                to="/carrito"
+              >
+                <p>Carrito</p>
+              </Link>
+            </MenuItem>
+          </div>
+        </>
       )}
       {user && user.id ? (
         <div>
@@ -228,6 +241,14 @@ export default function PrimarySearchAppBar() {
 
           {user && user.id ? (
             <div className={classes.sectionDesktop}>
+              <IconButton
+                aria-label="account of current user"
+                aria-controls="primary-search-account-menu"
+                aria-haspopup="true"
+                color="inherit"
+              >
+                <p>Hola, </p>
+              </IconButton>
               <Link
                 style={{ textDecoration: "none", color: "inherit" }}
                 to="/carrito"

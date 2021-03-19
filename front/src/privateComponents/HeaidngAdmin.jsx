@@ -118,19 +118,6 @@ export default function PrimarySearchAppBar() {
               BIRRAPP
             </Typography>
           </Link>
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ "aria-label": "search" }}
-            />
-          </div>
           <div className={classes.grow} />
 
           {/* Por ahora este ninguna funcion ------ */}
@@ -142,7 +129,6 @@ export default function PrimarySearchAppBar() {
             // onClick={handleProfileMenuOpen}
             color="inherit"
           >
-            <AccountCircle />
           </IconButton>
 
           <div className={classes.sectionMobile}>
