@@ -15,7 +15,7 @@ const Index = () => {
   const carrito = useSelector(state => state.carrito)
 
   useEffect(() => {
-    // preguntar si hay carrito con estado pending y si no, crearlo. con el usuario que tengo, hacer un getCart    
+    // preguntar si hay carrito con estado pending y si no, crearlo. con el usuario que tengo, hacer un getCart  
     dispatch(getUser())
       .then((usuario) => {
         if (usuario.payload && !usuario.payload.admin) {
