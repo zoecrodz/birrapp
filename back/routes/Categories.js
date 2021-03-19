@@ -1,38 +1,16 @@
 const express = require("express");
-const router = express.Router()
-const { Category } = require("../models/index")
+const router = express.Router();
+const { Category } = require("../models/index");
+const categoriesController = require("../controllers/categories");
 
+router.get("/", categoriesController.findAll);
 
-router.get("/", (req, res) => {
-    Category.findAll({
-        order: [["id", "ASC"]]
-    })
-	.then(categories => res.send(categories));
-});
+router.get("/:id", categoriesController.findOne);
 
-router.get("/:id", (req, res) => {
-    Category.findByPk(req.params.id)
-	.then(category => res.send(category));
-});
+router.post("/", categoriesController.create);
 
-router.post("/", (req, res) => {
-    Category.create(req.body)
-    .then(category => res.status(201).send(category))
-    .catch(err => res.status(500).send(err));
-});
+router.put("/", categoriesController.update);
 
-router.put("/", (req, res) => {
-    Category.findByPk(req.body.id)
-    .then(category => category.update(req.body))
-    .then(category => res.status(201).send(category))
-});
-
-router.delete("/:id", (req, res) => {
-    Category.findByPk(req.params.id)
-    .then(category => category.destroy())
-    .then(() => res.sendStatus(200))
-    .catch(err => res.status(500).send(err));
-});
-
+router.delete("/:id", categoriesController.delete);
 
 module.exports = router;

@@ -36,29 +36,33 @@ const cartController = {
       })
       .catch(next);
   },
-  get(req, res) {
-    Cart.findAll({ where: { state: "WAITING" } })
-      .then((carts) => res.status(201).send(carts))
+  getPending(req, res) {
+    let userId = req.params.userId;
+    Cart.findAll({
+      where: { userId, state: { [sequelize.Op.not]: "PENDING" } },
+      include: Product,
+    })
+      .then((carts) => {
+        res.send(carts);
+      })
       .catch((err) => res.status(500).send(err));
   },
-  get(req, res) {
-    Cart.findAll({ where: { state: "WAITING" } })
-      .then((carts) => res.status(201).send(carts))
+  getOneCart(req, res) {
+    let cartId = req.params.cartId;
+    Cart.findByPk(cartId, { include: Product })
+      .then((cart) => res.send(cart))
+      .catch(next);
+  },
+  update(req, res) {
+    Cart.findByPk(req.params.id)
+      .then((cart) => cart.update(req.body))
+      .then((cart) => res.status(201).send(cart))
       .catch((err) => res.status(500).send(err));
   },
-  get(req, res) {
-    Cart.findAll({ where: { state: "WAITING" } })
-      .then((carts) => res.status(201).send(carts))
-      .catch((err) => res.status(500).send(err));
-  },
-  get(req, res) {
-    Cart.findAll({ where: { state: "WAITING" } })
-      .then((carts) => res.status(201).send(carts))
-      .catch((err) => res.status(500).send(err));
-  },
-  get(req, res) {
-    Cart.findAll({ where: { state: "WAITING" } })
-      .then((carts) => res.status(201).send(carts))
+  delete(req, res) {
+    Cart.findByPk(req.params.id)
+      .then((cart) => cart.destroy())
+      .then(() => res.sendStatus(200))
       .catch((err) => res.status(500).send(err));
   },
 };
