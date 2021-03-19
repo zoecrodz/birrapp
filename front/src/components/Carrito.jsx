@@ -211,7 +211,8 @@ const Cart = () => {
               </TableCell>
 
               <TableCell align="center">
-                {total + "$       "}
+                {total + "$"}
+                <br></br>
                 <Link
                   style={{ textDecoration: "none", color: "inherit" }}
                   to="/compra"

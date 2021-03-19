@@ -81,13 +81,13 @@ const SingleProduct = ({ productId }) => {
           <Grid item xs={12} sm container>
             <Grid item xs container direction="column" spacing={2}>
               <Grid item xs>
-                <Typography gutterBottom variant="subtitle1">
+                <Typography gutterBottom variant="h5">
                   {product.name}
                 </Typography>
-                <Typography variant="body2" gutterBottom>
+                <Typography variant="h6" gutterBottom>
                   Descripción: {product.description}
                 </Typography>
-                <Typography variant="body2" color="textSecondary">
+                <Typography variant="h6" color="textSecondary">
                   {printStar((averageRating()))}
                 </Typography>
               </Grid>
@@ -109,18 +109,18 @@ const SingleProduct = ({ productId }) => {
                 </TableCell>
 
                 <Grid>
-                  <Typography variant="h6" gutterBottom>
+                  <Typography variant="h5" gutterBottom>
                     Reviews:
                     </Typography>
                   <TableCell>
                     {reviews && reviews.map(review => (
-                      <Typography variant="h6" align="left">
+                      <Typography variant="h5" align="left">
                         <Typography variant="body2" color="textSecondary">
                           {printStar(review.stars)}
                         </Typography>
                         {review.title}
                         <br />
-                        <Typography variant="body2" align="left">
+                        <Typography variant="h6" align="left">
                           "{review.description}"
                         <br />
                           <br />
@@ -136,7 +136,7 @@ const SingleProduct = ({ productId }) => {
 
             </Grid>
             <Grid item>
-              <Typography variant="subtitle1">Precio: ${product.price}</Typography>
+              <Typography variant="h5">Precio: ${product.price}</Typography>
             </Grid>
           </Grid>
         </Grid>

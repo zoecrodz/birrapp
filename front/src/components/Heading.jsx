@@ -20,6 +20,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { logOutUser } from "../store/user";
 import { useHistory } from "react-router-dom";
 import { getProductName, getProducts } from "../store/products";
+import { Grid } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -228,7 +229,7 @@ export default function PrimarySearchAppBar() {
       <AppBar position="fixed" style={{ height: "10%" }}>
         <Toolbar>
           <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
-            <Button
+            <Grid
               variant="contained"
               color="primary"
               onClick={() => dispatch(getProducts())}
@@ -237,7 +238,7 @@ export default function PrimarySearchAppBar() {
                 <FastfoodIcon />
                 BIRRAPP
               </Typography>
-            </Button>
+            </Grid>
           </Link>
           <div className={classes.search}>
             <div className={classes.searchIcon}>

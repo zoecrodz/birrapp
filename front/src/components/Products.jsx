@@ -1,21 +1,37 @@
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  Box,
-  TableRow,
-  Button,
-  Typography,
-} from "@material-ui/core";
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { getProducts, getProductByCategorie } from "../store/products";
-import { addItemToCarrito } from "../store/items";
-import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
-import productStyles from "../Styles/products";
-import { getCategories } from "../store/categories";
+import { Table, TableBody, TableCell, TableContainer, TableHead, Box, TableRow, Button, Typography, AppBar, Tab } from '@material-ui/core';
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux"
+import { Link } from "react-router-dom"
+import { getProducts, getProductByCategorie } from "../store/products"
+import { addItemToCarrito } from "../store/items"
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import productStyles from "../Styles/products"
+import { getCarrito } from "../store/carrito";
+import { getCategories } from "../store/categories"
+import { withStyles } from "@material-ui/core/styles";
+
+
+const StyledTableCell = withStyles(() => ({
+  head: {
+    color: "white",
+    background: "#A41313	",
+    textAlign: "center",
+  },
+  body: {
+    fontSize: 14,
+  },
+  image: {
+    width: 128,
+    height: 128,
+  },
+  img: {
+    margin: "auto",
+    display: "block",
+    maxWidth: "100%",
+    maxHeight: "100%",
+  },
+}))(TableCell);
+
 
 const TableMaterial = () => {
   const classes = productStyles();
@@ -24,7 +40,6 @@ const TableMaterial = () => {
   const carrito = useSelector((state) => state.carrito);
   const user = useSelector((state) => state.user);
   const categories = useSelector((state) => state.categories);
-  const [message, setMessage] = useState();
 
   const addToCart = (productId) => {
     const itemData = {
@@ -32,29 +47,36 @@ const TableMaterial = () => {
       productId,
       qty: 1,
     };
-    return dispatch(addItemToCarrito(itemData)).then((item) => {
-      if (typeof item.payload.data === "string") {
-        setMessage(item.payload.data);
-      }
-    });
+    return dispatch(addItemToCarrito(itemData))
   };
 
   useEffect(() => {
-    dispatch(getProducts()).then(dispatch(getCategories()));
+    dispatch(getProducts())
+      .then(dispatch(getCategories()));
   }, []);
 
   return (
-    <TableContainer style={{ marginTop: "1.4%" }}>
-      {categories &&
-        categories.map((categorie) => {
-          return (
-            <Button
-              onClick={() => dispatch(getProductByCategorie(categorie.id))}
-            >
-              {categorie.name}
-            </Button>
-          );
-        })}
+    <TableContainer>
+      <Table>
+        <TableHead>
+          <TableRow>
+            {categories &&
+              categories.map((categorie) => {
+                return (
+                  <StyledTableCell allign="center">
+                    <Typography
+                      variant="h6"
+                      onClick={() => dispatch(getProductByCategorie(categorie.id))}>
+                      {categorie.name}
+                    </Typography>
+
+                  </StyledTableCell>
+                );
+              })}
+
+          </TableRow>
+        </TableHead>
+      </Table>
 
       <Table>
         <TableBody>

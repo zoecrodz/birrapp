@@ -51,13 +51,12 @@ export default function SignUp() {
   const [newCategory, setNewCategory] = useState({});
   const history = useHistory();
   const dispatch = useDispatch();
-  let [add, setAdd] = useState({});
 
   useEffect(
     (event) => {
       dispatch(getCategories());
     },
-    [add]
+    []
   );
 
   const handleSubmit = (event) => {
@@ -65,12 +64,14 @@ export default function SignUp() {
     axios({
       method: `post`,
       url: `http://localhost:8000/api/category`,
-      data: newCategory,
-    }).then((cat) => {
-      setAdd([]);
-      return history.push("/admin/categories");
-    });
+      data: newCategory
+    })
+      .then(() => {
+        dispatch(getCategories());
+        setNewCategory({name: ""})
+      });
   };
+
   const handleInputChange = (event) => {
     setNewCategory({ ...newCategory, [event.target.name]: event.target.value });
     console.log("newProductttttt", newCategory);
@@ -96,6 +97,7 @@ export default function SignUp() {
               label="Category Name"
               name="name"
               autoComplete="category"
+              value={newCategory.name}
               onChange={handleInputChange}
             />
           </Grid>

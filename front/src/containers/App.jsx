@@ -14,7 +14,6 @@ import ProfileCarrito from "../components/ProfileCarrito.jsx";
 import Compra from "../components/Compra.jsx";
 
 
-
 // Landing Page: Landing page (Header. Botones de categorias. Menu deslizable horizontal. Carta entera vertical mapeada de productos -con "sumar al pedido"-, y link al componente de cada producto)
 
 //- visual de cada item: (imagen del producto, descripcion del producto, precio, reviews, y valoracion)
