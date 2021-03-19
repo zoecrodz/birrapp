@@ -9,7 +9,7 @@ router.post("/", cartController.cartPost);
 
 router.get("/", cartController.get);
 
-router.get("/:userId", cartController.getOne;
+router.get("/:userId", cartController.getOne);
 
 router.get("/historial/:userId", (req, res, next) => {
   let userId = req.params.userId;
