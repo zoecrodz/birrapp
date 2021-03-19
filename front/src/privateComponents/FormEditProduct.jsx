@@ -13,35 +13,11 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { getProduct } from "../store/singleProduct";
+import formEditProductStyles from "../Styles/formEditProduct";
 
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    marginTop: theme.spacing(8),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(3),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-  root: {
-    "& .MuiTextField-root": {
-      margin: theme.spacing(1),
-      width: "25ch",
-    },
-  },
-}));
 
 export default function FormEditProduct({ productId }) {
-  const classes = useStyles();
+  const classes = formEditProductStyles();
   const dispatch = useDispatch();
   const categories = useSelector((state) => state.categories);
   const [editProduct, setEditProduct] = useState({ categoryId: 1 }); //El select es un componente controlado, pero si no el primer valor que toma al renderizarse es `undefined`, react lo considera un componente descontrolado. Lo que genera problemas al renderizar. De esta manera se le agrega provisoriamente un `categoryId` el cual es mas tarde cambiado por el setEditProduct correctamente.

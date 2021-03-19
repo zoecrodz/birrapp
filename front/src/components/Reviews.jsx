@@ -19,35 +19,11 @@ import { writeReview } from "../store/review";
 import { getUser } from "../store/user";
 import StarRateIcon from "@material-ui/icons/StarRate";
 import FastfoodIcon from "@material-ui/icons/Fastfood";
+import reviewsStyles from "../Styles/reviews"
 
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    marginTop: theme.spacing(8),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(3),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-  root: {
-    "& .MuiTextField-root": {
-      margin: theme.spacing(1),
-      width: "25ch",
-    },
-  },
-}));
 
 const Reviews = ({ productId }) => {
-  const classes = useStyles();
+  const classes = reviewsStyles();
   const history = useHistory();
   const dispatch = useDispatch();
   const [review, setReview] = useState({});

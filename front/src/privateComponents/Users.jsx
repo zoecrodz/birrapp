@@ -10,32 +10,14 @@ import {
   Button,
   Typography,
 } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
 import { withStyles } from "@material-ui/core/styles";
 import { getUsers } from "../store/users";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
+import usersStyles from "../Styles/users";
 
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    marginTop: theme.spacing(8),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(3),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-}));
+
 
 const StyledTableCell = withStyles(() => ({
   head: {
@@ -59,7 +41,7 @@ const StyledTableCell = withStyles(() => ({
 }))(TableCell);
 
 export default function SignUp() {
-  const classes = useStyles();
+  const classes = usersStyles();
   const dispatch = useDispatch();
   const users = useSelector((state) => state.users);
   const admin = useSelector((state) => state.user);

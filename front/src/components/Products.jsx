@@ -6,7 +6,6 @@ import { getProducts, getProductByCategorie } from "../store/products"
 import { addItemToCarrito } from "../store/items"
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import productStyles from "../Styles/products"
-import { getCarrito } from "../store/carrito";
 import { getCategories } from "../store/categories"
 import { withStyles } from "@material-ui/core/styles";
 
