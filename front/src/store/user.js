@@ -28,8 +28,10 @@ export const loginUser = createAsyncThunk("LOGIN_USER", (user) => {
 
 export const getUser = createAsyncThunk("SEARCH_SINGLE_USER", () => {
   return axios
-  .get(`http://localhost:8000/api/me`, {headers: {"Authorization": `token ${localStorage.getItem("token")}`}})
-  .then((res) => res.data) 
+    .get(`http://localhost:8000/api/me`, {
+      headers: { Authorization: `token ${localStorage.getItem("token")}` },
+    })
+    .then((res) => res.data);
 });
 
 export const logFbUser = createAsyncThunk("SEARCH_SINGLE_FBUSER", (response) => {
@@ -40,35 +42,29 @@ export const logFbUser = createAsyncThunk("SEARCH_SINGLE_FBUSER", (response) => 
     password: "facebook"   
   }
 
-  axios
+  return axios
     .post("http://localhost:8000/api/register/fb", user)
-    .then((res) => res.data)
+    .then((res) => {return res.data})
     .then((usuario) => localStorage.setItem("id", usuario.id));
-
-
-  return user  
-})
+  }
+);
 
 export const getFbUser = createAsyncThunk("SEARCH_SINGLE_USER", (id) => {
-  console.log("aca el id",id)
   return axios
-  .get(`http://localhost:8000/api/users/${id}`)
-  .then((res) => res.data) 
+    .get(`http://localhost:8000/api/users/${id}`)
+    .then((res) => res.data);
 });
-
 
 export const logOutUser = createAction("SET_LOG_OUT");
 
-const userReducer = createReducer(
-  {},
+const userReducer = createReducer({},
   {
-    [registerUser.fulfilled]: (state, action) => action.payload,
     [loginUser.fulfilled]: (state, action) => action.payload,
     [getUser.fulfilled]: (state, action) => action.payload,
     [logOutUser]: (state, action) => action.payload,
     [logFbUser.fullfilled]: (state, action) => action.payload,
-    [getFbUser.fullfilled]: (state, action) => action.payload
+    [getFbUser.fullfilled]: (state, action) => action.payload,
+  }
+);
 
-  });
-  
-  export default userReducer;
+export default userReducer;

@@ -16,7 +16,7 @@ Item.init({
 
 Item.prototype.operation = function (sumaResta) {
 
-    return sumaResta == "suma" ? this.increment({ qty: + 1 }) : this.decrement({ qty: + 1 })
+    return sumaResta == "suma" && this.qty > 0 ? this.increment({ qty: + 1 }) : this.decrement({ qty: + 1 })
 
 }
 

@@ -85,6 +85,14 @@ export default function Album() {
                   </Button>
                   </Link>
                 </Grid>
+                <Grid item>
+                  <Link to="/admin/orders" style={{ textDecoration: 'none', color: "inherit" }}>
+                    <Button variant="contained"
+                      color="primary">
+                      Ordenes de compra
+                  </Button>
+                  </Link>
+                </Grid>
               </Grid>
             </div>
           </Container>

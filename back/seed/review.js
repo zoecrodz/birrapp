@@ -3,28 +3,52 @@ module.exports = [
     productId: 1,
     userId: 1,
     title: "Muy Buena!!",
-    description: "aaaa bbbbb cccc dddd",
+    description: "Volveria a probarlas",
     stars: 4
   },
   {
     productId: 2,
     userId: 3,
     title: "Me re gusto",
-    description: "cccc dddd aaaa bbbbb",
+    description: "Recomendable",
     stars: 4
   },
   {
     productId: 1,
     userId: 3,
     title: "Mal serivcio, Pero Rica",
-    description: "aaaa cccc bbbbb dddd",
+    description: "Nos atendieron despues de media hora",
     stars: 3
   },
   {
     productId: 3,
     userId: 2,
     title: "No me gusto nada",
-    description: "dddd aaaa bbbbb cccc",
+    description: "Falto cocer la carne",
     stars: 2
   },
+  {
+    productId: 26,
+    userId: 2,
+    title: "Deliciosas",
+    description: "Las mejores del mundo",
+    stars: 5
+  },
+  {
+    productId: 26,
+    userId: 1,
+    title: "Muy quemadas",
+    description: "Primera vez que me las entregan quemadas",
+    stars: 2
+  },
+  {
+    productId: 26,
+    userId: 1,
+    title: "Las volvería a comer 1000 veces",
+    description: "Muy buena mano",
+    stars: 2
+  },
+  
+
+
 ]

@@ -60,6 +60,9 @@ const Profile = () => {
   useEffect(() => {
     dispatch(getCarritosProfile(user.id));
   }, []);
+
+  console.log("carritossss", carritos[0])
+  let status;
   return (
     <div>
       <div >
@@ -83,7 +86,6 @@ const Profile = () => {
                   <div className={classes.children}>Numero de compra: {carrito.id}</div>
                   <div className={classes.children}>Metodo de pago: {carrito.paymentMethod}</div>
                   <div className={classes.children}>Numero de mesa: {carrito.table}</div>
-
                   {carrito.products.map((item) => {
                     return (
                       <div className={classes.children}>
@@ -105,6 +107,8 @@ const Profile = () => {
                     );
                   })}
                   <div className={classes.children}>Total: ${carrito.total}</div>
+
+                  <div className={classes.children}>Estado: {carrito.state}</div>
                 </div>
                 <br />
                 <br />

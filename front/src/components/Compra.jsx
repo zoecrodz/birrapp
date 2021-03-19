@@ -7,9 +7,11 @@ import StepLabel from '@material-ui/core/StepLabel';
 import Typography from '@material-ui/core/Typography';
 import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, ButtonGroup, Container, Grid } from "@material-ui/core";
 import { getCarrito, updateCarrito } from "../store/carrito";
-import { sendEmailToUser } from "../store/emails";
+import { sendEmailToUser, sendEmailToAdmin } from "../store/emails";
+import { getUsers } from "../store/users";
+
+import { Button, ButtonGroup, Container, Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { getCarritosProfile } from "../store/carritosProfile";
 
@@ -65,7 +67,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
 const steps = ['Payment Method', 'Table', 'Review your order'];
 
 const GetStepContent = (step) => {
@@ -75,11 +76,18 @@ const GetStepContent = (step) => {
   const carrito = useSelector((state) => state.carrito);
   const user = useSelector((state) => state.user);
   const items = useSelector((state) => state.items);
+  const [admin, setAdmin] = useState("");
 
+  // Si no hay un user admin se rompe. Poner un admin cualquiera
+  // Podria poner un if (admin) en varios lugares, pero es un lio.
+  // La realidad es que siempre deberia haber un admin
 
   useEffect(() => {
-    if (user) dispatch(getCarrito(user.id));
-  }, [items]);
+    return dispatch(getUsers()).then(({ payload }) => {
+      let adminUser = payload.filter(usuario => usuario.admin === true);
+      setAdmin(adminUser[0]); //Para saber a que admin se le manda el mail. Es al primero siempre
+    });
+  }, []);
 
 
   const comida = [];
@@ -95,25 +103,27 @@ const GetStepContent = (step) => {
     fullFilled = false;
   }
 
+  // lógica para setear el total de la compra en el carrito del backend
   const precio = [];
   let total;
-
   if (carrito.items) {
-    carrito.items.map((item) => {
+    carrito.items.map(item => {
       precio.push(item.item.qty >= 1 ? item.price * item.item.qty : 0);
     });
     total = precio.reduce((a, b) => a + b, 0);
   }
 
-  const handlePayCarrito = (e) => {
+  // 1-modifica estado del carrito 2-crea carrito nuevo 3-envia emails a user confirmando compra, y a admin avisandole de una nueva orden "WAITING" para aprobar "COMPLETED" o rechazar "REJECTED"
+  const handlePayCarrito = e => {
     e.preventDefault();
     const cart = {
-      state: "COMPLETED",
+      state: "WAITING",
       id: carrito.id,
       total,
       paymentMethod: compraData.pago,
       table: Number(compraData.mesa),
     };
+
     let subject = `Birrap - Gran compra, Birrapper`;
     let text = `Hola, ${user.firstName} ${user.lastName}!!
     Se ha completado con exito tu compra.
@@ -127,12 +137,19 @@ const GetStepContent = (step) => {
     
     
     Con tu compra ganaste ${Math.round(total / 10)} Pablito's Tokens!!!`;
-    const emailData = { email: user.email, subject, text };
-    dispatch(updateCarrito(cart)) //Cambia el estado del carrito actual a COMPLETED
+
+    const userEmailData = { email: user.email, subject, text };
+    const adminEmailData = { email: admin.email };
+
+    dispatch(updateCarrito(cart)) //Cambia el estado del carrito actual a WAITING
       .then(() => dispatch(getCarrito(user.id))) // Inmediatamente después genera un nuevo carrito.
-      .then(() => dispatch(sendEmailToUser(emailData))); // Y le envio un mail al usuario avisandole de la compra
-    history.push("/");
+      .then(() => history.push("/"))
+      .then(() => dispatch(sendEmailToUser(userEmailData))) // Y le envio un mail al usuario avisandole de la compra
+      .then(() => dispatch(sendEmailToAdmin(adminEmailData))); // le envia un mail al admin para aprobarla
+
+      // Los then anidados es para que antes del redirect, se hagan los dispatch de este componente, asi no tenemos 10 dispatch distintos aleatoriamente cuando redirige a la home, y prevenir bugs
   };
+
   useEffect(() => {
     dispatch(getCarritosProfile(user.id));
   }, []);
