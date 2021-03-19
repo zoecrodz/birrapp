@@ -10,69 +10,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCarrito, updateCarrito } from "../store/carrito";
 import { sendEmailToUser, sendEmailToAdmin } from "../store/emails";
 import { getUsers } from "../store/users";
-
+import compraStyles from "../Styles/compra"
 import { Button, ButtonGroup, Container, Grid } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
 import { getCarritosProfile } from "../store/carritosProfile";
 
-
-
-const useStyles = makeStyles((theme) => ({
-  appBar: {
-    position: 'relative',
-  },
-  layout: {
-    width: 'auto',
-    marginLeft: theme.spacing(2),
-    marginRight: theme.spacing(2),
-    [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
-      width: 600,
-      marginLeft: 'auto',
-      marginRight: 'auto',
-    },
-  },
-  paper: {
-    marginTop: theme.spacing(3),
-    marginBottom: theme.spacing(3),
-    padding: theme.spacing(2),
-    [theme.breakpoints.up(600 + theme.spacing(3) * 2)]: {
-      marginTop: theme.spacing(6),
-      marginBottom: theme.spacing(6),
-      padding: theme.spacing(3),
-    },
-  },
-  stepper: {
-    padding: theme.spacing(3, 0, 5),
-  },
-  buttons: {
-    display: 'flex',
-    justifyContent: 'flex-end',
-  },
-  button: {
-    marginTop: theme.spacing(3),
-    marginLeft: theme.spacing(1),
-  },
-  form: {
-    width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(3),
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "center",
-  },
-  hijos: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-}));
 
 const steps = ['Payment Method', 'Table', 'Review your order'];
 
 const GetStepContent = (step) => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const classes = useStyles();
+  const classes = compraStyles();
   const carrito = useSelector((state) => state.carrito);
   const user = useSelector((state) => state.user);
   const items = useSelector((state) => state.items);
@@ -237,7 +185,7 @@ const GetStepContent = (step) => {
 }
 
 export default function Checkout() {
-  const classes = useStyles();
+  const classes = compraStyles();
   const [activeStep, setActiveStep] = React.useState(0);
 
   const handleNext = () => {
@@ -247,6 +195,8 @@ export default function Checkout() {
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
+
+ 
 
   return (
     <React.Fragment>

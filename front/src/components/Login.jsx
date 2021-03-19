@@ -5,8 +5,7 @@ import { useHistory } from "react-router-dom";
 import { getUser } from "../store/user";
 import { getCarrito } from "../store/carrito";
 import FacebookLogin from "react-facebook-login";
-import { makeStyles, Container, CssBaseline, Avatar, Typography, TextField, FormControlLabel, Checkbox, Button, Grid, Link} from '@material-ui/core';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import { Container, CssBaseline, Avatar, Typography, TextField, FormControlLabel, Checkbox, Button, Grid, Link} from '@material-ui/core';
 import FastfoodIcon from '@material-ui/icons/Fastfood';
 import loginStyles from "../Styles/login";
 
