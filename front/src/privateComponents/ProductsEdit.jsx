@@ -92,7 +92,7 @@ const TableMaterial = () => {
                   {product.description}
                 </Typography>
               </TableCell>
-              <TableCell align="center">import headingAdminStyles from "../Styles/headingAdmin";
+              <TableCell align="center">
                 <Typography variant="h6">{product.price + "$"}</Typography>
               </TableCell>
               <TableCell align="center"></TableCell>
