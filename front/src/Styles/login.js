@@ -19,6 +19,22 @@ const useStyles = makeStyles((theme) => ({
       padding: '0 90px',
       height: 48,
     },
+    fbButton:{
+      width: "100%",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      fontFamily: 'Lucida Grande, Helvetica Neue, Helvetica, Arial, sans-serif',
+      display: "inline-block",
+      fontSize: "1em",
+      background: "#3A5A97",
+      color: '#fff',
+      textDecoration: 'none',
+      height: "3.5em",
+      position: 'relative',
+      borderRadius: '5px',
+      paddingTop: '1em'
+    }
   }));
 
  export default useStyles;

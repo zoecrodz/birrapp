@@ -132,7 +132,7 @@ module.exports = [
     stars: 4,
     stock: 70,
     categoryId: 3,
-    url: "https://d2vwsr3mua7yp8.cloudfront.net/c5615cc9-0afb-400a-b510-7f3fadb3976b.jpg"
+    url: "https://www.fajitaslacatrina.cl/wp-content/uploads/2020/04/lata-coca-cola.jpg"
   },
   {
     name: "COCA ZERO",
@@ -141,7 +141,7 @@ module.exports = [
     stars: 4,
     stock: 70,
     categoryId: 3,
-    url: "https://d2vwsr3mua7yp8.cloudfront.net/0345361f-2d7f-4e3f-bcb8-e197c110b13d.jpg"
+    url: "https://i.pinimg.com/originals/16/6c/5c/166c5c3b49aee864123408dae8285efe.png"
   },
   {
     name: "COCA LIGHT",
@@ -150,7 +150,7 @@ module.exports = [
     stars: 4,
     stock: 70,
     categoryId: 3,
-    url: "https://d2vwsr3mua7yp8.cloudfront.net/e36c4ac4-8957-4b9d-b222-391b9908d37d.jpg"
+    url: "https://images-ext-2.discordapp.net/external/lYIC2-wqQ49FQq1BW9HQpnDN2ijov4EE82SrjfUlfZ0/http/ladiosa.cl/tienda/wp-content/uploads/2020/08/caja-de-refrescos-coca-cola-light-de-355-ml-con-12-latas-D_NQ_NP_811848-MLM26824562758_022018-F-600x600-1.jpg"
   },
   {
     name: "SCHWEPPES POMELO ZERO",
@@ -159,7 +159,7 @@ module.exports = [
     stars: 4,
     stock: 70,
     categoryId: 3,
-    url: "https://d2vwsr3mua7yp8.cloudfront.net/915be811-c587-4582-9450-cdfc2c0fccea.jpg"
+    url: "https://dillon24.com/wp-content/uploads/2020/12/adc45e0b-7c8f-44af-a234-ab54270e03ec.png"
   },
   {
     name: "FANTA",
@@ -168,7 +168,7 @@ module.exports = [
     stars: 4,
     stock: 70,
     categoryId: 3,
-    url: "https://d2vwsr3mua7yp8.cloudfront.net/e324e853-376c-42df-acdd-354534f6555f.jpg"
+    url: "https://lacaseritaempanadas.com/wp-content/uploads/2020/10/Fanta-Naranja-330-ml-200x200.png"
   },
   {
     name: "SPRITE",
@@ -177,7 +177,7 @@ module.exports = [
     stars: 4,
     stock: 70,
     categoryId: 3,
-    url: "https://d2vwsr3mua7yp8.cloudfront.net/fd98688e-6676-4f8a-820a-14b9e06e0033_d2.jpg"
+    url: "https://pngimg.com/uploads/sprite/small/sprite_PNG98773.png"
   },
   {
     name: "CERVEZA OCAZO IPA",

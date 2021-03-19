@@ -4,9 +4,9 @@ import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
 import { getProducts, getProductByCategorie } from "../store/products"
 import { addItemToCarrito } from "../store/items"
+import { getCarrito } from "../store/carrito";
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import productStyles from "../Styles/products"
-import { getCarrito } from "../store/carrito";
 import { getCategories } from "../store/categories"
 import { withStyles } from "@material-ui/core/styles";
 
@@ -48,6 +48,7 @@ const TableMaterial = () => {
       qty: 1,
     };
     return dispatch(addItemToCarrito(itemData))
+      .then(()=>dispatch(getCarrito(user.id)))
   };
 
   useEffect(() => {

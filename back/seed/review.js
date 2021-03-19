@@ -16,12 +16,12 @@ module.exports = [
   {
     productId: 1,
     userId: 3,
-    title: "Mal serivcio, Pero Rica",
+    title: "Mal servicio, Pero Rica",
     description: "Nos atendieron despues de media hora",
     stars: 3
   },
   {
-    productId: 3,
+    productId: 1,
     userId: 2,
     title: "No me gusto nada",
     description: "Falto cocer la carne",
@@ -46,9 +46,13 @@ module.exports = [
     userId: 1,
     title: "Las volvería a comer 1000 veces",
     description: "Muy buena mano",
-    stars: 2
+    stars: 5
   },
-  
-
-
+  {
+    productId: 27,
+    userId: 1,
+    title: "LLegaron un poco frías",
+    description: "Sabor muy bueno, pero faltó temperatura ",
+    stars: 3
+  },
 ]

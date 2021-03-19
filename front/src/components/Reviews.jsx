@@ -16,38 +16,14 @@ import {
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { writeReview } from "../store/review";
-import { getUser } from "../store/user";
+import { getUser, getFbUser } from "../store/user";
 import StarRateIcon from "@material-ui/icons/StarRate";
 import FastfoodIcon from "@material-ui/icons/Fastfood";
+import reviewsStyles from "../Styles/reviews"
 
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    marginTop: theme.spacing(8),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(3),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-  root: {
-    "& .MuiTextField-root": {
-      margin: theme.spacing(1),
-      width: "25ch",
-    },
-  },
-}));
 
 const Reviews = ({ productId }) => {
-  const classes = useStyles();
+  const classes = reviewsStyles();
   const history = useHistory();
   const dispatch = useDispatch();
   const [review, setReview] = useState({});
@@ -56,13 +32,23 @@ const Reviews = ({ productId }) => {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault()
+    if(localStorage.getItem("id")){
+      dispatch(getFbUser(localStorage.getItem("id")))
+      .then((foundUser) => {
+        const user= foundUser.payload
+        const data= { review, productId, user }
+        dispatch(writeReview(data))
+        .then(() => history.push("/me"))
+      })
+    }
+    else{
     dispatch(getUser()).then((foundUser) => {
       const user = foundUser.payload;
       const data = { review, productId, user };
       dispatch(writeReview(data)).then(() => history.push("/me"));
     });
-  };
+  }};
 
   const printStar = (amount) => {
     let arrRteurn = [];

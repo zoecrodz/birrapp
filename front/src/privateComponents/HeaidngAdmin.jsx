@@ -13,77 +13,16 @@ import SearchIcon from "@material-ui/icons/Search";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import FastfoodIcon from "@material-ui/icons/Fastfood";
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logOutUser } from "../store/user";
 import { useHistory } from "react-router-dom";
+import headingAdminStyles from "../Styles/headingAdmin";
 
-const useStyles = makeStyles((theme) => ({
-  grow: {
-    flexGrow: 1,
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
-    display: "none",
-    [theme.breakpoints.up("sm")]: {
-      display: "block",
-    },
-  },
-  search: {
-    position: "relative",
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: fade(theme.palette.common.white, 0.15),
-    "&:hover": {
-      backgroundColor: fade(theme.palette.common.white, 0.25),
-    },
-    marginRight: theme.spacing(2),
-    marginLeft: 0,
-    width: "100%",
-    [theme.breakpoints.up("sm")]: {
-      marginLeft: theme.spacing(3),
-      width: "auto",
-    },
-  },
-  searchIcon: {
-    padding: theme.spacing(0, 2),
-    height: "100%",
-    position: "absolute",
-    pointerEvents: "none",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  inputRoot: {
-    color: "inherit",
-  },
-  inputInput: {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("md")]: {
-      width: "20ch",
-    },
-  },
-  sectionDesktop: {
-    display: "none",
-    [theme.breakpoints.up("md")]: {
-      display: "flex",
-    },
-  },
-  sectionMobile: {
-    display: "flex",
-    [theme.breakpoints.up("md")]: {
-      display: "none",
-    },
-  },
-}));
 
 export default function PrimarySearchAppBar() {
-  const classes = useStyles();
+  const classes = headingAdminStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const history = useHistory();
@@ -144,17 +83,6 @@ export default function PrimarySearchAppBar() {
       onClose={handleMobileMenuClose}
     >
       <div>
-        <MenuItem onClick={handleProfileMenuOpen}>
-          <IconButton
-            aria-label="account of current user"
-            aria-controls="primary-search-account-menu"
-            aria-haspopup="true"
-            color="inherit"
-          >
-            <AccountCircle />
-          </IconButton>
-          <p>Profile</p>
-        </MenuItem>
         <MenuItem onClick={handleLogOut}>
           <IconButton
             aria-label="account of current user"
@@ -162,7 +90,7 @@ export default function PrimarySearchAppBar() {
             aria-haspopup="true"
             color="inherit"
           >
-            <AccountCircle />
+            <ExitToAppIcon />
           </IconButton>
           <p>Log out</p>
         </MenuItem>
@@ -180,19 +108,6 @@ export default function PrimarySearchAppBar() {
               BIRRAPP
             </Typography>
           </Link>
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ "aria-label": "search" }}
-            />
-          </div>
           <div className={classes.grow} />
 
           {/* Por ahora este ninguna funcion ------ */}
@@ -204,7 +119,6 @@ export default function PrimarySearchAppBar() {
             // onClick={handleProfileMenuOpen}
             color="inherit"
           >
-            <AccountCircle />
           </IconButton>
 
           <div className={classes.sectionMobile}>
@@ -221,21 +135,6 @@ export default function PrimarySearchAppBar() {
 
           {/*  PARTE DESKTOP                                ------------------------------- */}
           <div className={classes.sectionDesktop}>
-            <Link
-              style={{ textDecoration: "none", color: "inherit" }}
-              to="/carrito"
-            >
-              <IconButton
-                aria-label="account of current user"
-                aria-controls="primary-search-account-menu"
-                aria-haspopup="true"
-                color="inherit"
-              >
-                {/* <AccountCircle /> */}
-                <p>Mi carrito</p>
-              </IconButton>
-            </Link>
-
             <IconButton
               aria-label="account of current user"
               aria-controls="primary-search-account-menu"
