@@ -16,6 +16,7 @@ router.post("/fb", (req, res) => {
     },
   })
     .then((usuario) => {
+
         if (usuario) {
           res.send(usuario)
         }
