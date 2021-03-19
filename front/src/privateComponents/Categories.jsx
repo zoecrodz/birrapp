@@ -9,10 +9,9 @@ import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
-import MenuItem from "@material-ui/core/MenuItem";
 import { useSelector, useDispatch } from "react-redux";
 import Container from "@material-ui/core/Container";
+import categoriesStyles from "../Styles/categories";
 import {
   Table,
   TableCell,
@@ -25,28 +24,9 @@ import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { getCategories } from "../store/categories";
 
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    marginTop: theme.spacing(8),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(3),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-}));
 
 export default function SignUp() {
-  const classes = useStyles();
+  const classes = categoriesStyles();
   const categories = useSelector((state) => state.categories);
   const [newCategory, setNewCategory] = useState({});
   const history = useHistory();
