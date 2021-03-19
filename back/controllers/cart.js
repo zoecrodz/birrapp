@@ -1,4 +1,5 @@
 const { Cart, Product } = require("../models");
+const sequelize = require("sequelize");
 
 const cartController = {
   cartPost(req, res) {

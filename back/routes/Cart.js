@@ -1,8 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const db = require("../db");
-const { Cart, Product } = require("../models");
-const sequelize = require("sequelize");
+
 const cartController = require("../controllers/cart");
 
 router.post("/", cartController.cartPost);
