@@ -66,7 +66,8 @@ export default function SignUp() {
     })
       .then((cat) => {
         console.log(cat)
-        return history.push("/admin/categories")
+        dispatch(getCategories())
+        setNewCategory({name: ""})
       })
   }
   const handleInputChange = (event) => {
@@ -96,6 +97,7 @@ export default function SignUp() {
               label="Category Name"
               name="name"
               autoComplete="category"
+              value={newCategory.name}
               onChange={handleInputChange}
             />
           </Grid>

@@ -1,4 +1,4 @@
-import { Table, TableBody, TableCell, TableContainer, Box, TableRow, Button, Typography, AppBar } from '@material-ui/core';
+import { Table, TableBody, TableCell, TableContainer, TableHead, Box, TableRow, Button, Typography, AppBar } from '@material-ui/core';
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
@@ -8,7 +8,29 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import productStyles from "../Styles/products"
 import { getCarrito } from "../store/carrito";
 import { getCategories } from "../store/categories"
+import { withStyles } from "@material-ui/core/styles";
 
+
+const StyledTableCell = withStyles(() => ({
+    head: {
+        color: "white",
+        background: "#A41313	",
+        textAlign: "center",
+    },
+    body: {
+        fontSize: 14,
+    },
+    image: {
+        width: 128,
+        height: 128,
+    },
+    img: {
+        margin: "auto",
+        display: "block",
+        maxWidth: "100%",
+        maxHeight: "100%",
+    },
+}))(TableCell);
 
 
 const TableMaterial = () => {
@@ -34,13 +56,29 @@ const TableMaterial = () => {
             .then(dispatch(getCategories()))
     }, [])
 
+
+
+
+
     return (
         <TableContainer>
-            { categories && categories.map(categorie => {
-                return <Button onClick={() => dispatch(getProductByCategorie(categorie.id))}>{categorie.name}</Button>
-            })
-            }
-
+            <Table >
+                <TableHead >
+                    <TableRow >
+                        {categories && categories.map(categorie => {
+                            return (
+                                <StyledTableCell align="center" >
+                                    < Button
+                                        variant="contained"
+                                        color="primary" 
+                                        onClick={() => dispatch(getProductByCategorie(categorie.id))}> {categorie.name}</Button >
+                                </StyledTableCell>
+                            )
+                        })
+                        }
+                    </TableRow>
+                </TableHead>
+            </Table>
             <Table>
                 <TableBody >
                     {products.map(product => (
