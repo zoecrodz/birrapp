@@ -40,17 +40,16 @@ export const logFbUser = createAsyncThunk("SEARCH_SINGLE_FBUSER", (response) => 
     password: "facebook"   
   }
 
-  axios
+  return axios
     .post("http://localhost:8000/api/register/fb", user)
-    .then((res) => res.data)
+    .then((res) => {return res.data})
     .then((usuario) => localStorage.setItem("id", usuario.id));
 
 
-  return user  
+  
 })
 
 export const getFbUser = createAsyncThunk("SEARCH_SINGLE_USER", (id) => {
-  console.log("aca el id",id)
   return axios
   .get(`http://localhost:8000/api/users/${id}`)
   .then((res) => res.data) 
