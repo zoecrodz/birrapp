@@ -55,7 +55,7 @@ export const getFbUser = createAsyncThunk("SEARCH_SINGLE_USER", (id) => {
     .then((res) => res.data);
 });
 
-export const logOutUser = createAsyncThunk("SET_LOG_OUT"), () => null;
+export const logOutUser = createAsyncThunk("SET_LOG_OUT", () => null);
 
 const userReducer = createReducer({},
   {

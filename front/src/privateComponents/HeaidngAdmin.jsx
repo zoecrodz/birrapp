@@ -112,9 +112,11 @@ export default function PrimarySearchAppBar() {
 
   const handleLogOut = (e) => {
     localStorage.clear();
-    dispatch(logOutUser({}));
-    handleMenuClose();
-    history.push("/");
+    dispatch(logOutUser())
+      .then(()=> {
+        handleMenuClose();
+        history.push("/");
+      })
   };
 
   const menuId = "primary-search-account-menu";

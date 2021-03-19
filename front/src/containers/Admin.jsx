@@ -22,7 +22,7 @@ const Admin = () => {
 
   return (
     <div>
-      {!user.admin && <Redirect from="/admin" to="/" />}
+      {user && !user.admin && <Redirect from="/admin" to="/" />}
       <HeadingAdmin />
       <div className={classes.drawerHeader} />
       {/*DrawerHeader necesario para que la navbar no pise nada  */}
