@@ -48,6 +48,7 @@ const TableMaterial = () => {
       qty: 1,
     };
     return dispatch(addItemToCarrito(itemData))
+      .then(()=>dispatch(getCarrito(user.id)))
   };
 
   useEffect(() => {

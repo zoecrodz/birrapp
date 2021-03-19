@@ -26,8 +26,8 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: "#A41313",
     borderRadius: "20px",
     color: "white",
-    fontSize: "120%", 
-    height: "50%", 
+    fontSize: "120%",
+    height: "50%",
     width: "50%"
   },
   cuadro: {
@@ -40,7 +40,8 @@ const useStyles = makeStyles(theme => ({
   },
   text1: {
     alignItems: "center",
-    fontSize: "200%"
+    fontSize: "200%",
+
   },
   text: {
     display: "flex",
@@ -68,17 +69,17 @@ const Profile = () => {
       <div >
         <div align="center" ><AccountCircleIcon style={{ fontSize: 80 }} /></div>
         <div component="h1" variant="h2" align="center" color="textPrimary" gutterBottom className={classes.text1}>
-          Profile
+        {user.firstName} {user.lastName}
         </div>
 
         <div className={classes.cuadro}>
-          <div className={classes.text}>Nombre y Apellido: {user.firstName} {user.lastName}</div>
-          <div className={classes.text}>Email: {user.email}</div>
+          <div className={classes.text}>{user.email}</div>
+          <Typography align="center" className={classes.text1}> Tus compras pasadas:</Typography>
         </div>
 
         <div className={classes.container}>
 
-          {carritos.length &&
+          {carritos.length > 0 ?
             carritos.map((carrito) => (
               <div className={classes.children}>
                 <ShoppingCartIcon className={classes.carrito} />
@@ -89,7 +90,7 @@ const Profile = () => {
                   {carrito.products.map((item) => {
                     return (
                       <div className={classes.children}>
-                        <Grid align="center"> 
+                        <Grid align="center">
                           <Typography >
                             - {item.item.qty} {item.name}
                             <Grid align="center"><Link
@@ -113,7 +114,15 @@ const Profile = () => {
                 <br />
                 <br />
               </div>
-            ))}
+            )) 
+            :
+            <Grid>
+              <br/>
+              <br/>
+            <Typography variant="h6">No has hecho ninguna compra todavia</Typography>
+            <Typography variant="h6">No te quedes con hambre Birrapper!!!!</Typography>
+            </Grid>
+            }
         </div>
       </div>
     </div>
