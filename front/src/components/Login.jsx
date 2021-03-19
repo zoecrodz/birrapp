@@ -1,12 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { loginUser, logFbUser, getFbUser } from "../store/user";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { getUser } from "../store/user";
 import { getCarrito } from "../store/carrito";
 import FacebookLogin from "react-facebook-login";
-import { Container, CssBaseline, Avatar, Typography, TextField, FormControlLabel, Checkbox, Button, Grid, Link} from '@material-ui/core';
-import FastfoodIcon from '@material-ui/icons/Fastfood';
+import {
+  makeStyles,
+  Container,
+  CssBaseline,
+  Avatar,
+  Typography,
+  TextField,
+  FormControlLabel,
+  Checkbox,
+  Button,
+  Grid,
+  Link,
+} from "@material-ui/core";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import FastfoodIcon from "@material-ui/icons/Fastfood";
 import loginStyles from "../Styles/login";
 
 const Login = () => {
@@ -30,6 +43,8 @@ const Login = () => {
     setNewUser({ ...newUser, [e.target.name]: e.target.value });
   };
 
+  const [error, setError] = useState(false);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(loginUser(newUser))
@@ -41,16 +56,19 @@ const Login = () => {
           // console.log("usuario", usuario)
           dispatch(getCarrito(usuario.payload.id));
           return history.push("/");
+        } else {
+          setError(true);
         }
       })
       .catch();
   };
+  useEffect(() => {}, [error]);
 
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
-      <Avatar className={classes.avatar}>
+        <Avatar className={classes.avatar}>
           <FastfoodIcon />
         </Avatar>
         {/* <img src={process.env.PUBLIC_URL + '/bi.jpg'} alt="logo"  style={{ width: 200, height: 200 }}/> */}
@@ -68,7 +86,8 @@ const Login = () => {
             name="email"
             autoComplete="email"
             autoFocus
-            onChange={handleChange} 
+            onChange={handleChange}
+            onClick={() => setError(false)}
           />
           <TextField
             variant="outlined"
@@ -80,7 +99,25 @@ const Login = () => {
             type="password"
             id="password"
             autoComplete="current-password"
+            onClick={() => setError(false)}
             onChange={handleChange}
+          />
+          {error && (
+            <div
+              style={{
+                background: "rgb(191, 47, 34)",
+                textAlign: "center",
+                padding: "0.4em",
+                borderRadius: "2em",
+                color: "white",
+              }}
+            >
+              Hubo un error de logueo
+            </div>
+          )}
+          <FormControlLabel
+            control={<Checkbox value="remember" color="primary" />}
+            label="Remember me"
           />
           <br />
           <Button
