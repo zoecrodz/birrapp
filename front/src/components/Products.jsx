@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
 import { getProducts, getProductByCategorie } from "../store/products"
 import { addItemToCarrito } from "../store/items"
+import { getCarrito } from "../store/carrito";
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import productStyles from "../Styles/products"
 import { getCategories } from "../store/categories"
