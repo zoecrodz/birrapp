@@ -16,7 +16,7 @@ import {
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { writeReview } from "../store/review";
-import { getUser } from "../store/user";
+import { getUser, getFbUser } from "../store/user";
 import StarRateIcon from "@material-ui/icons/StarRate";
 import FastfoodIcon from "@material-ui/icons/Fastfood";
 
@@ -56,13 +56,23 @@ const Reviews = ({ productId }) => {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault()
+    if(localStorage.getItem("id")){
+      dispatch(getFbUser(localStorage.getItem("id")))
+      .then((foundUser) => {
+        const user= foundUser.payload
+        const data= { review, productId, user }
+        dispatch(writeReview(data))
+        .then(() => history.push("/me"))
+      })
+    }
+    else{
     dispatch(getUser()).then((foundUser) => {
       const user = foundUser.payload;
       const data = { review, productId, user };
       dispatch(writeReview(data)).then(() => history.push("/me"));
     });
-  };
+  }};
 
   const printStar = (amount) => {
     let arrRteurn = [];
