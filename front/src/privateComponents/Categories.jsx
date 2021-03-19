@@ -1,42 +1,43 @@
-import React, { useState, useEffect } from 'react';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import MenuItem from '@material-ui/core/MenuItem';
-import { useSelector, useDispatch } from "react-redux"
-import Container from '@material-ui/core/Container';
-import { Table, TableCell, TableContainer, TableRow, TableBody } from '@material-ui/core';
-import axios from "axios"
+import React, { useState, useEffect } from "react";
+import Avatar from "@material-ui/core/Avatar";
+import Button from "@material-ui/core/Button";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import TextField from "@material-ui/core/TextField";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
+import Grid from "@material-ui/core/Grid";
+import Box from "@material-ui/core/Box";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core/styles";
+import MenuItem from "@material-ui/core/MenuItem";
+import { useSelector, useDispatch } from "react-redux";
+import Container from "@material-ui/core/Container";
+import {
+  Table,
+  TableCell,
+  TableContainer,
+  TableRow,
+  TableBody,
+} from "@material-ui/core";
+import axios from "axios";
 import { useHistory } from "react-router-dom";
-import { Link } from "react-router-dom"
-import { getCategories } from "../store/categories"
-
-
-
-
-
+import { Link } from "react-router-dom";
+import { getCategories } from "../store/categories";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
   },
   avatar: {
     margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
-    width: '100%', // Fix IE 11 issue.
+    width: "100%", // Fix IE 11 issue.
     marginTop: theme.spacing(3),
   },
   submit: {
@@ -46,35 +47,34 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignUp() {
   const classes = useStyles();
-  const categories = useSelector(state => state.categories)
-  const [newCategory, setNewCategory] = useState({})
-  const history = useHistory()
+  const categories = useSelector((state) => state.categories);
+  const [newCategory, setNewCategory] = useState({});
+  const history = useHistory();
   const dispatch = useDispatch();
+  let [add, setAdd] = useState({});
 
-  
-  useEffect(() => {
-    dispatch(getCategories())
-  }, [])
+  useEffect(
+    (event) => {
+      dispatch(getCategories());
+    },
+    [add]
+  );
 
   const handleSubmit = (event) => {
-    event.preventDefault()
-    console.log("enviando producto")
+    event.preventDefault();
     axios({
       method: `post`,
       url: `http://localhost:8000/api/category`,
-      data: newCategory
-    })
-      .then((cat) => {
-        console.log(cat)
-        return history.push("/admin/categories")
-      })
-  }
+      data: newCategory,
+    }).then((cat) => {
+      setAdd([]);
+      return history.push("/admin/categories");
+    });
+  };
   const handleInputChange = (event) => {
-    setNewCategory({ ...newCategory, [event.target.name]: event.target.value })
-    console.log("newProductttttt", newCategory)
-
-  }
-
+    setNewCategory({ ...newCategory, [event.target.name]: event.target.value });
+    console.log("newProductttttt", newCategory);
+  };
 
   return (
     <Container component="main" maxWidth="xs">
@@ -111,24 +111,30 @@ export default function SignUp() {
         </form>
       </div>
       <Grid>
-        <Typography align="center" variant="h4">Tus Categorias Son:</Typography>
+        <Typography align="center" variant="h4">
+          Tus Categorias Son:
+        </Typography>
       </Grid>
       <TableContainer>
         <Table>
-          <TableBody >
+          <TableBody>
             {categories.map((category) => (
-              <TableRow >
+              <TableRow>
                 <TableCell>
-                  <Typography variant="h6" key={category.id} value={category.id}>
+                  <Typography
+                    variant="h6"
+                    key={category.id}
+                    value={category.id}
+                  >
                     {category.name}
                   </Typography>
                 </TableCell>
                 <TableCell>
-                  <Link to={`/admin/categories/edit/${category.id}`}
-                    style={{ textDecoration: 'none', color: "inherit" }}>
-                    <Button variant="contained"
-                      color="primary"
-                    >
+                  <Link
+                    to={`/admin/categories/edit/${category.id}`}
+                    style={{ textDecoration: "none", color: "inherit" }}
+                  >
+                    <Button variant="contained" color="primary">
                       Editar
                     </Button>
                   </Link>

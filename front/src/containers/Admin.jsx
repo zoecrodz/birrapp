@@ -11,7 +11,7 @@ import HeadingAdmin from "../privateComponents/HeaidngAdmin"
 import useStylesHeading from "../Styles/heading";
 import FormEditProduct from "../privateComponents/FormEditProduct"
 import EditCategory from "../privateComponents/EditCategory"
-
+import BuyOrders from "../privateComponents/BuyOrders"
 
 
 //- visual del admin (-agregar, editar, eliminar- nuevas categorias, productos, usuarios, admin.. ver transacciones totales (carritos de todos los usuarios)
@@ -35,6 +35,7 @@ const Admin = () => {
         <Route path="/admin/product/edit/:id" render={({ match }) => <FormEditProduct productId={match.params.id} />} />
         <Route path="/admin/product/:id" render={({ match }) => <SingleProductAdmin productId={match.params.id} />} />
         <Route path="/admin/users" render={() => <Users />} />
+        <Route path="/admin/orders" render={() => <BuyOrders />} />
         <Route path="/admin/*" render={() => <div>Pagina no encontrada</div>} />
       </Switch>
     </div>

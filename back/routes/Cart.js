@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const db = require("../db");
 const { Cart, Product } = require("../models");
+const sequelize = require("sequelize")
 
 router.post("/", (req, res, next) => {
   Cart.create(req.body)
@@ -10,7 +11,7 @@ router.post("/", (req, res, next) => {
 });
 
 router.get("/", (req, res, next) => {
-  Cart.findAll()
+  Cart.findAll({ where: { state: "WAITING" } })
     .then((carts) => res.status(201).send(carts))
     .catch((err) => res.status(500).send(err));
 });
@@ -43,7 +44,10 @@ router.get("/:userId", (req, res, next) => {
 
 router.get("/historial/:userId", (req, res, next) => {
   let userId = req.params.userId;
-  Cart.findAll({ where: { userId, state: "COMPLETED" }, include: Product })
+  Cart.findAll({ 
+    where: { userId, state: { [sequelize.Op.not] : 'PENDING'} }, 
+    include: Product,
+  })
     .then((carts) => {
       res.send(carts);
     })

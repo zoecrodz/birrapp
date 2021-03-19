@@ -1,42 +1,41 @@
-import React, { useEffect, useState } from 'react';
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import FastfoodIcon from '@material-ui/icons/Fastfood';
-import MenuItem from '@material-ui/core/MenuItem';
-import { useDispatch, useSelector } from "react-redux"
-import axios from "axios"
+import React, { useEffect, useState } from "react";
+import Avatar from "@material-ui/core/Avatar";
+import Button from "@material-ui/core/Button";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import TextField from "@material-ui/core/TextField";
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core/styles";
+import Container from "@material-ui/core/Container";
+import FastfoodIcon from "@material-ui/icons/Fastfood";
+import MenuItem from "@material-ui/core/MenuItem";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
 import { useHistory } from "react-router-dom";
-import { getProduct } from "../store/singleProduct"
-
+import { getProduct } from "../store/singleProduct";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
   },
   avatar: {
     margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
-    width: '100%', // Fix IE 11 issue.
+    width: "100%", // Fix IE 11 issue.
     marginTop: theme.spacing(3),
   },
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
   root: {
-    '& .MuiTextField-root': {
+    "& .MuiTextField-root": {
       margin: theme.spacing(1),
-      width: '25ch',
+      width: "25ch",
     },
   },
 }));
@@ -44,33 +43,27 @@ const useStyles = makeStyles((theme) => ({
 export default function FormEditProduct({ productId }) {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const categories = useSelector(state => state.categories)
-  const [editProduct, setEditProduct] = useState({categoryId: 1}) //El select es un componente controlado, pero si no el primer valor que toma al renderizarse es `undefined`, react lo considera un componente descontrolado. Lo que genera problemas al renderizar. De esta manera se le agrega provisoriamente un `categoryId` el cual es mas tarde cambiado por el setEditProduct correctamente.
-  const history = useHistory()
-
+  const categories = useSelector((state) => state.categories);
+  const [editProduct, setEditProduct] = useState({ categoryId: 1 }); //El select es un componente controlado, pero si no el primer valor que toma al renderizarse es `undefined`, react lo considera un componente descontrolado. Lo que genera problemas al renderizar. De esta manera se le agrega provisoriamente un `categoryId` el cual es mas tarde cambiado por el setEditProduct correctamente.
+  const history = useHistory();
 
   useEffect(() => {
-    dispatch(getProduct(productId))
-      .then(res => setEditProduct(res.payload))
-  }, [])
+    dispatch(getProduct(productId)).then((res) => setEditProduct(res.payload));
+  }, []);
 
   const handleSubmit = (e, id) => {
     e.preventDefault();
     axios({
       method: `put`,
       url: `http://localhost:8000/api/product/${id}`,
-      data: editProduct
-    })
-      .then(() => history.push("/admin/products"))
-  }
+      data: editProduct,
+    }).then(() => history.push("/admin/products"));
+  };
 
   const handleInputChange = (event) => {
-    setEditProduct({ ...editProduct, [event.target.name]: event.target.value })
-    console.log("editProductttttt", editProduct)
-
-  }
-
-
+    setEditProduct({ ...editProduct, [event.target.name]: event.target.value });
+    console.log("editProductttttt", editProduct);
+  };
 
   return (
     <Container component="main" maxWidth="xs">
@@ -82,9 +75,13 @@ export default function FormEditProduct({ productId }) {
         <Typography component="h1" variant="h5">
           Edit Product
         </Typography>
-        <form className={classes.form} noValidate onSubmit={(e) => handleSubmit(e, editProduct.id)}>
+        <form
+          className={classes.form}
+          noValidate
+          onSubmit={(e) => handleSubmit(e, editProduct.id)}
+        >
           <Grid container spacing={2}>
-            <Grid item xs={12} >
+            <Grid item xs={12}>
               <TextField
                 name="name"
                 variant="outlined"
@@ -92,7 +89,7 @@ export default function FormEditProduct({ productId }) {
                 fullWidth
                 id="productName"
                 label="Product Name"
-                value={editProduct.name}
+                value={editProduct.name || ""}
                 onChange={handleInputChange}
               />
             </Grid>
@@ -104,7 +101,7 @@ export default function FormEditProduct({ productId }) {
                 id="url"
                 name="url"
                 label="Picture URL"
-                value={editProduct.url}
+                value={editProduct.url || ""}
                 onChange={handleInputChange}
               />
             </Grid>
@@ -116,7 +113,7 @@ export default function FormEditProduct({ productId }) {
                 label="Price"
                 id="price"
                 name="price"
-                value={editProduct.price}
+                value={editProduct.price || ""}
                 onChange={handleInputChange}
               />
             </Grid>
@@ -127,7 +124,7 @@ export default function FormEditProduct({ productId }) {
                 id="description"
                 name="description"
                 label="Description"
-                value={editProduct.description}
+                value={editProduct.description || ""}
                 onChange={handleInputChange}
               />
             </Grid>
@@ -138,7 +135,7 @@ export default function FormEditProduct({ productId }) {
                 id="stock"
                 name="stock"
                 label="Stock"
-                value={editProduct.stock}
+                value={editProduct.stock || ""}
                 onChange={handleInputChange}
               />
             </Grid>
@@ -151,7 +148,7 @@ export default function FormEditProduct({ productId }) {
                 label="Category"
                 variant="outlined"
                 name="categoryId"
-                value={editProduct.categoryId}
+                value={editProduct.categoryId || ""}
                 onChange={handleInputChange}
               >
                 {categories.map((category) => (

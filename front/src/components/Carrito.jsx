@@ -47,7 +47,10 @@ const Cart = () => {
   const carrito = useSelector((state) => state.carrito);
   const items = useSelector((state) => state.items);
   const user = useSelector((state) => state.user);
-  
+
+  // // Logica boton de resta
+  let disable = null;
+
   useEffect(() => {
     if (user) dispatch(getCarrito(user.id));
   }, [items]);
@@ -65,9 +68,9 @@ const Cart = () => {
       productId: item.id,
       operation,
     };
+
     return dispatch(modifyItem(itemData));
   };
-
 
   const precio = [];
   const comida = [];
@@ -79,11 +82,11 @@ const Cart = () => {
     });
     total = precio.reduce((a, b) => a + b, 0);
   }
-  
 
+  console.log(disable);
   return (
     <>
-      <TableContainer>
+      <TableContainer style={{ marginTop: "1.4%" }}>
         <Table>
           <TableBody>
             {carrito.items
@@ -123,7 +126,7 @@ const Cart = () => {
                         <Button
                           variant="contained"
                           size="small"
-                          color="#FF6633"
+                          color="primary"
                           onClick={() => {
                             const suma = "suma";
                             return handleItem(item, suma);
@@ -133,26 +136,42 @@ const Cart = () => {
                         </Button>
                       </Typography>{" "}
                       <br />
-                      <Typography>
+                      {item.item.qty == 1 ? (
                         <Button
+                          disabled={true}
                           variant="contained"
                           size="small"
-                          color="#FF6633"
+                          color="primary"
                           onClick={() => {
                             const resta = "resta";
-                            return handleItem(item, resta);
+                            handleItem(item, resta);
                           }}
                         >
                           <RemoveIcon />
                         </Button>
-                      </Typography>{" "}
+                      ) : (
+                        <Typography>
+                          <Button
+                            // disabled={disable}
+                            variant="contained"
+                            size="small"
+                            color="primary"
+                            onClick={() => {
+                              const resta = "resta";
+                              if (item.item.qty > 1) handleItem(item, resta);
+                            }}
+                          >
+                            <RemoveIcon />
+                          </Button>
+                        </Typography>
+                      )}
                       <br />
                     </TableCell>
                     <TableCell>
                       <Button
-                        variant="contained"
+                        variant="outlined"
                         size="small"
-                        color="#FF6633"
+                        color="secondary"
                         onClick={() => handleDelete(item)}
                       >
                         Delete
@@ -197,13 +216,9 @@ const Cart = () => {
                   style={{ textDecoration: "none", color: "inherit" }}
                   to="/compra"
                 >
-                <Button
-                  variant="contained"
-                  size="small"
-                  color="primary"
-                >
-                  Pagar
-                </Button>
+                  <Button variant="contained" size="small" color="primary">
+                    Pagar
+                  </Button>
                 </Link>
               </TableCell>
             </TableRow>
