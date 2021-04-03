@@ -10,9 +10,9 @@ Aplicación web para bares que permite visualización del menú y pago del pedid
 
 # Desarrolladores:
 
-# @Nahue941
-# @MelinSonica
-# @PabloMunaretto
-# @valentinh02
-# @WalkerPe
-# @zoecrodz
+@Nahue941
+@MelinSonica
+@PabloMunaretto
+@valentinh02
+@WalkerPe
+@zoecrodz
